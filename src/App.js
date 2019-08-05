@@ -6,6 +6,7 @@ import ToDropdown from "./components/ToDropdown/ToDropdown";
 import TimeTableList from "./components/TimeTableList/TimeTableList";
 import { CurrentIcon } from "./components/Icons/Icons";
 import appReducer from "./reducer";
+import { fetchTimeTables } from "./service";
 
 function App() {
   const [state, dispatch] = useReducer(appReducer, {
@@ -16,34 +17,50 @@ function App() {
       { value: 3, label: "Villa Arias" },
       { value: 4, label: "Termnial Punta Alta" }
     ],
-    timeTables: []
+    timeTables: [],
+    fromToSelected: { from: 0, to: false }
   });
 
   useEffect(() => {
-    dispatch({
-      type: "SET_TIMETABLES",
-      payload: [
-        "04:30",
-        "04:30",
-        "04:30",
-        "04:30",
-        "04:30",
-        "04:30",
-        "04:30",
-        "04:30",
-        "04:30",
-        "04:30",
-        "04:30"
-      ]
+    fetchTimeTables({
+      timeId: "0",
+      way: "true",
+      seasson: "normalTime",
+      dayofweek: "saturday"
+    }).then(resp => {
+      dispatch({
+        type: "SET_TIMETABLES",
+        payload: resp.data.timetables
+      });
     });
   }, []);
 
-  const { fromOptions, timeTables } = state;
+  useEffect(() => {
+    const { from, to } = state.fromToSelected;
+
+    fetchTimeTables({
+      timeId: from,
+      way: to,
+      seasson: "normalTime",
+      dayofweek: "saturday"
+    }).then(resp => {
+      dispatch({
+        type: "SET_TIMETABLES",
+        payload: resp.data.timetables
+      });
+    });
+  }, [state.fromToSelected]);
+
+  const { fromOptions, timeTables, fromToSelected } = state;
   return (
     <div className="app-container">
       <Header />
-      <FromDropdown options={fromOptions} />
-      <ToDropdown />
+      <FromDropdown
+        options={fromOptions}
+        selected={fromToSelected.from}
+        dispatch={dispatch}
+      />
+      <ToDropdown selected={fromToSelected.to} dispatch={dispatch} />
       <TimeTableList timeTables={timeTables} current={3} />
       <button className="current-btn" onClick={() => console.log("asd")}>
         <CurrentIcon />
