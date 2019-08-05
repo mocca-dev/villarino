@@ -1,0 +1,28 @@
+.to-radio {
+  margin: 25px 0;
+}
+
+.radio-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.to-container {
+  padding: 15px 0;
+}
+
+.to-container input[type="radio"] {
+  display: none;
+}
+
+.to-container input[type="radio"] + label {
+  box-shadow: var(--lower-shadow);
+  background-color: white;
+  padding: 15px 45px;
+  font-size: 1rem;
+}
+
+.to-container input[type="radio"]:checked + label {
+  background-color: var(--black-blueberry);
+  color: var(--turquoise);
+}

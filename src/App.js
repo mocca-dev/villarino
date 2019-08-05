@@ -1,24 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useReducer } from "react";
+import "./App.css";
+import Header from "./components/Header/Header";
+import FromDropdown from "./components/FromDropdown/FromDropdown";
+import ToDropdown from "./components/ToDropdown/ToDropdown";
+import TimeTableList from "./components/TimeTableList/TimeTableList";
+import { CurrentIcon } from "./components/Icons/Icons";
+import appReducer from "./reducer";
 
 function App() {
+  const [state, dispatch] = useReducer(appReducer, {
+    fromOptions: [
+      { value: 0, label: "Parque de Mayo" },
+      { value: 1, label: "Plaza Rivadavia" },
+      { value: 2, label: "Hospital Penna" },
+      { value: 3, label: "Villa Arias" },
+      { value: 4, label: "Termnial Punta Alta" }
+    ],
+    timeTables: []
+  });
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_TIMETABLES",
+      payload: [
+        "04:30",
+        "04:30",
+        "04:30",
+        "04:30",
+        "04:30",
+        "04:30",
+        "04:30",
+        "04:30",
+        "04:30",
+        "04:30",
+        "04:30"
+      ]
+    });
+  }, []);
+
+  const { fromOptions, timeTables } = state;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+      <Header />
+      <FromDropdown options={fromOptions} />
+      <ToDropdown />
+      <TimeTableList timeTables={timeTables} current={3} />
+      <button className="current-btn" onClick={() => console.log("asd")}>
+        <CurrentIcon />
+      </button>
     </div>
   );
 }

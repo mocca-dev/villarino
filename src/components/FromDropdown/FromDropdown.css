@@ -1,0 +1,26 @@
+.from-dropdown {
+  position: relative;
+}
+
+.dropbown {
+  width: 100%;
+  font-size: 1rem;
+  padding: 15px;
+  background-color: white;
+  box-shadow: var(--upper-shadow);
+  border: none;
+  border-radius: 0;
+}
+
+.from-dropdown svg {
+  position: absolute;
+  top: 50px;
+  right: 15px;
+  height: 17px;
+}
+
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}

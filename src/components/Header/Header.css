@@ -1,0 +1,10 @@
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.header-container h2 {
+  margin: 0;
+  margin-bottom: 30px;
+}
