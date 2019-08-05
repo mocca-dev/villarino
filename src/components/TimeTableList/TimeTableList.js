@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./TimeTableList.css";
 
-const TimeTableList = ({ timeTables, current }) => {
+const TimeTableList = ({ timeTables }) => {
+  const [current, setCurrent] = useState(null);
+
+  useEffect(() => {
+    const today = new Date();
+    const formattedToday = today.getHours() + ":" + today.getMinutes();
+    let stop = false;
+
+    timeTables.forEach((time, i) => {
+      if (formattedToday < time && !stop) {
+        console.log(formattedToday, time);
+        setCurrent(i);
+        stop = true;
+      }
+    });
+  }, [timeTables]);
+
   return (
     <div className="list-container">
       {timeTables.map((timeTable, i) => (
