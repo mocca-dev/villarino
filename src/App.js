@@ -51,6 +51,7 @@ function App() {
   }, [state.fromToSelected]);
 
   const refetchTimeTables = () => {
+    dispatch({ type: "SET_TIMETABLES", payload: [] });
     const { from, to } = state.fromToSelected;
     fetchTimeTables({
       timeId: from,

@@ -30,10 +30,11 @@ const TimeTableList = ({ timeTables, reFetch }) => {
 
   const scrollToCurrent = useCallback(
     id => {
-      refs[id].current.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
+      if (refs[id])
+        refs[id].current.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
     },
     [refs]
   );
@@ -77,7 +78,7 @@ const TimeTableList = ({ timeTables, reFetch }) => {
         className="current-btn"
         onClick={() => {
           reFetch();
-          scrollToCurrent(current);
+          // scrollToCurrent(current);
         }}
       >
         <CurrentIcon />
