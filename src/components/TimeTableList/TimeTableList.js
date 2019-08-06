@@ -1,6 +1,6 @@
 import React, { useEffect, useState, createRef } from "react";
 import "./TimeTableList.css";
-import { CurrentIcon } from "./../Icons/Icons";
+import { CurrentIcon, LoadingSVG } from "./../Icons/Icons";
 
 const TimeTableList = ({ timeTables, reFetch }) => {
   const [current, setCurrent] = useState(null);
@@ -33,23 +33,27 @@ const TimeTableList = ({ timeTables, reFetch }) => {
 
   return (
     <div className="list-container">
-      {timeTables.map((timeTable, i) => (
-        <span key={i}>
-          {timeTable && (
-            <div
-              ref={refs[i]}
-              className={
-                i === current ? "time-container current" : "time-container"
-              }
-            >
-              {i === current && (
-                <div className="next-to-arrive">Próximo en llegar</div>
-              )}
-              <div>{timeTable}</div>
-            </div>
-          )}
-        </span>
-      ))}
+      {timeTables.length ? (
+        timeTables.map((timeTable, i) => (
+          <span key={i}>
+            {timeTable && (
+              <div
+                ref={refs[i]}
+                className={
+                  i === current ? "time-container current" : "time-container"
+                }
+              >
+                {i === current && (
+                  <div className="next-to-arrive">Próximo en llegar</div>
+                )}
+                <div>{timeTable}</div>
+              </div>
+            )}
+          </span>
+        ))
+      ) : (
+        <LoadingSVG />
+      )}
       <button
         className="current-btn"
         onClick={() => {
