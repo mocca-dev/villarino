@@ -8,3 +8,55 @@
   margin: 0;
   margin-bottom: 30px;
 }
+
+.info-btn {
+  height: 24px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.info-modal {
+  z-index: 10;
+  position: absolute;
+  right: 35px;
+  top: 42px;
+  background-color: var(--black-blueberry);
+  color: white;
+  padding: 20px;
+  max-width: 80vw;
+}
+
+.info-enter {
+  opacity: 0;
+}
+.info-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+
+.info-exit {
+  opacity: 1;
+}
+
+.info-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+.villarino-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+@media only screen and (min-width: 600px) {
+  .info-modal {
+    width: 60vw;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .info-modal {
+    width: 45vw;
+  }
+}
