@@ -53,10 +53,12 @@
 @media only screen and (min-width: 600px) {
   .info-modal {
     width: 60vw;
+    right: 17vw;
   }
 }
 @media only screen and (min-width: 768px) {
   .info-modal {
     width: 45vw;
+    right: 25vw;
   }
 }
