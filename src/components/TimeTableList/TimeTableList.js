@@ -1,15 +1,18 @@
-import React, { useEffect, useState, createRef } from "react";
+import React, { useEffect, useState, createRef, useCallback } from "react";
 import "./TimeTableList.css";
 import { CurrentIcon, LoadingSVG } from "./../Icons/Icons";
 
 const TimeTableList = ({ timeTables, reFetch }) => {
   const [current, setCurrent] = useState(null);
+  const [intervalSetted, setIntervalSetted] = useState(false);
 
-  useEffect(() => {
+  const findAndSetCurrent = useCallback(() => {
     const today = new Date();
     const hour =
       today.getHours() <= 9 ? "0" + today.getHours() : today.getHours();
-    const formattedToday = hour + ":" + today.getMinutes();
+    const mins =
+      today.getMinutes() <= 9 ? "0" + today.getMinutes() : today.getMinutes();
+    const formattedToday = hour + ":" + mins;
     let stop = false;
 
     timeTables.forEach((time, i) => {
@@ -25,11 +28,27 @@ const TimeTableList = ({ timeTables, reFetch }) => {
     return acc;
   }, {});
 
-  const scrollToCurrent = id =>
-    refs[id].current.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
+  const scrollToCurrent = useCallback(
+    id => {
+      refs[id].current.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    },
+    [refs]
+  );
+
+  useEffect(() => {
+    if (timeTables.length && !intervalSetted) {
+      findAndSetCurrent();
+      setInterval(findAndSetCurrent, 30000);
+      setIntervalSetted(true);
+    }
+  }, [timeTables, intervalSetted, findAndSetCurrent]);
+
+  useEffect(() => {
+    if (current) scrollToCurrent(current);
+  }, [current, scrollToCurrent]);
 
   return (
     <div className="list-container">
