@@ -21,27 +21,28 @@ function App() {
   });
 
   useEffect(() => {
-    fetchTimeTables({
-      timeId: "0",
-      way: "true",
-      seasson: "normalTime",
-      dayofweek: "saturday"
-    }).then(resp => {
-      dispatch({
-        type: "SET_TIMETABLES",
-        payload: resp.data.timetables
-      });
-    });
-  }, []);
-
-  useEffect(() => {
     const { from, to } = state.fromToSelected;
+    const today = new Date();
+    const dayOfWeekId = today.getDay();
+    let dayOfWeek = "weekDay";
+    console.log("change fetch", dayOfWeekId);
+    switch (dayOfWeekId) {
+      case 5:
+        dayOfWeek = "saturday";
+        break;
+      case 6:
+        dayOfWeek = "hollidaysSunday";
+        break;
+
+      default:
+        break;
+    }
 
     fetchTimeTables({
       timeId: from,
       way: to,
       seasson: "normalTime",
-      dayofweek: "saturday"
+      dayOfWeek
     }).then(resp => {
       dispatch({
         type: "SET_TIMETABLES",
@@ -57,7 +58,7 @@ function App() {
       timeId: from,
       way: to,
       seasson: "normalTime",
-      dayofweek: "saturday"
+      dayOfWeek: "saturday"
     }).then(resp => {
       dispatch({
         type: "SET_TIMETABLES",

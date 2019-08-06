@@ -16,7 +16,7 @@ const TimeTableList = ({ timeTables, reFetch }) => {
     let stop = false;
 
     timeTables.forEach((time, i) => {
-      if (formattedToday < time && !stop) {
+      if (time.length >= 5 && formattedToday < time && !stop) {
         setCurrent(i);
         stop = true;
       }
@@ -40,10 +40,10 @@ const TimeTableList = ({ timeTables, reFetch }) => {
   );
 
   useEffect(() => {
-    if (timeTables.length && !intervalSetted) {
+    if (timeTables.length) {
       findAndSetCurrent();
-      setInterval(findAndSetCurrent, 30000);
-      setIntervalSetted(true);
+      // setInterval(findAndSetCurrent, 30000);
+      // setIntervalSetted(true);
     }
   }, [timeTables, intervalSetted, findAndSetCurrent]);
 
@@ -56,7 +56,7 @@ const TimeTableList = ({ timeTables, reFetch }) => {
       {timeTables.length ? (
         timeTables.map((timeTable, i) => (
           <span key={i}>
-            {timeTable && (
+            {timeTable.length >= 5 && (
               <div
                 ref={refs[i]}
                 className={
@@ -77,8 +77,8 @@ const TimeTableList = ({ timeTables, reFetch }) => {
       <button
         className="current-btn"
         onClick={() => {
-          reFetch();
-          // scrollToCurrent(current);
+          // reFetch();
+          scrollToCurrent(current);
         }}
       >
         <CurrentIcon />

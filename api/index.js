@@ -1,6 +1,6 @@
 var DomParser = require("dom-parser");
 var parser = new DomParser();
-const fs = require("fs");
+const rp = require("request-promise");
 const express = require("express");
 const cors = require("cors");
 
@@ -11,8 +11,10 @@ let data;
 const port = process.env.PORT || 5000;
 function setData(req, res) {
   if (!data) {
-    fs.readFile("villarino.html", "utf8", function(err, html) {
-      if (!err) {
+    rp.get({
+      uri: "http://www.elvillarino.com.ar/#horarios"
+    })
+      .then(html => {
         var dom = parser.parseFromString(html);
         var todo = [
           {
@@ -113,72 +115,23 @@ function setData(req, res) {
         tableParser(dom, "tabla rda", todo, 0);
         tableParser(dom, "tabla rda", todo, 1);
         tableParser(dom, "tabla rda", todo, 2);
-
         data = todo;
 
-        const { timeId, way, seasson, dayofweek } = req.params;
-
-        const time = data.find(
+        const { timeId, way, seasson, dayOfWeek } = req.params;
+        const time = todo.find(
           time => time.id.toString() === timeId && time.way.toString() === way
         );
-
-        const result = time[seasson][dayofweek];
-
-        res.send({ timetables: [] });
-      }
-    });
+        const result = time[seasson][dayOfWeek];
+        res.send({ timetables: result });
+      })
+      .catch(err => console.log(err));
   } else {
-    res.send({
-      timetables: [
-        "07:00",
-        "07:25",
-        "07:56",
-        "08:21",
-        "08:50",
-        "09:15",
-        "09:43",
-        "10:11",
-        "10:39",
-        "11:07",
-        "11:35",
-        "12:03",
-        "12:31",
-        "12:59",
-        "13:27",
-        "13:55",
-        "14:23",
-        "14:51",
-        "15:19",
-        "15:47",
-        "16:15",
-        "16:41",
-        "17:07",
-        "17:31",
-        "17:55",
-        "18:19",
-        "18:43",
-        "19:07",
-        "19:31",
-        "19:55",
-        "20:19",
-        "20:43",
-        "21:07",
-        "21:31",
-        "21:57",
-        "22:23",
-        "22:49",
-        "23:16",
-        "23:44",
-        "",
-        "00:14",
-        "00:49",
-        "01:20",
-        "02:12",
-        "03:27",
-        "04:40",
-        "05:55"
-      ]
-    });
+    const { timeId, way, seasson, dayOfWeek } = req.params;
+    const time = data.find(
+      time => time.id.toString() === timeId && time.way.toString() === way
+    );
+    const result = time[seasson][dayOfWeek];
+    res.send({ timetables: result });
   }
 }
 
@@ -231,62 +184,9 @@ function tableParser(dom, className, todo, dayOfWeek) {
 }
 
 app.use(cors());
-// app.get("/api/", (req, res) => {
-//   res.send("as");
-// });
-app.get("/api/timetables/:timeId/:way/:seasson/:dayofweek", (req, res) => {
-  // setData(req, res);
-  res.send({
-    timetables: [
-      "07:00",
-      "07:25",
-      "07:56",
-      "08:21",
-      "08:50",
-      "09:15",
-      "09:43",
-      "10:11",
-      "10:39",
-      "11:07",
-      "11:35",
-      "12:03",
-      "12:31",
-      "12:59",
-      "13:27",
-      "13:55",
-      "14:23",
-      "14:51",
-      "15:19",
-      "15:47",
-      "16:15",
-      "16:41",
-      "17:07",
-      "17:31",
-      "17:55",
-      "18:19",
-      "18:43",
-      "19:07",
-      "19:31",
-      "19:55",
-      "20:19",
-      "20:43",
-      "21:07",
-      "21:31",
-      "21:57",
-      "22:23",
-      "22:49",
-      "23:16",
-      "23:44",
-      "",
-      "00:14",
-      "00:49",
-      "01:20",
-      "02:12",
-      "03:27",
-      "04:40",
-      "05:55"
-    ]
-  });
+
+app.get("/api/timetables/:timeId/:way/:seasson/:dayOfWeek", (req, res) => {
+  setData(req, res);
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
