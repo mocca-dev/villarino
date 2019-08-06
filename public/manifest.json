@@ -1,15 +1,37 @@
 {
-  "short_name": "Villarino 319",
-  "name": "Horarios de las paradas",
+  "name": "Horarios - El Villarino 319",
+  "short_name": "Horarios 319",
+  "theme_color": "#2d2d44",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "Scope": "/",
+  "start_url": "/",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "icons/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
-  "start_url": "/",
-  "display": "standalone",
-  "theme_color": "#2d2d44",
-  "background_color": "#ffffff"
+  "splash_pages": null
 }

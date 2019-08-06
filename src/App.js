@@ -4,7 +4,6 @@ import Header from "./components/Header/Header";
 import FromDropdown from "./components/FromDropdown/FromDropdown";
 import ToDropdown from "./components/ToDropdown/ToDropdown";
 import TimeTableList from "./components/TimeTableList/TimeTableList";
-import { CurrentIcon } from "./components/Icons/Icons";
 import appReducer from "./reducer";
 import { fetchTimeTables } from "./service";
 
@@ -51,6 +50,21 @@ function App() {
     });
   }, [state.fromToSelected]);
 
+  const refetchTimeTables = () => {
+    const { from, to } = state.fromToSelected;
+    fetchTimeTables({
+      timeId: from,
+      way: to,
+      seasson: "normalTime",
+      dayofweek: "saturday"
+    }).then(resp => {
+      dispatch({
+        type: "SET_TIMETABLES",
+        payload: resp.data.timetables
+      });
+    });
+  };
+
   const { fromOptions, timeTables, fromToSelected } = state;
   return (
     <div className="app-container">
@@ -61,10 +75,11 @@ function App() {
         dispatch={dispatch}
       />
       <ToDropdown selected={fromToSelected.to} dispatch={dispatch} />
-      <TimeTableList timeTables={timeTables} current={3} />
-      <button className="current-btn" onClick={() => console.log("asd")}>
-        <CurrentIcon />
-      </button>
+      <TimeTableList
+        timeTables={timeTables}
+        current={3}
+        reFetch={refetchTimeTables}
+      />
     </div>
   );
 }
