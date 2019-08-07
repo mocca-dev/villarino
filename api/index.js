@@ -3,6 +3,7 @@ var parser = new DomParser();
 const rp = require("request-promise");
 const express = require("express");
 const cors = require("cors");
+const cache = require("memory-cache");
 
 const app = express();
 
@@ -193,10 +194,34 @@ function tableParser(dom, className, todo, dayOfWeek) {
   });
 }
 
+// configure cache middleware
+let memCache = new cache.Cache();
+let cacheMiddleware = duration => {
+  return (req, res, next) => {
+    let key = "__express__" + req.originalUrl || req.url;
+    let cacheContent = memCache.get(key);
+    if (cacheContent) {
+      res.send(cacheContent);
+      return;
+    } else {
+      res.sendResponse = res.send;
+      res.send = body => {
+        memCache.put(key, body, duration * 1000);
+        res.sendResponse(body);
+      };
+      next();
+    }
+  };
+};
+
 app.use(cors());
 
-app.get("/api/timetables/:timeId/:way/:seasson/:dayOfWeek", (req, res) => {
-  setData(req, res);
-});
+app.get(
+  "/api/timetables/:timeId/:way/:seasson/:dayOfWeek",
+  cacheMiddleware(600000),
+  (req, res) => {
+    setData(req, res);
+  }
+);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
