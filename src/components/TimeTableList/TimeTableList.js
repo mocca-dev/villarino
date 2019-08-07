@@ -4,7 +4,6 @@ import { CurrentIcon, LoadingSVG } from "./../Icons/Icons";
 
 const TimeTableList = ({ timeTables, reFetch, noTimeTables }) => {
   const [current, setCurrent] = useState(null);
-  const [intervalSetted, setIntervalSetted] = useState(false);
 
   const findAndSetCurrent = useCallback(() => {
     const today = new Date();
@@ -45,7 +44,7 @@ const TimeTableList = ({ timeTables, reFetch, noTimeTables }) => {
       // setInterval(findAndSetCurrent, 30000);
       // setIntervalSetted(true);
     }
-  }, [timeTables, intervalSetted, findAndSetCurrent]);
+  }, [timeTables, findAndSetCurrent]);
 
   useEffect(() => {
     if (current) scrollToCurrent(current);
