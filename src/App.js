@@ -4,10 +4,11 @@ import Header from "./components/Header/Header";
 import FromDropdown from "./components/FromDropdown/FromDropdown";
 import ToDropdown from "./components/ToDropdown/ToDropdown";
 import TimeTableList from "./components/TimeTableList/TimeTableList";
+import OfflineToast from "./components/OfflineToast/OfflineToast";
 import appReducer from "./reducer";
 import { fetchTimeTables } from "./service";
 
-function App() {
+function App({ sWPromise }) {
   const [state, dispatch] = useReducer(appReducer, {
     fromOptions: [
       { value: 0, label: "Parque de Mayo" },
@@ -95,6 +96,7 @@ function App() {
   return (
     <div className="app-container">
       <Header />
+      <OfflineToast sWPromise={sWPromise} />
       <FromDropdown
         options={fromOptions}
         selected={fromToSelected.from}
