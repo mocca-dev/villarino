@@ -4,11 +4,11 @@ export const fetchTimeTables = async req => {
     `http://localhost:5000/api/timetables/${timeId}/${way}/${seasson}/${dayOfWeek}`
   );
   const { status } = resp;
-
+  const data = await resp.json();
   if (status !== 400) {
-    const data = await resp.json();
     return { status, data };
   } else {
-    return { status, data: [] };
+    const { error } = data;
+    return { status, data: { timetables: [], error } };
   }
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useState, createRef, useCallback } from "react";
 import "./TimeTableList.css";
 import { CurrentIcon, LoadingSVG } from "./../Icons/Icons";
 
-const TimeTableList = ({ timeTables, reFetch }) => {
+const TimeTableList = ({ timeTables, reFetch, noTimeTables }) => {
   const [current, setCurrent] = useState(null);
   const [intervalSetted, setIntervalSetted] = useState(false);
 
@@ -60,10 +60,12 @@ const TimeTableList = ({ timeTables, reFetch }) => {
               <div
                 ref={refs[i]}
                 className={
-                  i === current ? "time-container current" : "time-container"
+                  i === current && !noTimeTables
+                    ? "time-container current"
+                    : "time-container"
                 }
               >
-                {i === current && (
+                {i === current && !noTimeTables && (
                   <div className="next-to-arrive">Próximo en llegar</div>
                 )}
                 <div>{timeTable}</div>

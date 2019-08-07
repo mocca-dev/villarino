@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import FromDropdown from "./components/FromDropdown/FromDropdown";
@@ -20,12 +20,14 @@ function App() {
     fromToSelected: { from: 0, to: false }
   });
 
+  const [noTimeTables, setNoTimeTables] = useState(false);
+
   useEffect(() => {
     const { from, to } = state.fromToSelected;
     const today = new Date();
     const dayOfWeekId = today.getDay();
     let dayOfWeek = "weekDay";
-    console.log("change fetch", dayOfWeekId);
+
     switch (dayOfWeekId) {
       case 5:
         dayOfWeek = "saturday";
@@ -38,20 +40,32 @@ function App() {
         break;
     }
 
+    dispatch({ type: "SET_TIMETABLES", payload: [] });
     fetchTimeTables({
       timeId: from,
       way: to,
       seasson: "normalTime",
       dayOfWeek
     }).then(resp => {
-      dispatch({
-        type: "SET_TIMETABLES",
-        payload: resp.data.timetables
-      });
+      const { data } = resp;
+      if (data.error) {
+        setNoTimeTables(true);
+        dispatch({
+          type: "SET_TIMETABLES",
+          payload: [data.error]
+        });
+      } else {
+        setNoTimeTables(false);
+        dispatch({
+          type: "SET_TIMETABLES",
+          payload: data.timetables
+        });
+      }
     });
   }, [state.fromToSelected]);
 
   const refetchTimeTables = () => {
+    setNoTimeTables(false);
     dispatch({ type: "SET_TIMETABLES", payload: [] });
     const { from, to } = state.fromToSelected;
     fetchTimeTables({
@@ -60,10 +74,20 @@ function App() {
       seasson: "normalTime",
       dayOfWeek: "saturday"
     }).then(resp => {
-      dispatch({
-        type: "SET_TIMETABLES",
-        payload: resp.data.timetables
-      });
+      const { data } = resp;
+      if (data.error) {
+        setNoTimeTables(true);
+        dispatch({
+          type: "SET_TIMETABLES",
+          payload: [data.error]
+        });
+      } else {
+        setNoTimeTables(false);
+        dispatch({
+          type: "SET_TIMETABLES",
+          payload: data.timetables
+        });
+      }
     });
   };
 
@@ -81,6 +105,7 @@ function App() {
         timeTables={timeTables}
         current={3}
         reFetch={refetchTimeTables}
+        noTimeTables={noTimeTables}
       />
     </div>
   );
