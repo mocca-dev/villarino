@@ -122,6 +122,7 @@ function setData(req, res) {
           time => time.id.toString() === timeId && time.way.toString() === way
         );
         const result = time[seasson][dayOfWeek];
+
         res.send({ timetables: result });
       })
       .catch(err => console.log(err));
@@ -131,6 +132,7 @@ function setData(req, res) {
       time => time.id.toString() === timeId && time.way.toString() === way
     );
     const result = time[seasson][dayOfWeek];
+
     res.send({ timetables: result });
   }
 }
@@ -174,8 +176,16 @@ function tableParser(dom, className, todo, dayOfWeek) {
     let iCol = 0;
     if (f > 0) {
       column.getElementsByTagName("td").forEach((hour, c) => {
-        if (c <= 10) {
-          todo[iCol][seasson][objNameDay].push(hour.textContent);
+        if (c <= 10 && iCol <= 10) {
+          if (
+            seasson === "normalTime" &&
+            iCol === 9 &&
+            objNameDay === "weekDay"
+          ) {
+            todo[10][seasson][objNameDay].push(hour.textContent);
+          } else {
+            todo[iCol][seasson][objNameDay].push(hour.textContent);
+          }
           iCol++;
         }
       });

@@ -32,6 +32,8 @@ const Header = () => {
               <a
                 className="villarino-link"
                 href="http://www.elvillarino.com.ar/#horarios"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 aquí
               </a>{" "}
