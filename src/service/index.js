@@ -16,7 +16,11 @@ export const fetchTimeTables = async req => {
 export const fetchHoliday = async date => {
   const resp = await fetch(`/api/holidays/${date}`);
   const { status } = resp;
-  const data = await resp.json();
-  // console.log(data);
-  return data;
+
+  if (status !== 400) {
+    const data = await resp.json();
+    return data;
+  } else {
+    return null;
+  }
 };

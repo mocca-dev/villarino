@@ -22,7 +22,7 @@ function App({ sWPromise }) {
   });
 
   const [noTimeTables, setNoTimeTables] = useState(false);
-  const [holiday, setHoliday] = useState({});
+  const [holiday, setHoliday] = useState(null);
 
   useEffect(() => {
     const { from, to } = state.fromToSelected;
