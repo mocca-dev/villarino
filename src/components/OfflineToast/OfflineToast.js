@@ -22,16 +22,6 @@ const OfflineToast = ({ sWPromise }) => {
     });
   }, [sWPromise]);
 
-  useEffect(() => {
-    function updateOnlineStatus(event) {
-      setText("La conexión se perdió.");
-      setShow(!navigator.onLine);
-    }
-
-    window.addEventListener("online", updateOnlineStatus);
-    window.addEventListener("offline", updateOnlineStatus);
-  }, []);
-
   return (
     <>
       <CSSTransition

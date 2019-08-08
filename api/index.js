@@ -6,7 +6,7 @@ const express = require("express");
 const cors = require("cors");
 const cache = require("memory-cache");
 
-const online = true;
+const online = false;
 
 const app = express();
 
@@ -249,8 +249,12 @@ function fetchHolidays(res, clientDate) {
         const holidayData = dataJSON.find(
           date => date.dia === clientDate.day && date.mes === clientDate.month
         );
-
-        res.send(holidayData);
+        console.log(holidayData);
+        if (holidayData) {
+          res.send(holidayData);
+        } else {
+          res.status(400).send(null);
+        }
       }
     });
   }

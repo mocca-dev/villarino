@@ -5,6 +5,22 @@ import { CurrentIcon, LoadingSVG } from "./../Icons/Icons";
 const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
   const [current, setCurrent] = useState(null);
 
+  const refs = timeTables.reduce((acc, value, i) => {
+    acc[i] = createRef();
+    return acc;
+  }, {});
+
+  const scrollToCurrent = useCallback(
+    id => {
+      if (refs[id])
+        refs[id].current.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+    },
+    [refs]
+  );
+
   const findAndSetCurrent = useCallback(() => {
     const today = new Date();
     const hour =
@@ -21,22 +37,6 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
       }
     });
   }, [timeTables]);
-
-  const refs = timeTables.reduce((acc, value, i) => {
-    acc[i] = createRef();
-    return acc;
-  }, {});
-
-  const scrollToCurrent = useCallback(
-    id => {
-      if (refs[id])
-        refs[id].current.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-    },
-    [refs]
-  );
 
   useEffect(() => {
     if (timeTables.length) {
@@ -83,7 +83,10 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
       <button
         className="current-btn"
         onClick={() => {
-          if (current) scrollToCurrent(current);
+          if (current && timeTables.length) {
+            findAndSetCurrent();
+            scrollToCurrent(current);
+          }
         }}
       >
         <CurrentIcon />
