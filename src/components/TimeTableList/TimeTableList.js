@@ -2,7 +2,7 @@ import React, { useEffect, useState, createRef, useCallback } from "react";
 import "./TimeTableList.css";
 import { CurrentIcon, LoadingSVG } from "./../Icons/Icons";
 
-const TimeTableList = ({ timeTables, reFetch, noTimeTables }) => {
+const TimeTableList = ({ timeTables, noTimeTables }) => {
   const [current, setCurrent] = useState(null);
 
   const findAndSetCurrent = useCallback(() => {

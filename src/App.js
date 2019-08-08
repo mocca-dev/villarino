@@ -65,32 +65,26 @@ function App({ sWPromise }) {
     });
   }, [state.fromToSelected]);
 
-  const refetchTimeTables = () => {
-    setNoTimeTables(false);
-    dispatch({ type: "SET_TIMETABLES", payload: [] });
-    const { from, to } = state.fromToSelected;
-    fetchTimeTables({
-      timeId: from,
-      way: to,
-      seasson: "normalTime",
-      dayOfWeek: "saturday"
-    }).then(resp => {
-      const { data } = resp;
-      if (data.error) {
-        setNoTimeTables(true);
-        dispatch({
-          type: "SET_TIMETABLES",
-          payload: [data.error]
-        });
-      } else {
-        setNoTimeTables(false);
-        dispatch({
-          type: "SET_TIMETABLES",
-          payload: data.timetables
-        });
-      }
-    });
-  };
+  useEffect(() => {
+    const cachedState = JSON.parse(localStorage.getItem("villarino"));
+    if (cachedState) {
+      dispatch({
+        type: "SET_FROM",
+        payload: cachedState.inputData.from
+      });
+      dispatch({
+        type: "SET_TO",
+        payload: cachedState.inputData.to
+      });
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "villarino",
+      JSON.stringify({ inputData: state.fromToSelected })
+    );
+  }, [state.fromToSelected]);
 
   const { fromOptions, timeTables, fromToSelected } = state;
   return (
@@ -103,12 +97,7 @@ function App({ sWPromise }) {
         dispatch={dispatch}
       />
       <ToDropdown selected={fromToSelected.to} dispatch={dispatch} />
-      <TimeTableList
-        timeTables={timeTables}
-        current={3}
-        reFetch={refetchTimeTables}
-        noTimeTables={noTimeTables}
-      />
+      <TimeTableList timeTables={timeTables} noTimeTables={noTimeTables} />
     </div>
   );
 }
