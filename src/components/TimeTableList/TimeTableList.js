@@ -78,8 +78,7 @@ const TimeTableList = ({ timeTables, noTimeTables }) => {
       <button
         className="current-btn"
         onClick={() => {
-          // reFetch();
-          scrollToCurrent(current);
+          if (current) scrollToCurrent(current);
         }}
       >
         <CurrentIcon />

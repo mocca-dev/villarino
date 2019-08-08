@@ -36,7 +36,6 @@ function App({ sWPromise }) {
       case 6:
         dayOfWeek = "hollidaysSunday";
         break;
-
       default:
         break;
     }

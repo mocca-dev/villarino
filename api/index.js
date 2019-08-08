@@ -118,7 +118,8 @@ function setData(req, res) {
       const time = todo.find(
         time => time.id.toString() === timeId && time.way.toString() === way
       );
-      const result = time[seasson][dayOfWeek];
+      const result = time[seasson][dayOfWeek].sort();
+
       if (result.length) {
         res.send({ timetables: result });
       } else {
@@ -168,15 +169,10 @@ function tableParser(dom, className, todo, dayOfWeek) {
     if (f > 0) {
       column.getElementsByTagName("td").forEach((hour, c) => {
         if (c <= 10 && iCol <= 10) {
-          if (
-            seasson === "normalTime" &&
-            iCol === 9 &&
-            objNameDay === "weekDay"
-          ) {
-            todo[10][seasson][objNameDay].push(hour.textContent);
-          } else {
-            todo[iCol][seasson][objNameDay].push(hour.textContent);
+          if (seasson === "normalTime" && iCol === 5) {
+            iCol++;
           }
+          todo[iCol][seasson][objNameDay].push(hour.textContent);
           iCol++;
         }
       });
