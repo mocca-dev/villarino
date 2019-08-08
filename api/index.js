@@ -115,9 +115,12 @@ function setData(req, res) {
       tableParser(dom, "tabla rda", todo, 2);
 
       const { timeId, way, seasson, dayOfWeek } = req.params;
+      //find the selected time into todo object by id and way, the pair which
+      //identify a unique object in the array
       const time = todo.find(
         time => time.id.toString() === timeId && time.way.toString() === way
       );
+      //sorting the result from less to more
       const result = time[seasson][dayOfWeek].sort();
 
       if (result.length) {
@@ -130,10 +133,15 @@ function setData(req, res) {
 }
 
 function tableParser(dom, className, todo, dayOfWeek) {
+  //select if it's summer, winnter hollidays or rest of the year (normalTime)
   var table = dom.getElementsByClassName(className)[dayOfWeek].innerHTML;
+  //parse the raw HTML to get a dom representation of it
   var domTable = parser.parseFromString(table);
+  //select only the rows of the specific table
   var rows = domTable.getElementsByTagName("tr");
 
+  //convert from the number of type of day to name property to access to the
+  //object that contains all the data
   let objNameDay;
   switch (dayOfWeek) {
     case 0:
@@ -149,6 +157,8 @@ function tableParser(dom, className, todo, dayOfWeek) {
       break;
   }
 
+  //transform the seasson of the year from the class name used in the HTML
+  //to name property used in the "todo" object
   let seasson;
   switch (className) {
     case "tabla ver":
@@ -164,10 +174,12 @@ function tableParser(dom, className, todo, dayOfWeek) {
       break;
   }
 
-  rows.forEach((column, f) => {
+  //iteration over all rows getting the different values of each column to save it
+  //in todo object which represent the whole HTML parsed.
+  rows.forEach((row, f) => {
     let iCol = 0;
     if (f > 0) {
-      column.getElementsByTagName("td").forEach((hour, c) => {
+      row.getElementsByTagName("td").forEach((hour, c) => {
         if (c <= 10 && iCol <= 10) {
           if (seasson === "normalTime" && iCol === 5) {
             iCol++;
