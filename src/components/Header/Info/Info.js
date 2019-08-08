@@ -31,7 +31,17 @@ const Info = () => {
             setShowDot(false);
           }}
         >
-          {showDot && <span className="notif-red-dot" />}
+          <CSSTransition
+            in={showDot}
+            timeout={400}
+            classNames="dot"
+            unmountOnExit
+            appear
+            onEntered={() => setShowDot(true)}
+            onExit={() => setShowDot(false)}
+          >
+            <span className="notif-red-dot" />
+          </CSSTransition>
           <InfoIcon />
         </button>
         <CSSTransition
