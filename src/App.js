@@ -6,7 +6,7 @@ import ToDropdown from "./components/ToDropdown/ToDropdown";
 import TimeTableList from "./components/TimeTableList/TimeTableList";
 import OfflineToast from "./components/OfflineToast/OfflineToast";
 import appReducer from "./reducer";
-import { fetchTimeTables } from "./service";
+import { fetchTimeTables, fetchHoliday } from "./service";
 
 function App({ sWPromise }) {
   const [state, dispatch] = useReducer(appReducer, {
@@ -22,45 +22,54 @@ function App({ sWPromise }) {
   });
 
   const [noTimeTables, setNoTimeTables] = useState(false);
+  const [holiday, setHoliday] = useState({});
 
   useEffect(() => {
     const { from, to } = state.fromToSelected;
+
     const today = new Date();
     const dayOfWeekId = today.getDay();
     let dayOfWeek = "weekDay";
 
-    switch (dayOfWeekId) {
-      case 5:
-        dayOfWeek = "saturday";
-        break;
-      case 6:
+    fetchHoliday(Date.now()).then(resp => {
+      if (resp) {
         dayOfWeek = "hollidaysSunday";
-        break;
-      default:
-        break;
-    }
-
-    dispatch({ type: "SET_TIMETABLES", payload: [] });
-    fetchTimeTables({
-      timeId: from,
-      way: to,
-      seasson: "normalTime",
-      dayOfWeek
-    }).then(resp => {
-      const { data } = resp;
-      if (data.error) {
-        setNoTimeTables(true);
-        dispatch({
-          type: "SET_TIMETABLES",
-          payload: [data.error]
-        });
+        setHoliday(resp);
       } else {
-        setNoTimeTables(false);
-        dispatch({
-          type: "SET_TIMETABLES",
-          payload: data.timetables
-        });
+        switch (dayOfWeekId) {
+          case 5:
+            dayOfWeek = "saturday";
+            break;
+          case 6:
+            dayOfWeek = "hollidaysSunday";
+            break;
+          default:
+            break;
+        }
       }
+
+      dispatch({ type: "SET_TIMETABLES", payload: [] });
+      fetchTimeTables({
+        timeId: from,
+        way: to,
+        seasson: "normalTime",
+        dayOfWeek
+      }).then(resp => {
+        const { data } = resp;
+        if (data.error) {
+          setNoTimeTables(true);
+          dispatch({
+            type: "SET_TIMETABLES",
+            payload: [data.error]
+          });
+        } else {
+          setNoTimeTables(false);
+          dispatch({
+            type: "SET_TIMETABLES",
+            payload: data.timetables
+          });
+        }
+      });
     });
   }, [state.fromToSelected]);
 
@@ -96,7 +105,11 @@ function App({ sWPromise }) {
         dispatch={dispatch}
       />
       <ToDropdown selected={fromToSelected.to} dispatch={dispatch} />
-      <TimeTableList timeTables={timeTables} noTimeTables={noTimeTables} />
+      <TimeTableList
+        timeTables={timeTables}
+        noTimeTables={noTimeTables}
+        holiday={holiday}
+      />
     </div>
   );
 }

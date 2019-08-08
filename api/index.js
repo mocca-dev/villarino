@@ -1,135 +1,151 @@
 var DomParser = require("dom-parser");
 var parser = new DomParser();
 const rp = require("request-promise");
+const fs = require("fs");
 const express = require("express");
 const cors = require("cors");
 const cache = require("memory-cache");
 
+const online = true;
+
 const app = express();
 
 const port = process.env.PORT || 5000;
+
+function buildAndResponse(html, req, res) {
+  var dom = parser.parseFromString(html);
+  var todo = [
+    {
+      id: 0,
+      displayName: "Parque de Mayo",
+      way: false,
+      summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
+    },
+    {
+      id: 1,
+      displayName: "Plaza Rivadavia",
+      way: false,
+      summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
+    },
+    {
+      id: 2,
+      displayName: "Hospital Penna",
+      way: false,
+      summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
+    },
+    {
+      id: 3,
+      displayName: "Villa Arias",
+      way: false,
+      summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
+    },
+    {
+      id: 4,
+      displayName: "Terminal Punta Alta",
+      way: false,
+      summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
+    },
+    {
+      id: 5,
+      displayName: "Limbo",
+      way: false,
+      summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
+    },
+    {
+      id: 4,
+      displayName: "Terminal Punta Alta",
+      way: true,
+      summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
+    },
+    {
+      id: 3,
+      displayName: "Villa Arias",
+      way: true,
+      summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
+    },
+    {
+      id: 2,
+      displayName: "Hospital Penna",
+      way: true,
+      summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
+    },
+    {
+      id: 1,
+      displayName: "Plaza Rivadavia",
+      way: true,
+      summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
+    },
+    {
+      id: 0,
+      displayName: "Parque de Mayo",
+      way: true,
+      summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
+    }
+  ];
+  tableParser(dom, "tabla ver", todo, 0);
+  tableParser(dom, "tabla ver", todo, 1);
+  tableParser(dom, "tabla ver", todo, 2);
+  tableParser(dom, "tabla inv", todo, 0);
+  tableParser(dom, "tabla inv", todo, 1);
+  tableParser(dom, "tabla inv", todo, 2);
+  tableParser(dom, "tabla rda", todo, 0);
+  tableParser(dom, "tabla rda", todo, 1);
+  tableParser(dom, "tabla rda", todo, 2);
+
+  const { timeId, way, seasson, dayOfWeek } = req.params;
+  //find the selected time into todo object by id and way, the pair which
+  //identify a unique object in the array
+  const time = todo.find(
+    time => time.id.toString() === timeId && time.way.toString() === way
+  );
+  //sorting the result from less to more
+  const result = time[seasson][dayOfWeek].sort();
+
+  if (result.length) {
+    res.send({ timetables: result });
+  } else {
+    res.status(400).json({ error: "No hay horarios para mostrar." });
+  }
+}
+
 function setData(req, res) {
-  rp.get({
-    uri: "http://www.elvillarino.com.ar/#horarios"
-  })
-    .then(html => {
-      var dom = parser.parseFromString(html);
-      var todo = [
-        {
-          id: 0,
-          displayName: "Parque de Mayo",
-          way: false,
-          summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
-        },
-        {
-          id: 1,
-          displayName: "Plaza Rivadavia",
-          way: false,
-          summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
-        },
-        {
-          id: 2,
-          displayName: "Hospital Penna",
-          way: false,
-          summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
-        },
-        {
-          id: 3,
-          displayName: "Villa Arias",
-          way: false,
-          summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
-        },
-        {
-          id: 4,
-          displayName: "Terminal Punta Alta",
-          way: false,
-          summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
-        },
-        {
-          id: 5,
-          displayName: "Limbo",
-          way: false,
-          summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
-        },
-        {
-          id: 4,
-          displayName: "Terminal Punta Alta",
-          way: true,
-          summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
-        },
-        {
-          id: 3,
-          displayName: "Villa Arias",
-          way: true,
-          summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
-        },
-        {
-          id: 2,
-          displayName: "Hospital Penna",
-          way: true,
-          summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
-        },
-        {
-          id: 1,
-          displayName: "Plaza Rivadavia",
-          way: true,
-          summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
-        },
-        {
-          id: 0,
-          displayName: "Parque de Mayo",
-          way: true,
-          summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
-          normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
-        }
-      ];
-      tableParser(dom, "tabla ver", todo, 0);
-      tableParser(dom, "tabla ver", todo, 1);
-      tableParser(dom, "tabla ver", todo, 2);
-      tableParser(dom, "tabla inv", todo, 0);
-      tableParser(dom, "tabla inv", todo, 1);
-      tableParser(dom, "tabla inv", todo, 2);
-      tableParser(dom, "tabla rda", todo, 0);
-      tableParser(dom, "tabla rda", todo, 1);
-      tableParser(dom, "tabla rda", todo, 2);
-
-      const { timeId, way, seasson, dayOfWeek } = req.params;
-      //find the selected time into todo object by id and way, the pair which
-      //identify a unique object in the array
-      const time = todo.find(
-        time => time.id.toString() === timeId && time.way.toString() === way
-      );
-      //sorting the result from less to more
-      const result = time[seasson][dayOfWeek].sort();
-
-      if (result.length) {
-        res.send({ timetables: result });
-      } else {
-        res.status(400).json({ error: "No hay horarios para mostrar." });
-      }
+  if (online) {
+    rp.get({
+      uri: "http://www.elvillarino.com.ar/#horarios"
     })
-    .catch(err => console.log(err));
+      .then(html => {
+        buildAndResponse(html, req, res);
+      })
+      .catch(err => console.log(err));
+  } else {
+    fs.readFile("villarino.html", "utf8", function(err, html) {
+      if (!err) {
+        buildAndResponse(html, req, res);
+      }
+    });
+  }
 }
 
 function tableParser(dom, className, todo, dayOfWeek) {
@@ -212,7 +228,45 @@ let cacheMiddleware = duration => {
   };
 };
 
+function fetchHolidays(res, clientDate) {
+  if (online) {
+    rp.get({
+      uri: "http://nolaborables.com.ar/api/v2/feriados/2019"
+    })
+      .then(data => {
+        const dataJSON = JSON.parse(data);
+        const holidayData = dataJSON.find(
+          date => date.dia === clientDate.day && date.mes === clientDate.month
+        );
+
+        res.send(holidayData);
+      })
+      .catch(err => console.log(err));
+  } else {
+    fs.readFile("feriados.json", "utf8", function(err, data) {
+      if (!err) {
+        const dataJSON = JSON.parse(data);
+        const holidayData = dataJSON.find(
+          date => date.dia === clientDate.day && date.mes === clientDate.month
+        );
+
+        res.send(holidayData);
+      }
+    });
+  }
+}
+
 app.use(cors());
+
+app.get("/api/holidays/:date", cacheMiddleware(600000), (req, res) => {
+  const { date } = req.params;
+  const fullDate = new Date(parseInt(date));
+
+  fetchHolidays(res, {
+    day: fullDate.getDate(),
+    month: fullDate.getMonth() + 1
+  });
+});
 
 app.get(
   "/api/timetables/:timeId/:way/:seasson/:dayOfWeek",

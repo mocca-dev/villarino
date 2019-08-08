@@ -34,3 +34,7 @@
 .loading-svg path {
   fill: var(--black-blueberry);
 }
+
+.holiday-container {
+  font-size: 1rem;
+}

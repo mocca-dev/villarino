@@ -12,3 +12,11 @@ export const fetchTimeTables = async req => {
     return { status, data: { timetables: [], error } };
   }
 };
+
+export const fetchHoliday = async date => {
+  const resp = await fetch(`/api/holidays/${date}`);
+  const { status } = resp;
+  const data = await resp.json();
+  // console.log(data);
+  return data;
+};

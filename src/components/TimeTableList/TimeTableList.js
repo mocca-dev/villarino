@@ -2,7 +2,7 @@ import React, { useEffect, useState, createRef, useCallback } from "react";
 import "./TimeTableList.css";
 import { CurrentIcon, LoadingSVG } from "./../Icons/Icons";
 
-const TimeTableList = ({ timeTables, noTimeTables }) => {
+const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
   const [current, setCurrent] = useState(null);
 
   const findAndSetCurrent = useCallback(() => {
@@ -68,6 +68,11 @@ const TimeTableList = ({ timeTables, noTimeTables }) => {
                   <div className="next-to-arrive">Próximo en llegar</div>
                 )}
                 <div>{timeTable}</div>
+                {i === current && holiday && (
+                  <div className="holiday-container">
+                    Horarios por feriado: {holiday.motivo}
+                  </div>
+                )}
               </div>
             )}
           </span>
