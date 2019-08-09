@@ -37,10 +37,10 @@ function App({ sWPromise }) {
         setHoliday(resp);
       } else {
         switch (dayOfWeekId) {
-          case 5:
+          case 6:
             dayOfWeek = "saturday";
             break;
-          case 6:
+          case 0:
             dayOfWeek = "hollidaysSunday";
             break;
           default:
