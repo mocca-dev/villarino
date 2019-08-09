@@ -88,12 +88,25 @@ function App({ sWPromise }) {
   //   }
   // }, [dispatch]);
 
+  // useEffect(() => {
+  //   localStorage.setItem(
+  //     "villarino",
+  //     JSON.stringify({ inputData: state.fromToSelected })
+  //   );
+  // }, [state.fromToSelected]);
   useEffect(() => {
-    localStorage.setItem(
-      "villarino",
-      JSON.stringify({ inputData: state.fromToSelected })
-    );
-  }, [state.fromToSelected]);
+    if (state.fromToSelected.to) {
+      dispatch({
+        type: "CHANGE_FROM_LABEL",
+        payload: { value: 1, label: "Vieytes y Colón" }
+      });
+    } else {
+      dispatch({
+        type: "CHANGE_FROM_LABEL",
+        payload: { value: 1, label: "Plaza Rivadavia" }
+      });
+    }
+  }, [state.fromToSelected.to]);
 
   const { fromOptions, timeTables, fromToSelected } = state;
   return (

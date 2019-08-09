@@ -12,7 +12,18 @@ function appReducer(state, action) {
         ...state,
         fromToSelected: { ...state.fromToSelected, from: action.payload }
       };
-
+    case "CHANGE_FROM_LABEL":
+      return {
+        ...state,
+        fromOptions: state.fromOptions.map(option =>
+          option.value === action.payload.value
+            ? {
+                ...option,
+                label: action.payload.label
+              }
+            : option
+        )
+      };
     default:
       return state;
   }
