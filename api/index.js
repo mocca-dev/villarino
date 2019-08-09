@@ -202,7 +202,8 @@ function tableParser(dom, className, todo, dayOfWeek) {
           if (
             seasson === "normalTime" &&
             iCol === 5 &&
-            objNameDay !== "saturday"
+            objNameDay !== "saturday" &&
+            objNameDay !== "hollidaysSunday"
           ) {
             iCol++;
           }
