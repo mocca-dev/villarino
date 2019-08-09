@@ -32,7 +32,7 @@ function App({ sWPromise }) {
     let dayOfWeek = "weekDay";
 
     fetchHoliday(Date.now()).then(resp => {
-      if (resp) {
+      if (resp.length) {
         dayOfWeek = "hollidaysSunday";
         setHoliday(resp);
       } else {

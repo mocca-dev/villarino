@@ -239,7 +239,7 @@ function fetchHolidays(res, clientDate) {
           date => date.dia === clientDate.day && date.mes === clientDate.month
         );
 
-        res.send(holidayData);
+        res.send(holidayData ? holidayData : []);
       })
       .catch(err => console.log(err));
   } else {
@@ -249,12 +249,8 @@ function fetchHolidays(res, clientDate) {
         const holidayData = dataJSON.find(
           date => date.dia === clientDate.day && date.mes === clientDate.month
         );
-        console.log(holidayData);
-        if (holidayData) {
-          res.send(holidayData);
-        } else {
-          res.status(400).send(null);
-        }
+
+        res.send(holidayData ? holidayData : []);
       }
     });
   }

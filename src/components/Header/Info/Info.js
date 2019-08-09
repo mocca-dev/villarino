@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CSSTransition } from "react-transition-group";
-import { InfoIcon } from "../../Icons/Icons";
+import { InfoIcon, NoConectionIcon } from "../../Icons/Icons";
 import OutsideClick from "../../OutsideClick/OutsideClick";
 import "./Info.css";
 
@@ -10,10 +10,10 @@ const Info = () => {
   const [additionalText, setAdditionalText] = useState("");
 
   useEffect(() => {
-    console.log("hola", navigator.onLine);
-
     function updateOnlineStatus(event) {
-      setAdditionalText("La aplicación está funcionando sin conexión.");
+      setAdditionalText(
+        !navigator.onLine ? "La aplicación está funcionando sin conexión." : ""
+      );
       setShowDot(!navigator.onLine);
     }
     updateOnlineStatus();
@@ -33,7 +33,7 @@ const Info = () => {
         >
           <CSSTransition
             in={showDot}
-            timeout={400}
+            timeout={500}
             classNames="dot"
             unmountOnExit
             appear
@@ -67,7 +67,10 @@ const Info = () => {
             . Por lo que la precisión dependerá de la regularidad de las
             unidades y de la exactitud con la funcionan.
             {additionalText && (
-              <div className="warning-msg">{additionalText}</div>
+              <div className="warning-msg">
+                <span> {additionalText}</span>
+                <NoConectionIcon />
+              </div>
             )}
           </div>
         </CSSTransition>

@@ -57,7 +57,7 @@
 }
 
 .dot-enter {
-  opacity: 0;
+  opacity: 0.1;
   transform: scale(0);
 }
 .dot-enter-active {
@@ -72,17 +72,29 @@
 }
 
 .dot-exit-active {
-  opacity: 0;
+  opacity: 0.1;
   transform: scale(0);
   transition: all 400ms;
 }
 
 .warning-msg {
+  display: flex;
+  justify-content: space-between;
   margin-top: 10px;
   background-color: rgba(255, 0, 0, 0.5);
-  padding: 5px;
+  padding: 10px;
   border-radius: 3px;
   text-align: center;
+}
+
+.no-connection-icon {
+  height: 35px;
+  width: 50px;
+  padding: 6px;
+}
+
+.no-connection-icon path {
+  fill: white;
 }
 
 @media only screen and (min-width: 600px) {
