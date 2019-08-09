@@ -17,8 +17,8 @@ function App({ sWPromise }) {
       { value: 3, label: "Villa Arias" },
       { value: 4, label: "Termnial Punta Alta" }
     ],
-    timeTables: null,
-    fromToSelected: { from: null, to: null }
+    timeTables: [],
+    fromToSelected: { from: 0, to: false }
   });
 
   const [noTimeTables, setNoTimeTables] = useState(false);
@@ -49,45 +49,44 @@ function App({ sWPromise }) {
       }
 
       dispatch({ type: "SET_TIMETABLES", payload: [] });
-      if (state.fromToSelected.from !== null) {
-        fetchTimeTables({
-          timeId: from,
-          way: to,
-          seasson: "normalTime",
-          dayOfWeek
-        }).then(resp => {
-          const { data } = resp;
-          if (data.error) {
-            setNoTimeTables(true);
-            dispatch({
-              type: "SET_TIMETABLES",
-              payload: [data.error]
-            });
-          } else {
-            setNoTimeTables(false);
-            dispatch({
-              type: "SET_TIMETABLES",
-              payload: data.timetables
-            });
-          }
-        });
-      }
+
+      fetchTimeTables({
+        timeId: from,
+        way: to,
+        seasson: "normalTime",
+        dayOfWeek
+      }).then(resp => {
+        const { data } = resp;
+        if (data.error) {
+          setNoTimeTables(true);
+          dispatch({
+            type: "SET_TIMETABLES",
+            payload: [data.error]
+          });
+        } else {
+          setNoTimeTables(false);
+          dispatch({
+            type: "SET_TIMETABLES",
+            payload: data.timetables
+          });
+        }
+      });
     });
   }, [state.fromToSelected]);
 
-  useEffect(() => {
-    const cachedState = JSON.parse(localStorage.getItem("villarino"));
-    if (cachedState) {
-      dispatch({
-        type: "SET_FROM",
-        payload: cachedState.inputData.from
-      });
-      dispatch({
-        type: "SET_TO",
-        payload: cachedState.inputData.to
-      });
-    }
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const cachedState = JSON.parse(localStorage.getItem("villarino"));
+  //   if (cachedState) {
+  // dispatch({
+  //   type: "SET_FROM",
+  //   payload: cachedState.inputData.from
+  // });
+  // dispatch({
+  //   type: "SET_TO",
+  //   payload: cachedState.inputData.to
+  // });
+  //   }
+  // }, [dispatch]);
 
   useEffect(() => {
     localStorage.setItem(

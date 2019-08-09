@@ -5,12 +5,10 @@ import { CurrentIcon, LoadingSVG } from "./../Icons/Icons";
 const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
   const [current, setCurrent] = useState(null);
 
-  const refs =
-    timeTables !== null &&
-    timeTables.reduce((acc, value, i) => {
-      acc[i] = createRef();
-      return acc;
-    }, {});
+  const refs = timeTables.reduce((acc, value, i) => {
+    acc[i] = createRef();
+    return acc;
+  }, {});
 
   const scrollToCurrent = useCallback(
     id => {
@@ -67,7 +65,7 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
   }, [iterateTimetables]);
 
   useEffect(() => {
-    if (timeTables !== null && timeTables.length) {
+    if (timeTables.length) {
       findAndSetCurrent();
       // setInterval(findAndSetCurrent, 30000);
       // setIntervalSetted(true);
@@ -80,7 +78,7 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
 
   return (
     <div className="list-container">
-      {timeTables !== null && timeTables.length ? (
+      {timeTables.length ? (
         timeTables.map((timeTable, i) => (
           <span key={i}>
             <div
