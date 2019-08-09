@@ -8,6 +8,7 @@
 }
 
 .to-container {
+  width: 48%;
   padding: 15px 0;
 }
 
@@ -20,9 +21,22 @@
   background-color: white;
   padding: 15px 45px;
   font-size: 1rem;
+  display: block;
+  text-align: center;
 }
 
 .to-container input[type="radio"]:checked + label {
   background-color: var(--black-blueberry);
   color: var(--turquoise);
+}
+
+@media only screen and (max-width: 420px) {
+  .radio-container {
+    flex-direction: column;
+  }
+
+  .to-container {
+    width: 100%;
+    padding: 10px 0;
+  }
 }
