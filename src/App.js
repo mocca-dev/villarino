@@ -17,8 +17,8 @@ function App({ sWPromise }) {
       { value: 3, label: "Villa Arias" },
       { value: 4, label: "Termnial Punta Alta" }
     ],
-    timeTables: [],
-    fromToSelected: { from: 0, to: false }
+    timeTables: null,
+    fromToSelected: { from: null, to: null }
   });
 
   const [noTimeTables, setNoTimeTables] = useState(false);
@@ -49,27 +49,29 @@ function App({ sWPromise }) {
       }
 
       dispatch({ type: "SET_TIMETABLES", payload: [] });
-      fetchTimeTables({
-        timeId: from,
-        way: to,
-        seasson: "normalTime",
-        dayOfWeek
-      }).then(resp => {
-        const { data } = resp;
-        if (data.error) {
-          setNoTimeTables(true);
-          dispatch({
-            type: "SET_TIMETABLES",
-            payload: [data.error]
-          });
-        } else {
-          setNoTimeTables(false);
-          dispatch({
-            type: "SET_TIMETABLES",
-            payload: data.timetables
-          });
-        }
-      });
+      if (state.fromToSelected.from !== null) {
+        fetchTimeTables({
+          timeId: from,
+          way: to,
+          seasson: "normalTime",
+          dayOfWeek
+        }).then(resp => {
+          const { data } = resp;
+          if (data.error) {
+            setNoTimeTables(true);
+            dispatch({
+              type: "SET_TIMETABLES",
+              payload: [data.error]
+            });
+          } else {
+            setNoTimeTables(false);
+            dispatch({
+              type: "SET_TIMETABLES",
+              payload: data.timetables
+            });
+          }
+        });
+      }
     });
   }, [state.fromToSelected]);
 

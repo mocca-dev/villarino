@@ -121,12 +121,14 @@ function buildAndResponse(html, req, res) {
     time => time.id.toString() === timeId && time.way.toString() === way
   );
   //sorting the result from less to more
-  const result = time[seasson][dayOfWeek].sort();
+  const result = time[seasson][dayOfWeek]
+    .filter(hour => hour.length > 2)
+    .sort();
 
   if (result.length) {
     res.send({ timetables: result });
   } else {
-    res.status(400).json({ error: "No hay horarios para mostrar." });
+    res.json({ error: "No hay horarios para mostrar." });
   }
 }
 
@@ -197,7 +199,11 @@ function tableParser(dom, className, todo, dayOfWeek) {
     if (f > 0) {
       row.getElementsByTagName("td").forEach((hour, c) => {
         if (c <= 10 && iCol <= 10) {
-          if (seasson === "normalTime" && iCol === 5) {
+          if (
+            seasson === "normalTime" &&
+            iCol === 5 &&
+            objNameDay !== "saturday"
+          ) {
             iCol++;
           }
           todo[iCol][seasson][objNameDay].push(hour.textContent);

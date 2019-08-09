@@ -5,20 +5,50 @@ import { CurrentIcon, LoadingSVG } from "./../Icons/Icons";
 const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
   const [current, setCurrent] = useState(null);
 
-  const refs = timeTables.reduce((acc, value, i) => {
-    acc[i] = createRef();
-    return acc;
-  }, {});
+  const refs =
+    timeTables !== null &&
+    timeTables.reduce((acc, value, i) => {
+      acc[i] = createRef();
+      return acc;
+    }, {});
 
   const scrollToCurrent = useCallback(
     id => {
-      if (refs[id])
+      if (refs[id] && refs[id].current)
         refs[id].current.scrollIntoView({
           behavior: "smooth",
           block: "center"
         });
     },
     [refs]
+  );
+  const iterateTimetables = useCallback(
+    (dummyDate, formattedToday, dummyDateToday) => {
+      for (let i = 0; i < timeTables.length; i++) {
+        const current = timeTables[i];
+        const prev = timeTables[i - 1];
+
+        if (
+          current !== "DIRECTO" &&
+          prev !== "DIRECTO" &&
+          current.length > 1 &&
+          prev &&
+          prev.length > 1 &&
+          current < prev
+        )
+          dummyDate = "02/01/2000";
+        if (
+          current.length > 1 &&
+          Date.parse(dummyDate + " " + current) >
+            Date.parse(dummyDateToday + " " + formattedToday)
+        ) {
+          setCurrent(i);
+          return false;
+        }
+      }
+      return true;
+    },
+    [timeTables]
   );
 
   const findAndSetCurrent = useCallback(() => {
@@ -27,19 +57,17 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
       today.getHours() <= 9 ? "0" + today.getHours() : today.getHours();
     const mins =
       today.getMinutes() <= 9 ? "0" + today.getMinutes() : today.getMinutes();
-    const formattedToday = hour + ":" + mins;
-    let stop = false;
+    const formattedToday = hour + ":" + mins; //'05:11' '00:11' '23:59'
 
-    timeTables.forEach((time, i) => {
-      if (time.length >= 5 && formattedToday < time && !stop) {
-        setCurrent(i);
-        stop = true;
-      }
-    });
-  }, [timeTables]);
+    let oneLap = iterateTimetables("01/01/2000", formattedToday, "01/01/2000");
+
+    if (oneLap) {
+      iterateTimetables("01/01/2001", formattedToday, "02/01/2000");
+    }
+  }, [iterateTimetables]);
 
   useEffect(() => {
-    if (timeTables.length) {
+    if (timeTables !== null && timeTables.length) {
       findAndSetCurrent();
       // setInterval(findAndSetCurrent, 30000);
       // setIntervalSetted(true);
@@ -52,29 +80,27 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
 
   return (
     <div className="list-container">
-      {timeTables.length ? (
+      {timeTables !== null && timeTables.length ? (
         timeTables.map((timeTable, i) => (
           <span key={i}>
-            {timeTable.length >= 5 && (
-              <div
-                ref={refs[i]}
-                className={
-                  i === current && !noTimeTables
-                    ? "time-container current"
-                    : "time-container"
-                }
-              >
-                {i === current && !noTimeTables && (
-                  <div className="next-to-arrive">Próximo en llegar</div>
-                )}
-                <div>{timeTable}</div>
-                {i === current && holiday && (
-                  <div className="holiday-container">
-                    Horarios por feriado: {holiday.motivo}
-                  </div>
-                )}
-              </div>
-            )}
+            <div
+              ref={refs[i]}
+              className={
+                i === current && !noTimeTables
+                  ? "time-container current"
+                  : "time-container"
+              }
+            >
+              {i === current && !noTimeTables && (
+                <div className="next-to-arrive">Próximo en llegar</div>
+              )}
+              <div>{timeTable}</div>
+              {i === current && holiday && (
+                <div className="holiday-container">
+                  Horarios por feriado: {holiday.motivo}
+                </div>
+              )}
+            </div>
           </span>
         ))
       ) : (
