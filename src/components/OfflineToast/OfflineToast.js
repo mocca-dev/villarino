@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 
 import "./OfflineToast.css";
+import { RefreshIcon, CloseIcon } from "../Icons/Icons";
 
 const OfflineToast = ({ sWPromise }) => {
   const [show, setShow] = useState(false);
@@ -34,17 +35,19 @@ const OfflineToast = ({ sWPromise }) => {
       >
         <div className="toast-container">
           <span>{text}</span>{" "}
-          {showRefresh && (
-            <button
-              className="close-btn"
-              onClick={() => window.location.reload()}
-            >
-              R
+          <span className="toast-btn-container">
+            {showRefresh && (
+              <button
+                className="close-btn"
+                onClick={() => window.location.reload()}
+              >
+                <RefreshIcon />
+              </button>
+            )}
+            <button className="close-btn" onClick={() => setShow(false)}>
+              <CloseIcon />
             </button>
-          )}
-          <button className="close-btn" onClick={() => setShow(false)}>
-            X
-          </button>
+          </span>
         </div>
       </CSSTransition>
     </>
