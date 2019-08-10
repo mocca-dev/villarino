@@ -9,7 +9,7 @@
 
 .to-container {
   width: 48%;
-  padding: 15px 0;
+  padding: 0;
 }
 
 .to-container input[type="radio"] {
@@ -19,7 +19,7 @@
 .to-container input[type="radio"] + label {
   box-shadow: var(--lower-shadow);
   background-color: white;
-  padding: 15px 45px;
+  padding: 15px 40px;
   font-size: 1rem;
   display: block;
   text-align: center;
@@ -30,7 +30,7 @@
   color: var(--turquoise);
 }
 
-@media only screen and (max-width: 420px) {
+@media only screen and (max-width: 390px) {
   .radio-container {
     flex-direction: column;
   }
