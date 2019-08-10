@@ -6,15 +6,18 @@ const express = require("express");
 const cors = require("cors");
 const cache = require("memory-cache");
 
-const online = false;
+const online = true;
 
 const app = express();
 
 const port = process.env.PORT || 5000;
 
+var todo;
+var dom = null;
 function buildAndResponse(html, req, res) {
-  var dom = parser.parseFromString(html);
-  var todo = [
+  if (!dom) dom = parser.parseFromString(html);
+
+  todo = [
     {
       id: 0,
       displayName: "Parque de Mayo",
@@ -104,15 +107,16 @@ function buildAndResponse(html, req, res) {
       normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
     }
   ];
-  tableParser(dom, "tabla ver", todo, 0);
-  tableParser(dom, "tabla ver", todo, 1);
-  tableParser(dom, "tabla ver", todo, 2);
-  tableParser(dom, "tabla inv", todo, 0);
-  tableParser(dom, "tabla inv", todo, 1);
-  tableParser(dom, "tabla inv", todo, 2);
-  tableParser(dom, "tabla rda", todo, 0);
-  tableParser(dom, "tabla rda", todo, 1);
-  tableParser(dom, "tabla rda", todo, 2);
+
+  tableParser(dom, "tabla ver", 0);
+  tableParser(dom, "tabla ver", 1);
+  tableParser(dom, "tabla ver", 2);
+  tableParser(dom, "tabla inv", 0);
+  tableParser(dom, "tabla inv", 1);
+  tableParser(dom, "tabla inv", 2);
+  tableParser(dom, "tabla rda", 0);
+  tableParser(dom, "tabla rda", 1);
+  tableParser(dom, "tabla rda", 2);
 
   const { timeId, way, seasson, dayOfWeek } = req.params;
   //find the selected time into todo object by id and way, the pair which
@@ -150,7 +154,7 @@ function setData(req, res) {
   }
 }
 
-function tableParser(dom, className, todo, dayOfWeek) {
+function tableParser(dom, className, dayOfWeek) {
   //select if it's summer, winnter hollidays or rest of the year (normalTime)
   var table = dom.getElementsByClassName(className)[dayOfWeek].innerHTML;
   //parse the raw HTML to get a dom representation of it

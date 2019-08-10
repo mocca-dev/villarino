@@ -90,7 +90,7 @@ function App({ sWPromise }) {
         dispatch({ type: "SET_HOLIDAYS", payload: holidays });
       });
     }
-  }, [state.fromToSelected, state.holidays]);
+  }, [state.fromToSelected]);
 
   // useEffect(() => {
   //   const cachedState = JSON.parse(localStorage.getItem("villarino"));
