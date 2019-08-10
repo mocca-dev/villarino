@@ -13,8 +13,8 @@ export const fetchTimeTables = async req => {
   }
 };
 
-export const fetchHoliday = async date => {
-  const resp = await fetch(`/api/holidays/${date}`);
+export const fetchHoliday = async () => {
+  const resp = await fetch(`/api/holidays`);
   const { status } = resp;
 
   if (status !== 400) {

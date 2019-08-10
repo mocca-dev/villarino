@@ -6,7 +6,7 @@ const express = require("express");
 const cors = require("cors");
 const cache = require("memory-cache");
 
-const online = true;
+const online = false;
 
 const app = express();
 
@@ -235,29 +235,20 @@ let cacheMiddleware = duration => {
   };
 };
 
-function fetchHolidays(res, clientDate) {
+function fetchHolidays(res) {
   if (online) {
     rp.get({
       uri: "http://nolaborables.com.ar/api/v2/feriados/2019"
     })
       .then(data => {
-        const dataJSON = JSON.parse(data);
-        const holidayData = dataJSON.find(
-          date => date.dia === clientDate.day && date.mes === clientDate.month
-        );
-
-        res.send(holidayData ? holidayData : []);
+        res.send(JSON.parse(data));
       })
       .catch(err => console.log(err));
   } else {
     fs.readFile("feriados.json", "utf8", function(err, data) {
       if (!err) {
         const dataJSON = JSON.parse(data);
-        const holidayData = dataJSON.find(
-          date => date.dia === clientDate.day && date.mes === clientDate.month
-        );
-
-        res.send(holidayData ? holidayData : []);
+        res.send(dataJSON);
       }
     });
   }
@@ -265,14 +256,8 @@ function fetchHolidays(res, clientDate) {
 
 app.use(cors());
 
-app.get("/api/holidays/:date", cacheMiddleware(600000), (req, res) => {
-  const { date } = req.params;
-  const fullDate = new Date(parseInt(date));
-
-  fetchHolidays(res, {
-    day: fullDate.getDate(),
-    month: fullDate.getMonth() + 1
-  });
+app.get("/api/holidays", (req, res) => {
+  fetchHolidays(res);
 });
 
 app.get(

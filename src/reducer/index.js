@@ -24,6 +24,11 @@ function appReducer(state, action) {
             : option
         )
       };
+    case "SET_HOLIDAYS":
+      return {
+        ...state,
+        holidays: action.payload
+      };
     default:
       return state;
   }

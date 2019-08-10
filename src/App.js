@@ -18,61 +18,79 @@ function App({ sWPromise }) {
       { value: 4, label: "Termnial Punta Alta" }
     ],
     timeTables: [],
-    fromToSelected: { from: 0, to: false }
+    fromToSelected: { from: 0, to: false },
+    holidays: []
   });
 
   const [noTimeTables, setNoTimeTables] = useState(false);
   const [holiday, setHoliday] = useState(null);
+
+  const dispatchTimeTablesData = (from, to, dayOfWeek) => {
+    dispatch({ type: "SET_TIMETABLES", payload: [] });
+
+    fetchTimeTables({
+      timeId: from,
+      way: to,
+      seasson: "normalTime",
+      dayOfWeek
+    }).then(resp => {
+      const { data } = resp;
+      if (data.error) {
+        setNoTimeTables(true);
+        dispatch({
+          type: "SET_TIMETABLES",
+          payload: [data.error]
+        });
+      } else {
+        setNoTimeTables(false);
+        dispatch({
+          type: "SET_TIMETABLES",
+          payload: data.timetables
+        });
+      }
+    });
+  };
+
+  const getDayOfWeek = (holidays, month, dayOfWeekId, day) => {
+    const holidayData = holidays.find(
+      date => date.dia === day && date.mes === month
+    );
+
+    if (holidayData) {
+      setHoliday(holidayData);
+      return "hollidaysSunday";
+    } else {
+      switch (dayOfWeekId) {
+        case 6:
+          return "saturday";
+        case 0:
+          return "hollidaysSunday";
+        default:
+          break;
+      }
+    }
+  };
 
   useEffect(() => {
     const { from, to } = state.fromToSelected;
 
     const today = new Date();
     const dayOfWeekId = today.getDay();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
     let dayOfWeek = "weekDay";
 
-    fetchHoliday(Date.now()).then(resp => {
-      if (resp.length) {
-        dayOfWeek = "hollidaysSunday";
-        setHoliday(resp);
-      } else {
-        switch (dayOfWeekId) {
-          case 6:
-            dayOfWeek = "saturday";
-            break;
-          case 0:
-            dayOfWeek = "hollidaysSunday";
-            break;
-          default:
-            break;
-        }
-      }
-
-      dispatch({ type: "SET_TIMETABLES", payload: [] });
-
-      fetchTimeTables({
-        timeId: from,
-        way: to,
-        seasson: "normalTime",
-        dayOfWeek
-      }).then(resp => {
-        const { data } = resp;
-        if (data.error) {
-          setNoTimeTables(true);
-          dispatch({
-            type: "SET_TIMETABLES",
-            payload: [data.error]
-          });
-        } else {
-          setNoTimeTables(false);
-          dispatch({
-            type: "SET_TIMETABLES",
-            payload: data.timetables
-          });
-        }
+    if (state.holidays.length) {
+      dayOfWeek = getDayOfWeek(state.holidays, month, dayOfWeekId, day);
+      dispatchTimeTablesData(from, to, dayOfWeek);
+    } else {
+      fetchHoliday().then(holidays => {
+        dayOfWeek = getDayOfWeek(holidays, month, dayOfWeekId, day);
+        dispatchTimeTablesData(from, to, dayOfWeek);
+        dispatch({ type: "SET_HOLIDAYS", payload: holidays });
       });
-    });
-  }, [state.fromToSelected]);
+    }
+  }, [state.fromToSelected, state.holidays]);
 
   // useEffect(() => {
   //   const cachedState = JSON.parse(localStorage.getItem("villarino"));
