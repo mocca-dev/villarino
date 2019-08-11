@@ -231,7 +231,7 @@ let cacheMiddleware = duration => {
     } else {
       res.sendResponse = res.send;
       res.send = body => {
-        memCache.put(key, body, duration * 1000);
+        memCache.put(key, body, duration);
         res.sendResponse(body);
       };
       next();
@@ -266,7 +266,7 @@ app.get("/api/holidays", (req, res) => {
 
 app.get(
   "/api/timetables/:timeId/:way/:seasson/:dayOfWeek",
-  cacheMiddleware(600000),
+  cacheMiddleware(7 * 24 * 3600000),
   (req, res) => {
     setData(req, res);
   }

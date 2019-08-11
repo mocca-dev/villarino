@@ -1,68 +1,53 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). -->
 
-## Available Scripts
+# Horario Villarino - 319 app
 
-In the project directory, you can run:
+<div  align="center" style="width: 70vw;display: flex; justify-content: space-between; height: 400px; align-items:center">
+  <img src="./readme-images/nexus.png" width="200">
+  <a href="https://horariovillarino.ntoneko.now.sh/" target="_blank">
+<img src="./public/assets/icons/Icon-144.png" width="50" height="50" style="margin: 0 25px;">
+</a>
+  <img src="./readme-images/iphone.png" width="200" style="float: right;">
+</div>
 
-### `npm start`
+<div  align="center" style="width: 70vw;margin: 30px 0">
+  <img src="./readme-images/lighthouse.png" width="80">
+  <img src="./readme-images/auditw.png" width="400" style="float: right;">
+</div>
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Why?
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Because I'm very tire using this other [webpage](http://www.elvillarino.com.ar/). The main idea was improve the way of using the data about the timetables of the bus and create a user experience which could help to users to see what is the next to arrive at some selected bus stop.
 
-### `npm test`
+## First Steps
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+First of all, I looked for the source of data (the timetables). After do a little of research and can't found any REST API to fetch the data and without any other option, I decided to build mine. I started to parse the table directly from the HTML of the page. After several hours of reverse engineering I end up with a little more clean data structure to work with. I built an ExpressJS app as a BE bypass to fetch and parse the HTML and finally send the specific times for a specific request. <br>
+As a relevant thing, I can mention the use of [memory-cache](https://www.npmjs.com/package/memory-cache). Since the timetables doesn't change very often I decided to use a cache to avoid unnecessary GET request to the original url.
 
-### `npm run build`
+## And then, what?
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Well, with the help of [Figma](https://www.figma.com/proto/RMNWpfzq30tpd2zGesaoHO/villarino?node-id=2%3A0&scaling=scale-down) I create few mockups to put some of my design ideas in something a little more real.
+<br>
+After this, because I like ReactJS and PWAs so much and I want to learn all that I can (I think one of the best way to learn something is reading about it but that's only the 50%, the other 50% is coding and making stuffs).
+With the help of CRA I started a new app and then I began with the process of transform the design and ideas into real code/app. I will detail some concepts and features that I used or implemented.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+<ul>
+<li>Hooks (all components are functional and use  hooks only)
+  <ul>
+    <li>useState</li>
+    <li>useEffect</li>
+    <li>useCallback</li>
+    <li>useReducer. In combination with the Context API I implemented the state management of the entire app following the redux's concepts.</li>
+  </ul>
+</li>
+<li>OnLine/OffLine notification</li>
+<li>New Update! notification (Service Worker promise based on)</li>
+<li>All content is cached for offline use! notification</li>
+<li>Responsive design (Mobile-first)</li>
+<li>SVG icons</li>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Deployment
 
-### `npm run eject`
+To publish this beautiful app 😋, I used ▲ [Zeit Now](https://zeit.co/) to deploy both, BE and FE. I had to research and test a lot to find the correct now.json config but the effort wasn't useless.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+</ul>
