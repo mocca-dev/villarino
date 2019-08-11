@@ -17,7 +17,7 @@
 
 ## Why?
 
-Because I'm very tire using this other [webpage](http://www.elvillarino.com.ar/). The main idea was improve the way of using the data about the timetables of the bus and create a user experience which could help to users to see what is the next to arrive at some selected bus stop.
+Because I'm very tired of using this one [webpage](http://www.elvillarino.com.ar/). The main idea was improve the way of using the data about the timetables of the bus and create a user experience which could help to users to see what is the next to arrive at some selected bus stop.
 
 ## First Steps
 
