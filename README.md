@@ -32,22 +32,21 @@ After this, because I like ReactJS and PWAs so much and I want to learn all that
 With the help of CRA I started a new app and then I began with the process of transform the design and ideas into real code/app. I will detail some concepts and features that I used or implemented.
 
 <ul>
-<li>Hooks (all components are functional and use  hooks only)
-  <ul>
-    <li>useState</li>
-    <li>useEffect</li>
-    <li>useCallback</li>
-    <li>useReducer. In combination with the Context API I implemented the state management of the entire app following the redux's concepts.</li>
-  </ul>
-</li>
-<li>OnLine/OffLine notification</li>
-<li>New Update! notification (Service Worker promise based on)</li>
-<li>All content is cached for offline use! notification</li>
-<li>Responsive design (Mobile-first)</li>
-<li>SVG icons</li>
+  <li>Hooks (all components are functional and use  hooks only)
+    <ul>
+      <li>useState</li>
+      <li>useEffect</li>
+      <li>useCallback</li>
+      <li>useReducer. In combination with the Context API I implemented the state management of the entire app following the redux's concepts.</li>
+    </ul>
+  </li>
+  <li>OnLine/OffLine notification</li>
+  <li>New Update! notification (Service Worker promise based on)</li>
+  <li>All content is cached for offline use! notification</li>
+  <li>Responsive design (Mobile-first)</li>
+  <li>SVG icons</li>
+</ul>
 
 ## Deployment
 
 To publish this beautiful app 😋, I used ▲ [Zeit Now](https://zeit.co/) to deploy both, BE and FE. I had to research and test a lot to find the correct now.json config but the effort wasn't useless.
-
-</ul>
