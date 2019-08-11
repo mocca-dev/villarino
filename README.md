@@ -5,8 +5,8 @@
 <div  align="center" style="width: 70vw;display: flex; justify-content: space-between; height: 400px; align-items:center">
   <img src="./readme-images/nexus.png" width="200">
   <a href="https://horariovillarino.ntoneko.now.sh/" target="_blank">
-<img src="./public/assets/icons/Icon-144.png" width="50" height="50" style="margin: 0 25px;">
-</a>
+    <img src="./readme-images/Icon-144.png" width="50" height="50" style="margin: 0 25px;">
+  </a>
   <img src="./readme-images/iphone.png" width="200" style="float: right;">
 </div>
 
