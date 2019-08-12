@@ -66,7 +66,7 @@ function App({ sWPromise }) {
         case 0:
           return "hollidaysSunday";
         default:
-          break;
+          return "weekDay";
       }
     }
   };
