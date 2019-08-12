@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CSSTransition } from "react-transition-group";
+
 import { InfoIcon, NoConectionIcon } from "../../Icons/Icons";
 import OutsideClick from "../../OutsideClick/OutsideClick";
 import "./Info.css";

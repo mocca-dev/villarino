@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import SubHeader from "../SubHeader/SubHeader";
 import "./FromDropdown.css";
 import { DownArrowIcon } from "../Icons/Icons";
@@ -23,4 +25,9 @@ const FromDropdown = ({ options, selected, dispatch }) => {
   );
 };
 
+FromDropdown.propTypes = {
+  options: PropTypes.array.isRequired,
+  selected: PropTypes.number.isRequired,
+  dispatch: PropTypes.func.isRequired
+};
 export default FromDropdown;

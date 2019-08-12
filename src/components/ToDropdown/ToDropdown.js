@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import SubHeader from "../SubHeader/SubHeader";
 import "./ToDropdown.css";
 
@@ -32,6 +34,11 @@ const ToDropdown = ({ selected, dispatch }) => {
       </div>
     </div>
   );
+};
+
+ToDropdown.propTypes = {
+  selected: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default ToDropdown;

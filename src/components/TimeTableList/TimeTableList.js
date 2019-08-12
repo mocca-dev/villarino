@@ -1,4 +1,6 @@
 import React, { useEffect, useState, createRef, useCallback } from "react";
+import PropTypes from "prop-types";
+
 import "./TimeTableList.css";
 import { CurrentIcon, LoadingSVG } from "./../Icons/Icons";
 
@@ -117,6 +119,12 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
       </button>
     </div>
   );
+};
+
+TimeTableList.propTypes = {
+  timeTables: PropTypes.array.isRequired,
+  noTimeTables: PropTypes.bool.isRequired,
+  holiday: PropTypes.bool
 };
 
 export default TimeTableList;

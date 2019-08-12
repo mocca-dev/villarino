@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
+import PropTypes from "prop-types";
 import "./App.css";
 import Header from "./components/Header/Header";
 import FromDropdown from "./components/FromDropdown/FromDropdown";
@@ -145,5 +146,9 @@ function App({ sWPromise }) {
     </div>
   );
 }
+
+App.propTypes = {
+  sWPromise: PropTypes.object.isRequired
+};
 
 export default App;

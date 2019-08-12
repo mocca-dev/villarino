@@ -27,8 +27,8 @@ const OutsideClick = ({ children, action }) => {
   return <span ref={wrapperRef}>{children}</span>;
 };
 
-export default OutsideClick;
-
 OutsideClick.propTypes = {
   children: PropTypes.element.isRequired
 };
+
+export default OutsideClick;
