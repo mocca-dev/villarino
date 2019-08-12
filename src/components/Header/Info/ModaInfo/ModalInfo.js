@@ -2,8 +2,8 @@ import React from "react";
 import { CSSTransition } from "react-transition-group";
 
 import "./ModalInfo.css";
-import { NoConectionIcon } from "../../Icons/Icons";
-import SharedBtn from "../SharedBtn/SharedBtn";
+import { NoConectionIcon } from "../../../Icons/Icons";
+import SharedBtn from "./SharedBtn/SharedBtn";
 
 const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
   return (

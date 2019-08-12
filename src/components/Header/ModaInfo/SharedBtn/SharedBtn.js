@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./ShareBtn.css";
-import { ShareIcon } from "../../Icons/Icons";
-import Toast from "../../Toast/Toast";
+import { ShareIcon } from "../../../../Icons/Icons";
+import Toast from "../../../../Toast/Toast";
 
 const SharedBtn = () => {
   const [shareUrl, setShareUrl] = useState("algo");

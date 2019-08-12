@@ -4,7 +4,7 @@ import { CSSTransition } from "react-transition-group";
 import { InfoIcon } from "../../Icons/Icons";
 import OutsideClick from "../../OutsideClick/OutsideClick";
 import "./Info.css";
-import ModalInfo from "../ModaInfo/ModalInfo";
+import ModalInfo from "./ModaInfo/ModalInfo";
 
 const Info = () => {
   const [showInfo, setShowInfo] = useState(false);
