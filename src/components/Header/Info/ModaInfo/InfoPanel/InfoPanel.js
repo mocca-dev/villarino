@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import SharedBtn from "./SharedBtn/SharedBtn";
 import ContactBtn from "./ContactBtn/ContactBtn";
@@ -61,6 +62,13 @@ const InfoPanel = ({ close, additionalText, setShowContact, showContact }) => {
       )}
     </>
   );
+};
+
+InfoPanel.propTypes = {
+  close: PropTypes.func.isRequired,
+  showContact: PropTypes.bool.isRequired,
+  setShowContact: PropTypes.func.isRequired,
+  additionalText: PropTypes.string.isRequired
 };
 
 export default InfoPanel;

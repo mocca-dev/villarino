@@ -19,7 +19,7 @@ function App({ sWPromise }) {
       { value: 4, label: "Termnial Punta Alta" }
     ],
     timeTables: [],
-    fromToSelected: { from: 0, to: false },
+    fromToSelected: { from: "0", to: false },
     holidays: []
   });
 

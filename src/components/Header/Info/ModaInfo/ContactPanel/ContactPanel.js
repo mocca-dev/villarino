@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import { CloseIcon, LoadingIcon, RefreshIcon } from "../../../../Icons/Icons";
 import "./ContactPanel.css";
@@ -105,6 +106,11 @@ const ContactPanel = ({ close, showContact }) => {
       )}
     </>
   );
+};
+
+ContactPanel.propTypes = {
+  close: PropTypes.func.isRequired,
+  showContact: PropTypes.bool.isRequired
 };
 
 export default ContactPanel;

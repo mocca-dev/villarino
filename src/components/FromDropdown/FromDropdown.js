@@ -27,7 +27,7 @@ const FromDropdown = ({ options, selected, dispatch }) => {
 
 FromDropdown.propTypes = {
   options: PropTypes.array.isRequired,
-  selected: PropTypes.number.isRequired,
+  selected: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired
 };
 export default FromDropdown;

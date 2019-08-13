@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { CSSTransition } from "react-transition-group";
+import PropTypes from "prop-types";
 
 import "./ModalInfo.css";
 import InfoPanel from "./InfoPanel/InfoPanel";
@@ -31,6 +32,12 @@ const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
       </div>
     </CSSTransition>
   );
+};
+
+ModalInfo.propTypes = {
+  showInfo: PropTypes.bool.isRequired,
+  setShowInfo: PropTypes.func.isRequired,
+  additionalText: PropTypes.string.isRequired
 };
 
 export default ModalInfo;
