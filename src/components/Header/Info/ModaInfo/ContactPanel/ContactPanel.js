@@ -1,9 +1,21 @@
 import React, { useState } from "react";
-import { CloseIcon, LoadingIcon } from "../../../../Icons/Icons";
-import "./ContactPanel.css";
 
-const sendMsg = (user, message, onSending, onSent, close) => {
-  console.log("enviar");
+import { CloseIcon, LoadingIcon, RefreshIcon } from "../../../../Icons/Icons";
+import "./ContactPanel.css";
+import { sendMail } from "./../../../../../service";
+
+const sendMsg = (user, message, onSending, onSent, onSetMessage, close) => {
+  onSending(true);
+  sendMail({ sender: user.email, content: message }).then(resp => {
+    onSending(false);
+    onSent(true);
+
+    setTimeout(() => {
+      onSent(false);
+      onSetMessage("");
+      close();
+    }, 3000);
+  });
 };
 
 const ContactPanel = ({ close, showContact }) => {
@@ -61,8 +73,10 @@ const ContactPanel = ({ close, showContact }) => {
               {message.length}/500 {message.length >= 480 && "!"}
             </div>
             <button
-              className="btn btn-default"
-              onClick={() => sendMsg(user, message, setSending, setSent, close)}
+              className="send-btn"
+              onClick={() =>
+                sendMsg(user, message, setSending, setSent, setMessage, close)
+              }
               disabled={
                 !user.displayName ||
                 !user.email ||
@@ -81,6 +95,7 @@ const ContactPanel = ({ close, showContact }) => {
               ) : (
                 <span className="btn-content-svg green-fill">
                   {/* <CheckSVG /> */}
+                  <RefreshIcon />
                   <span>Enviado</span>
                 </span>
               )}

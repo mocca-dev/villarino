@@ -4,7 +4,9 @@ import { ShareIcon } from "../../../../../Icons/Icons";
 import Toast from "../../../../../Toast/Toast";
 
 const SharedBtn = () => {
-  const [shareUrl, setShareUrl] = useState("algo");
+  const [shareUrl, setShareUrl] = useState(
+    "https://horariovillarino.ntoneko.now.sh/"
+  );
   const [showCopied, setShowCopied] = useState(false);
   const textRef = useRef(null);
 

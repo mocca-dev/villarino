@@ -91,6 +91,7 @@ function App({ sWPromise }) {
         dispatch({ type: "SET_HOLIDAYS", payload: holidays });
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.fromToSelected]);
 
   // useEffect(() => {

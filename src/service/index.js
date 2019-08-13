@@ -24,3 +24,16 @@ export const fetchHoliday = async () => {
     return null;
   }
 };
+
+export const sendMail = async req => {
+  const { sender, content } = req;
+  const resp = await fetch(`/api/send-mail/${sender}/${content}`);
+  const { status } = resp;
+
+  if (status !== 400) {
+    const data = await resp.json();
+    return data;
+  } else {
+    return null;
+  }
+};
