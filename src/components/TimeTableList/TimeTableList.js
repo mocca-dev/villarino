@@ -2,7 +2,7 @@ import React, { useEffect, useState, createRef, useCallback } from "react";
 import PropTypes from "prop-types";
 
 import "./TimeTableList.css";
-import { CurrentIcon, LoadingSVG } from "./../Icons/Icons";
+import { CurrentIcon, LoadingIcon } from "./../Icons/Icons";
 
 const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
   const [current, setCurrent] = useState(null);
@@ -104,7 +104,7 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
           </span>
         ))
       ) : (
-        <LoadingSVG />
+        <LoadingIcon />
       )}
       <button
         className="current-btn"

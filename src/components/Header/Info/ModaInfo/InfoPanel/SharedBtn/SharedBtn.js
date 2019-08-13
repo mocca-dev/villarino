@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./ShareBtn.css";
-import { ShareIcon } from "../../../../Icons/Icons";
-import Toast from "../../../../Toast/Toast";
+import { ShareIcon } from "../../../../../Icons/Icons";
+import Toast from "../../../../../Toast/Toast";
 
 const SharedBtn = () => {
   const [shareUrl, setShareUrl] = useState("algo");
@@ -25,14 +25,14 @@ const SharedBtn = () => {
         onChange={e => setShareUrl(e.target.value)}
       />
       <button
-        className="share-btn"
+        className="bottom-btn"
         onClick={() => {
           if (navigator.share) {
             navigator
               .share({
                 title: "Horarios El Villarino 319",
                 text: "Consultá los horarios de la 319.",
-                url: "http://google.com/"
+                url: "https://horariovillarino.ntoneko.now.sh/"
               })
               .then(() => console.log("EXITO!"))
               .catch(error => console.log("error", error));

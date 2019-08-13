@@ -1,0 +1,48 @@
+.contact-container {
+  font-size: 1rem;
+}
+
+.contact-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contact-container .close-btn {
+  position: relative;
+  top: -13px;
+}
+
+.contact-container p {
+  margin-top: 0;
+}
+
+.contact-container input,
+.contact-container textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 7px 0;
+  margin-bottom: 20px;
+  background-color: #424257;
+  color: white;
+  font-size: 1rem;
+  border: none;
+}
+
+.contact-container textarea {
+  margin-bottom: 0;
+}
+
+.contact-container button {
+  padding: 15px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  float: right;
+}
+
+.contact-container .char-counter {
+  text-align: right;
+  margin-bottom: 15px;
+}
