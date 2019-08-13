@@ -1,3 +1,18 @@
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-header .close-btn {
+  position: relative;
+  top: -14px;
+}
+
+.info-modal p:first-of-type {
+  margin-top: 0;
+}
+
 .bottom-bar {
   display: flex;
   justify-content: space-between;
@@ -12,7 +27,7 @@
   font-size: 1rem;
   padding: 15px;
   margin-top: 15px;
-  width: 48%;
+  width: 49%;
   color: white;
   background: none;
 }

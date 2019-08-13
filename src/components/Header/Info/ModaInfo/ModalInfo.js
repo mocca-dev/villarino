@@ -22,6 +22,7 @@ const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
           additionalText={additionalText}
           setShowContact={setShowContact}
           showContact={showContact}
+          close={() => setShowInfo(false)}
         />
         <ContactPanel
           showContact={showContact}

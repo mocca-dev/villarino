@@ -2,15 +2,20 @@ import React from "react";
 
 import SharedBtn from "./SharedBtn/SharedBtn";
 import ContactBtn from "./ContactBtn/ContactBtn";
-import { NoConectionIcon } from "../../../../Icons/Icons";
+import { CloseIcon, NoConectionIcon } from "../../../../Icons/Icons";
 import "./InfoPanel.css";
 
-const InfoPanel = ({ additionalText, setShowContact, showContact }) => {
+const InfoPanel = ({ close, additionalText, setShowContact, showContact }) => {
   return (
     <>
       {!showContact && (
         <div>
-          <h2>Ayuda</h2>
+          <header className="info-header">
+            <h2>Ayuda</h2>
+            <button className="close-btn" onClick={close}>
+              <CloseIcon />
+            </button>
+          </header>
           <p>
             <strong>"Desde":</strong> Indica la parada por la que pasará la
             unidad en ese horario.
