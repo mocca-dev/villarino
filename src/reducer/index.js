@@ -12,6 +12,11 @@ function appReducer(state, action) {
         ...state,
         fromToSelected: { ...state.fromToSelected, from: action.payload }
       };
+    case "SET_SEASSON":
+      return {
+        ...state,
+        seassonSelected: action.payload
+      };
     case "CHANGE_FROM_LABEL":
       return {
         ...state,

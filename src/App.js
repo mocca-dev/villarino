@@ -18,21 +18,27 @@ function App({ sWPromise }) {
       { value: 3, label: "Villa Arias" },
       { value: 4, label: "Termnial Punta Alta" }
     ],
+    seassonOptions: [
+      { value: "summerTime", label: "Verano" },
+      { value: "winterTime", label: "Receso Invernal" },
+      { value: "normalTime", label: "Resto del año" }
+    ],
     timeTables: [],
     fromToSelected: { from: "0", to: false },
-    holidays: []
+    holidays: [],
+    seassonSelected: "normalTime"
   });
 
   const [noTimeTables, setNoTimeTables] = useState(false);
   const [holiday, setHoliday] = useState(null);
 
-  const dispatchTimeTablesData = (from, to, dayOfWeek) => {
+  const dispatchTimeTablesData = (from, to, dayOfWeek, seasson) => {
     dispatch({ type: "SET_TIMETABLES", payload: [] });
 
     fetchTimeTables({
       timeId: from,
       way: to,
-      seasson: "normalTime",
+      seasson,
       dayOfWeek
     }).then(resp => {
       const { data } = resp;
@@ -83,37 +89,17 @@ function App({ sWPromise }) {
 
     if (state.holidays.length) {
       dayOfWeek = getDayOfWeek(state.holidays, month, dayOfWeekId, day);
-      dispatchTimeTablesData(from, to, dayOfWeek);
+      dispatchTimeTablesData(from, to, dayOfWeek, state.seassonSelected);
     } else {
       fetchHoliday().then(holidays => {
         dayOfWeek = getDayOfWeek(holidays, month, dayOfWeekId, day);
-        dispatchTimeTablesData(from, to, dayOfWeek);
+        dispatchTimeTablesData(from, to, dayOfWeek, state.seassonSelected);
         dispatch({ type: "SET_HOLIDAYS", payload: holidays });
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.fromToSelected]);
+  }, [state.fromToSelected, state.seassonSelected]);
 
-  // useEffect(() => {
-  //   const cachedState = JSON.parse(localStorage.getItem("villarino"));
-  //   if (cachedState) {
-  // dispatch({
-  //   type: "SET_FROM",
-  //   payload: cachedState.inputData.from
-  // });
-  // dispatch({
-  //   type: "SET_TO",
-  //   payload: cachedState.inputData.to
-  // });
-  //   }
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   localStorage.setItem(
-  //     "villarino",
-  //     JSON.stringify({ inputData: state.fromToSelected })
-  //   );
-  // }, [state.fromToSelected]);
   useEffect(() => {
     if (state.fromToSelected.to) {
       dispatch({
@@ -128,7 +114,13 @@ function App({ sWPromise }) {
     }
   }, [state.fromToSelected.to]);
 
-  const { fromOptions, timeTables, fromToSelected } = state;
+  const {
+    fromOptions,
+    timeTables,
+    fromToSelected,
+    seassonSelected,
+    seassonOptions
+  } = state;
   return (
     <div className="app-container">
       <Header />
@@ -136,6 +128,8 @@ function App({ sWPromise }) {
       <FromDropdown
         options={fromOptions}
         selected={fromToSelected.from}
+        seassonSelected={seassonSelected}
+        seassonOptions={seassonOptions}
         dispatch={dispatch}
       />
       <ToDropdown selected={fromToSelected.to} dispatch={dispatch} />

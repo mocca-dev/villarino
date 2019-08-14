@@ -5,10 +5,34 @@ import SubHeader from "../SubHeader/SubHeader";
 import "./FromDropdown.css";
 import { DownArrowIcon } from "../Icons/Icons";
 
-const FromDropdown = ({ options, selected, dispatch }) => {
+const FromDropdown = ({
+  options,
+  selected,
+  dispatch,
+  seassonOptions,
+  seassonSelected
+}) => {
   return (
     <div className="from-dropdown">
-      <SubHeader text="Desde" />
+      <div className="from-header">
+        <SubHeader text="Desde" />
+        <span className="seasson-dropbown-container">
+          <select
+            className="seasson-dropbown"
+            value={seassonSelected}
+            onChange={e =>
+              dispatch({ type: "SET_SEASSON", payload: e.target.value })
+            }
+          >
+            {seassonOptions.map(option => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          <DownArrowIcon />
+        </span>
+      </div>
       <select
         className="dropbown"
         value={selected}

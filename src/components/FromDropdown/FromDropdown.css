@@ -24,3 +24,30 @@ select {
   -webkit-appearance: none;
   appearance: none;
 }
+
+.from-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.seasson-dropbown-container {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.seasson-dropbown {
+  font-size: 0.7rem;
+  font-weight: bold;
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 6px;
+  padding-right: 0;
+}
+
+.from-header svg {
+  position: initial;
+  margin: auto;
+  height: 14px;
+}
