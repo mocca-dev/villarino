@@ -26,6 +26,10 @@
   text-align: center;
 }
 
+.warning-msg svg {
+  fill: white;
+}
+
 .no-connection-icon {
   height: 35px;
   width: 50px;

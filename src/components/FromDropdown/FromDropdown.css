@@ -31,9 +31,14 @@ select {
   align-items: center;
 }
 
+.from-header h4 {
+  margin: 0;
+  padding: 10px 0;
+  font-size: 1rem;
+}
+
 .seasson-dropbown-container {
   display: flex;
-  margin-bottom: 8px;
 }
 
 .seasson-dropbown {

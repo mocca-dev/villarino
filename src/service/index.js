@@ -26,14 +26,14 @@ export const fetchHoliday = async () => {
 };
 
 export const sendMail = async req => {
-  const { sender, content } = req;
-  const resp = await fetch(`/api/send-mail/${sender}/${content}`);
-  const { status } = resp;
+  const resp = await fetch(`/api/send-mail`, {
+    method: "POST",
+    body: JSON.stringify(req),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
 
-  if (status !== 400) {
-    const data = await resp.json();
-    return data;
-  } else {
-    return null;
-  }
+  const data = await resp.json();
+  return data.status === "ok";
 };

@@ -1,28 +1,49 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import { CloseIcon, LoadingIcon, RefreshIcon } from "../../../../Icons/Icons";
+import {
+  CloseIcon,
+  LoadingIcon,
+  CheckIcon,
+  ErrorIcon
+} from "../../../../Icons/Icons";
 import "./ContactPanel.css";
 import { sendMail } from "./../../../../../service";
 
-const sendMsg = (user, message, onSending, onSent, onSetMessage, close) => {
+const sendMsg = (
+  user,
+  message,
+  onSending,
+  onSent,
+  onSetMessage,
+  onSetSuccess,
+  close
+) => {
   onSending(true);
-  sendMail({ sender: user.email, content: message }).then(resp => {
-    onSending(false);
-    onSent(true);
+  sendMail({ user, message }).then(resp => {
+    if (resp) {
+      onSending(false);
+      onSent(true);
 
-    setTimeout(() => {
-      onSent(false);
-      onSetMessage("");
-      close();
-    }, 3000);
+      setTimeout(() => {
+        onSent(false);
+        onSetMessage("");
+        onSetSuccess(true);
+        close();
+      }, 3000);
+    } else {
+      onSending(false);
+      onSent(true);
+      onSetSuccess(false);
+    }
   });
 };
 
 const ContactPanel = ({ close, showContact }) => {
   const [message, setMessage] = useState("");
-  const [sending, setSending] = useState("");
-  const [sent, setSent] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [user, setUser] = useState({});
 
   return (
@@ -73,34 +94,48 @@ const ContactPanel = ({ close, showContact }) => {
             <div className="char-counter">
               {message.length}/500 {message.length >= 480 && "!"}
             </div>
-            <button
-              className="send-btn"
-              onClick={() =>
-                sendMsg(user, message, setSending, setSent, setMessage, close)
-              }
-              disabled={
-                !user.displayName ||
-                !user.email ||
-                !message.length ||
-                !message ||
-                sending ||
-                sent
-              }
-            >
-              {!sending && !sent ? (
-                "Enviar Consulta"
-              ) : sending ? (
-                <span className="btn-content-svg">
-                  <LoadingIcon /> Enviando
-                </span>
-              ) : (
-                <span className="btn-content-svg green-fill">
-                  {/* <CheckSVG /> */}
-                  <RefreshIcon />
-                  <span>Enviado</span>
-                </span>
-              )}
-            </button>
+            {!sent ? (
+              <button
+                className="send-btn"
+                onClick={() =>
+                  sendMsg(
+                    user,
+                    message,
+                    setSending,
+                    setSent,
+                    setMessage,
+                    setSuccess,
+                    close
+                  )
+                }
+                disabled={
+                  !user.displayName ||
+                  !user.email ||
+                  !message.length ||
+                  !message ||
+                  sending ||
+                  sent
+                }
+              >
+                {!sending ? (
+                  "Enviar Consulta"
+                ) : (
+                  <span className="btn-content-svg">
+                    <LoadingIcon /> Enviando
+                  </span>
+                )}
+              </button>
+            ) : success ? (
+              <span className="sent-label">
+                <span>El mensaje ha sido enviado correctamente!</span>
+                <CheckIcon />
+              </span>
+            ) : (
+              <span className="warning-msg ">
+                <span> Ocurrió un error al intentar enviar el mensaje.</span>
+                <ErrorIcon />
+              </span>
+            )}
           </section>
         </span>
       )}

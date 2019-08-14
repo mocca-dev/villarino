@@ -1,14 +1,20 @@
-var DomParser = require("dom-parser");
-var parser = new DomParser();
-const rp = require("request-promise");
-const fs = require("fs");
-const express = require("express");
-const cors = require("cors");
-const cache = require("memory-cache");
+const DomParser = require("dom-parser"),
+  parser = new DomParser(),
+  rp = require("request-promise"),
+  fs = require("fs"),
+  express = require("express"),
+  cors = require("cors"),
+  cache = require("memory-cache"),
+  bodyParser = require("body-parser"),
+  nodeMailer = require("nodemailer"),
+  dotenv = require("dotenv");
+
+dotenv.config();
 
 const online = true;
 
 const app = express();
+// console.log(process.env.PORT, process.env.MAIL_PASS);
 
 const port = process.env.PORT || 5000;
 
@@ -271,5 +277,46 @@ app.get(
     setData(req, res);
   }
 );
+
+//Here we are configuring express to use body-parser as middle-ware.
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.post("/api/send-mail/", (req, res) => {
+  const { user, message } = req.body;
+  const { email, displayName } = user;
+
+  let transporter = nodeMailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      // should be replaced with real sender's account
+      user: "nanodesign21@gmail.com",
+      pass: process.env.MAIL_PASS
+    }
+  });
+
+  let mailOptions = {
+    // should be replaced with real recipient's account
+    to: "nanodesign21@gmail.com",
+    subject: `Consulta ${displayName}`,
+    html: `
+      <h3>Consulta: </h3>
+      <p>${message}</p>
+      <h3>Datos: </h3>
+      <p>Nombre: ${displayName}</p>
+      <p>Email: ${email}</p>`
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      res.send({ status: "error" });
+      return console.log(error);
+    }
+    // console.log("Message %s sent: %s", info.messageId, info.response);
+    res.send({ status: "ok" });
+  });
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
