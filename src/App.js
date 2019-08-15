@@ -35,6 +35,21 @@ function App({ sWPromise }) {
   const dispatchTimeTablesData = (from, to, dayOfWeek, seasson) => {
     dispatch({ type: "SET_TIMETABLES", payload: [] });
 
+    let timetables = JSON.parse(localStorage.getItem("timetables"));
+    if (!timetables) timetables = [];
+
+    const time =
+      timetables &&
+      timetables.find(time => time.id.toString() === from && time.way === to);
+
+    if (time) {
+      dispatch({
+        type: "SET_TIMETABLES",
+        payload: time[seasson][dayOfWeek]
+      });
+      return;
+    }
+
     fetchTimeTables({
       timeId: from,
       way: to,
@@ -50,6 +65,19 @@ function App({ sWPromise }) {
         });
       } else {
         setNoTimeTables(false);
+
+        if (!time) {
+          const newTime = { id: from, way: to };
+          newTime[seasson] = {};
+          newTime[seasson][dayOfWeek] = data.timetables;
+          timetables.push(newTime);
+        } else {
+          time[seasson] = {};
+          time[seasson][dayOfWeek] = data.timetables;
+        }
+
+        localStorage.setItem("timetables", JSON.stringify(timetables));
+
         dispatch({
           type: "SET_TIMETABLES",
           payload: data.timetables
