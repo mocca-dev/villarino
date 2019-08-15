@@ -14,7 +14,6 @@ dotenv.config();
 const online = true;
 
 const app = express();
-// console.log(process.env.PORT, process.env.MAIL_PASS);
 
 const port = process.env.PORT || 5000;
 
