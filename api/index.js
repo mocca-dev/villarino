@@ -263,25 +263,7 @@ function fetchHolidays(res) {
   }
 }
 
-app.use(cors());
-
-app.get("/api/holidays", (req, res) => {
-  fetchHolidays(res);
-});
-
-app.get(
-  "/api/timetables/:timeId/:way/:seasson/:dayOfWeek",
-  cacheMiddleware(7 * 24 * 3600000),
-  (req, res) => {
-    setData(req, res);
-  }
-);
-
-//Here we are configuring express to use body-parser as middle-ware.
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-app.post("/api/send-mail/", (req, res) => {
+function sendQuestion(req, res) {
   const { user, message } = req.body;
   const { email, displayName } = user;
 
@@ -313,9 +295,32 @@ app.post("/api/send-mail/", (req, res) => {
       res.send({ status: "error" });
       return console.log(error);
     }
-    // console.log("Message %s sent: %s", info.messageId, info.response);
     res.send({ status: "ok" });
   });
+}
+
+// ROUTES & MIDDLEWARES
+
+app.use(cors());
+
+app.get("/api/holidays", (req, res) => {
+  fetchHolidays(res);
+});
+
+app.get(
+  "/api/timetables/:timeId/:way/:seasson/:dayOfWeek",
+  cacheMiddleware(), //7 * 24 * 3600000
+  (req, res) => {
+    setData(req, res);
+  }
+);
+
+//Here we are configuring express to use body-parser as middle-ware.
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.post("/api/send-mail/", (req, res) => {
+  sendQuestion(req, res);
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
