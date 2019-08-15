@@ -9,6 +9,7 @@
 }
 
 .contact-container .close-btn {
+  padding: 0 15px;
   position: relative;
   top: -13px;
 }
@@ -23,8 +24,8 @@
   padding: 15px;
   margin: 7px 0;
   margin-bottom: 20px;
-  background-color: #424257;
-  color: white;
+  background-color: var(--black-blueberry-light);
+  color: var(--light-fg);
   font-size: 1rem;
   border: none;
 }
@@ -35,7 +36,6 @@
 
 .contact-container button {
   position: relative;
-  padding: 0 15px;
   background: none;
   border: none;
   color: white;
@@ -57,16 +57,23 @@
 }
 
 .sent-label {
-  float: right;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 10px;
+  font-size: 0.91rem;
+  text-align: left;
+  width: 100%;
+  padding: 10px;
+  background: var(--success-bg);
 }
 
 .sent-label svg {
   fill: white;
-  margin-left: 5px;
+  margin: 0 10px;
+}
+
+.send-btn {
+  padding-right: 0;
 }
 
 .send-btn .loading-svg {
@@ -96,4 +103,31 @@
   padding: 15px;
   font-size: 1rem;
   text-align: left;
+}
+
+.close-warning-btn {
+  padding: 0;
+  margin-left: 5px;
+}
+
+.invalid-format-badge,
+.email-lbl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.invalid-format-badge svg {
+  height: 13px;
+  fill: var(--error-bg);
+}
+
+.invalid-format {
+  font-size: 0.7rem;
+  color: var(--error-bg);
+}
+
+.help-input-row .invalid-format-input {
+  padding: 14px;
+  border: 1px solid var(--error-bg);
 }

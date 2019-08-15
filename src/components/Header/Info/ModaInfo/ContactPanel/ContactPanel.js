@@ -24,11 +24,11 @@ const sendMsg = (
     if (resp) {
       onSending(false);
       onSent(true);
+      onSetSuccess(true);
 
       setTimeout(() => {
         onSent(false);
         onSetMessage("");
-        onSetSuccess(true);
         close();
       }, 3000);
     } else {
@@ -39,11 +39,25 @@ const sendMsg = (
   });
 };
 
+const emailValidation = (setValidEmail, setUser, user, e) => {
+  const email = e.target.value;
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  if (re.test(email)) {
+    setUser({ ...user, email });
+    setValidEmail(true);
+  } else {
+    setValidEmail(false);
+  }
+};
+
 const ContactPanel = ({ close, showContact }) => {
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [validEmail, setValidEmail] = useState(false);
+  const [dirtyEmail, setDirtyEmail] = useState(false);
   const [user, setUser] = useState({});
 
   return (
@@ -56,7 +70,7 @@ const ContactPanel = ({ close, showContact }) => {
               <CloseIcon />
             </button>
           </header>
-          <section>
+          <form>
             <p>
               Si tenes alguna duda o sugerencia por favor escribinos y vamos a
               responderte cuanto antes.
@@ -73,12 +87,24 @@ const ContactPanel = ({ close, showContact }) => {
               />
             </div>
             <div className="help-input-row">
-              <label htmlFor="email">Email</label>
+              <label className="email-lbl" htmlFor="email">
+                <span>Email</span>
+                {!validEmail && dirtyEmail && (
+                  <span className="invalid-format-badge">
+                    <ErrorIcon />
+                    <span className="invalid-format">Formato incorrecto</span>
+                  </span>
+                )}
+              </label>
               <input
                 type="email"
                 name="email"
-                onChange={e => setUser({ ...user, email: e.target.value })}
+                onChange={e => emailValidation(setValidEmail, setUser, user, e)}
                 disabled={sending || sent}
+                onKeyDown={() => setDirtyEmail(true)}
+                className={
+                  !validEmail && dirtyEmail ? "invalid-format-input" : ""
+                }
               />
             </div>
             <div className="help-input-row">
@@ -110,7 +136,7 @@ const ContactPanel = ({ close, showContact }) => {
                 }
                 disabled={
                   !user.displayName ||
-                  !user.email ||
+                  !validEmail ||
                   !message.length ||
                   !message ||
                   sending ||
@@ -132,11 +158,20 @@ const ContactPanel = ({ close, showContact }) => {
               </span>
             ) : (
               <span className="warning-msg ">
-                <span> Ocurrió un error al intentar enviar el mensaje.</span>
                 <ErrorIcon />
+                <span> Ocurrió un error al intentar enviar el mensaje.</span>
+                <button
+                  className="close-warning-btn"
+                  onClick={() => {
+                    setSent(false);
+                    setSuccess(true);
+                  }}
+                >
+                  <CloseIcon />
+                </button>
               </span>
             )}
-          </section>
+          </form>
         </span>
       )}
     </>

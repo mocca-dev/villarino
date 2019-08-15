@@ -104,7 +104,9 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
           </span>
         ))
       ) : (
-        <LoadingIcon />
+        <div className="loading-container">
+          <LoadingIcon />
+        </div>
       )}
       <button
         className="current-btn"

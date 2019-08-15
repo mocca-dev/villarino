@@ -25,6 +25,10 @@
   font-size: 1.2rem;
 }
 
+.loading-container {
+  margin-top: calc(50% - 50px);
+}
+
 .loading-svg {
   height: 70px;
   width: 100%;
