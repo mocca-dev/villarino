@@ -6,7 +6,7 @@ import OutsideClick from "../../OutsideClick/OutsideClick";
 import "./Info.css";
 import ModalInfo from "./ModaInfo/ModalInfo";
 
-const Info = () => {
+const Info = ({ dispatch }) => {
   const [showInfo, setShowInfo] = useState(false);
   const [showDot, setShowDot] = useState(false);
   const [additionalText, setAdditionalText] = useState("");
@@ -17,11 +17,12 @@ const Info = () => {
         !navigator.onLine ? "La aplicación está funcionando sin conexión." : ""
       );
       setShowDot(!navigator.onLine);
+      dispatch({ type: "SET_ONLINE", payload: navigator.onLine });
     }
     updateOnlineStatus();
     window.addEventListener("online", updateOnlineStatus);
     window.addEventListener("offline", updateOnlineStatus);
-  }, []);
+  }, [dispatch]);
 
   return (
     <OutsideClick action={() => setShowInfo(false)}>

@@ -42,6 +42,27 @@
   font-size: 1rem;
 }
 
+.local-data-msg {
+  font-size: 1rem;
+}
+
+.refresh-btn {
+  margin-top: 10px;
+}
+
+.refresh-btn button {
+  padding: 15px;
+  background: none;
+}
+
+.refresh-btn button:active {
+  background-color: grey;
+}
+
+.refresh-btn svg path {
+  fill: black;
+}
+
 @media only screen and (max-width: 390px) {
   .list-container {
     height: calc(100% - 345px);

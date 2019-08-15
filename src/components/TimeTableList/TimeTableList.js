@@ -3,8 +3,11 @@ import PropTypes from "prop-types";
 
 import "./TimeTableList.css";
 import { CurrentIcon, LoadingIcon } from "./../Icons/Icons";
+import Current from "./Current/Current";
+import Holiday from "./Holiday/Holiday";
+import NoData from "./NoData/NoData";
 
-const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
+const TimeTableList = ({ timeTables, noTimeTables, holiday, refresh }) => {
   const [current, setCurrent] = useState(null);
 
   const refs = timeTables.reduce((acc, value, i) => {
@@ -91,14 +94,18 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday }) => {
                   : "time-container"
               }
             >
-              {i === current && !noTimeTables && (
-                <div className="next-to-arrive">Próximo en llegar</div>
-              )}
-              <div>{timeTable}</div>
-              {i === current && holiday && (
-                <div className="holiday-container">
-                  Horarios por feriado: {holiday.motivo}
-                </div>
+              {timeTable.includes("datos locales") ? (
+                <NoData timeTable={timeTable} refresh={refresh} />
+              ) : (
+                <span>
+                  <Current
+                    i={i}
+                    current={current}
+                    noTimeTables={noTimeTables}
+                  />
+                  <div>{timeTable}</div>
+                  <Holiday i={i} current={current} holiday={holiday} />
+                </span>
               )}
             </div>
           </span>

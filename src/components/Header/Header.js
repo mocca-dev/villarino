@@ -3,10 +3,10 @@ import React from "react";
 import "./Header.css";
 import Info from "./Info/Info";
 
-const Header = () => (
+const Header = ({ dispatch }) => (
   <div className="header-container">
     <h2>Horarios de El Villarino - 319</h2>
-    <Info />
+    <Info dispatch={dispatch} />
   </div>
 );
 

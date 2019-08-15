@@ -10,6 +10,7 @@ import appReducer from "./reducer";
 import { fetchTimeTables, fetchHoliday } from "./service";
 
 function App({ sWPromise }) {
+  const [weekDayStr, setWeekDayStr] = useState("");
   const [state, dispatch] = useReducer(appReducer, {
     fromOptions: [
       { value: 0, label: "Parque de Mayo" },
@@ -26,7 +27,8 @@ function App({ sWPromise }) {
     timeTables: [],
     fromToSelected: { from: "0", to: false },
     holidays: [],
-    seassonSelected: "normalTime"
+    seassonSelected: "normalTime",
+    online: true
   });
 
   const [noTimeTables, setNoTimeTables] = useState(false);
@@ -48,6 +50,15 @@ function App({ sWPromise }) {
         payload: time[seasson][dayOfWeek]
       });
       return;
+    } else {
+      if (!online) {
+        dispatch({
+          type: "SET_TIMETABLES",
+          payload: [
+            "La applicación está funcionando sin conexión y no se tiene datos locales. Puede intentar refrescar la aplicación cuando tenga conexión nuevamente."
+          ]
+        });
+      }
     }
 
     fetchTimeTables({
@@ -145,6 +156,7 @@ function App({ sWPromise }) {
         dispatch({ type: "SET_HOLIDAYS", payload: holidays });
       });
     }
+    setWeekDayStr(dayOfWeek);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.fromToSelected, state.seassonSelected]);
 
@@ -167,11 +179,12 @@ function App({ sWPromise }) {
     timeTables,
     fromToSelected,
     seassonSelected,
-    seassonOptions
+    seassonOptions,
+    online
   } = state;
   return (
     <div className="app-container">
-      <Header />
+      <Header dispatch={dispatch} />
       <OfflineToast sWPromise={sWPromise} />
       <FromDropdown
         options={fromOptions}
@@ -185,6 +198,14 @@ function App({ sWPromise }) {
         timeTables={timeTables}
         noTimeTables={noTimeTables}
         holiday={holiday}
+        refresh={() =>
+          dispatchTimeTablesData(
+            fromToSelected.from,
+            fromToSelected.to,
+            weekDayStr,
+            state.seassonSelected
+          )
+        }
       />
     </div>
   );

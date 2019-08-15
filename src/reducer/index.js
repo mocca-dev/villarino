@@ -34,6 +34,11 @@ function appReducer(state, action) {
         ...state,
         holidays: action.payload
       };
+    case "SET_ONLINE":
+      return {
+        ...state,
+        online: action.payload
+      };
     default:
       return state;
   }
