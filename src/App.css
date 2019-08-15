@@ -11,7 +11,8 @@
   position: fixed;
   bottom: 15px;
   right: 15px;
-  padding: 25px 26px;
+  padding: 22px 23px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 10px 10px 20px rgba(45, 45, 68, 0.7);
 }
 
