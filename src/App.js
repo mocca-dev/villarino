@@ -78,6 +78,26 @@ function App({ sWPromise }) {
     }
   };
 
+  const getCurrentSeasson = (month, day) => {
+    if (month === 1) {
+      return "summerTime";
+    } else if (month === 7) {
+      return day >= 22 && day <= 31 ? "winterTime" : "normalTime";
+    } else if (month === 8) {
+      return day >= 1 && day <= 2 ? "winterTime" : "normalTime";
+    } else {
+      return "normalTime";
+    }
+  };
+
+  useEffect(() => {
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    const currentSeasson = getCurrentSeasson(month, day);
+    dispatch({ type: "SET_SEASSON", payload: currentSeasson });
+  }, []);
+
   useEffect(() => {
     const { from, to } = state.fromToSelected;
 
