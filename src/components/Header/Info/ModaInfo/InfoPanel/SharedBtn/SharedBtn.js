@@ -28,7 +28,7 @@ const SharedBtn = () => {
         onChange={e => setShareUrl(e.target.value)}
       />
       <button
-        className="bottom-btn"
+        className="share-btn"
         onClick={() => {
           if (navigator.share) {
             navigator
@@ -49,7 +49,6 @@ const SharedBtn = () => {
         }}
       >
         <ShareIcon />
-        <span>Compartir App</span>
       </button>
     </>
   );

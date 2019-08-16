@@ -1,0 +1,53 @@
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+hr {
+  border: 1px solid var(--black-blueberry-light);
+}
+
+.info-header .close-btn {
+  position: relative;
+  top: -14px;
+}
+
+.info-modal p:first-of-type {
+  margin-top: 0;
+}
+
+.bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.bottom-btn {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  padding: 15px;
+  margin-top: 15px;
+  width: 49%;
+  color: white;
+  background: none;
+}
+
+.bottom-btn:active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.bottom-btn svg {
+  height: 20px;
+}
+
+.bottom-btn svg path {
+  fill: white;
+}
+
+.bottom-btn span {
+  margin-left: 10px;
+}

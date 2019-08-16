@@ -51,7 +51,7 @@ const emailValidation = (setValidEmail, setUser, user, e) => {
   }
 };
 
-const ContactPanel = ({ close, showContact }) => {
+const ContactPanel = ({ close }) => {
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
@@ -61,126 +61,111 @@ const ContactPanel = ({ close, showContact }) => {
   const [user, setUser] = useState({});
 
   return (
-    <>
-      {showContact && (
-        <span className="contact-container">
-          <header className="contact-header">
-            <h2>Contacto</h2>
-            <button className="close-btn" onClick={close}>
-              <CloseIcon />
-            </button>
-          </header>
-          <form>
-            <p>
-              Si tenes alguna duda o sugerencia por favor escribinos y vamos a
-              responderte cuanto antes.
-            </p>
-            <div className="help-input-row">
-              <label htmlFor="name">Nombre y Apellido</label>
-              <input
-                type="text"
-                name="name"
-                onChange={e =>
-                  setUser({ ...user, displayName: e.target.value })
-                }
-                disabled={sending || sent}
-              />
-            </div>
-            <div className="help-input-row">
-              <label className="email-lbl" htmlFor="email">
-                <span>Email</span>
-                {!validEmail && dirtyEmail && (
-                  <span className="invalid-format-badge">
-                    <ErrorIcon />
-                    <span className="invalid-format">Formato incorrecto</span>
-                  </span>
-                )}
-              </label>
-              <input
-                type="email"
-                name="email"
-                onChange={e => emailValidation(setValidEmail, setUser, user, e)}
-                disabled={sending || sent}
-                onKeyDown={() => setDirtyEmail(true)}
-                className={
-                  !validEmail && dirtyEmail ? "invalid-format-input" : ""
-                }
-              />
-            </div>
-            <div className="help-input-row">
-              <label htmlFor="message">Mensaje</label>
-              <textarea
-                name="message"
-                row="30"
-                maxLength="500"
-                onChange={e => setMessage(e.target.value)}
-                disabled={sending || sent}
-              />
-            </div>
-            <div className="char-counter">
-              {message.length}/500 {message.length >= 480 && "!"}
-            </div>
-            {!sent ? (
-              <button
-                className="send-btn"
-                onClick={() =>
-                  sendMsg(
-                    user,
-                    message,
-                    setSending,
-                    setSent,
-                    setMessage,
-                    setSuccess,
-                    close
-                  )
-                }
-                disabled={
-                  !user.displayName ||
-                  !validEmail ||
-                  !message.length ||
-                  !message ||
-                  sending ||
-                  sent
-                }
-              >
-                {!sending ? (
-                  "Enviar Consulta"
-                ) : (
-                  <span className="btn-content-svg">
-                    <LoadingIcon /> Enviando
-                  </span>
-                )}
-              </button>
-            ) : success ? (
-              <span className="sent-label">
-                <span>El mensaje ha sido enviado correctamente!</span>
-                <CheckIcon />
-              </span>
-            ) : (
-              <span className="warning-msg ">
+    <section className="contact-container">
+      <form>
+        <p>
+          Si tenes alguna duda o sugerencia por favor escribinos y vamos a
+          responderte cuanto antes.
+        </p>
+        <div className="help-input-row">
+          <label htmlFor="name">Nombre y Apellido</label>
+          <input
+            type="text"
+            name="name"
+            onChange={e => setUser({ ...user, displayName: e.target.value })}
+            disabled={sending || sent}
+          />
+        </div>
+        <div className="help-input-row">
+          <label className="email-lbl" htmlFor="email">
+            <span>Email</span>
+            {!validEmail && dirtyEmail && (
+              <span className="invalid-format-badge">
                 <ErrorIcon />
-                <span> Ocurrió un error al intentar enviar el mensaje.</span>
-                <button
-                  className="close-warning-btn"
-                  onClick={() => {
-                    setSent(false);
-                    setSuccess(true);
-                  }}
-                >
-                  <CloseIcon />
-                </button>
+                <span className="invalid-format">Formato incorrecto</span>
               </span>
             )}
-          </form>
-        </span>
-      )}
-    </>
+          </label>
+          <input
+            type="email"
+            name="email"
+            onChange={e => emailValidation(setValidEmail, setUser, user, e)}
+            disabled={sending || sent}
+            onKeyDown={() => setDirtyEmail(true)}
+            className={!validEmail && dirtyEmail ? "invalid-format-input" : ""}
+          />
+        </div>
+        <div className="help-input-row">
+          <label htmlFor="message">Mensaje</label>
+          <textarea
+            name="message"
+            row="30"
+            maxLength="500"
+            onChange={e => setMessage(e.target.value)}
+            disabled={sending || sent}
+          />
+        </div>
+        <div className="char-counter">
+          {message.length}/500 {message.length >= 480 && "!"}
+        </div>
+        {!sent ? (
+          <button
+            className="send-btn"
+            onClick={() =>
+              sendMsg(
+                user,
+                message,
+                setSending,
+                setSent,
+                setMessage,
+                setSuccess,
+                close
+              )
+            }
+            disabled={
+              !user.displayName ||
+              !validEmail ||
+              !message.length ||
+              !message ||
+              sending ||
+              sent
+            }
+          >
+            {!sending ? (
+              "Enviar Consulta"
+            ) : (
+              <span className="btn-content-svg">
+                <LoadingIcon /> Enviando
+              </span>
+            )}
+          </button>
+        ) : success ? (
+          <span className="sent-label">
+            <span>El mensaje ha sido enviado correctamente!</span>
+            <CheckIcon />
+          </span>
+        ) : (
+          <span className="warning-msg ">
+            <ErrorIcon />
+            <span> Ocurrió un error al intentar enviar el mensaje.</span>
+            <button
+              className="close-warning-btn"
+              onClick={() => {
+                setSent(false);
+                setSuccess(true);
+              }}
+            >
+              <CloseIcon />
+            </button>
+          </span>
+        )}
+      </form>
+    </section>
   );
 };
 
 ContactPanel.propTypes = {
-  close: PropTypes.func.isRequired,
-  showContact: PropTypes.bool.isRequired
+  close: PropTypes.func.isRequired
 };
 
 export default ContactPanel;

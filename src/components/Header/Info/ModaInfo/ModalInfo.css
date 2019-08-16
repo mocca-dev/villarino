@@ -6,6 +6,7 @@
   background-color: var(--black-blueberry);
   color: white;
   padding: 20px;
+  padding-bottom: 0;
   max-width: 95vw;
   box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.7);
   font-size: 1rem;
@@ -13,6 +14,11 @@
 
 .info-modal h3 {
   margin-top: 0;
+}
+
+.info-modal section {
+  height: 350px;
+  overflow-y: scroll;
 }
 
 .warning-msg {
@@ -38,6 +44,32 @@
 
 .no-connection-icon path {
   fill: white;
+}
+
+.setting-nav-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 45px;
+  padding-bottom: 0;
+  position: relative;
+  background-color: var(--black-blueberry);
+}
+
+.setting-nav-bar button {
+  cursor: pointer;
+  padding: 15px;
+  background: none;
+  border: none;
+}
+
+.setting-nav-bar button svg {
+  fill: white;
+}
+
+.current-panel svg path {
+  fill: var(--turquoise);
 }
 
 @media only screen and (min-width: 600px) {

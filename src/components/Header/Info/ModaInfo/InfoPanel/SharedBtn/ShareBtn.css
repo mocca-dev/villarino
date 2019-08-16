@@ -1,4 +1,14 @@
 .share-url {
+  width: 0;
   opacity: 0.00001;
   position: absolute;
+}
+
+.share-btn {
+  padding: 15px;
+  background: none;
+}
+
+.share-btn svg {
+  fill: white;
 }

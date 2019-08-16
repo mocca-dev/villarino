@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CSSTransition } from "react-transition-group";
 
-import { InfoIcon } from "../../Icons/Icons";
+import { SettingIcon } from "../../Icons/Icons";
 import OutsideClick from "../../OutsideClick/OutsideClick";
 import "./Info.css";
 import ModalInfo from "./ModaInfo/ModalInfo";
@@ -45,7 +45,7 @@ const Info = ({ dispatch }) => {
           >
             <span className="notif-red-dot" />
           </CSSTransition>
-          <InfoIcon />
+          <SettingIcon />
         </button>
         <ModalInfo
           showInfo={showInfo}
