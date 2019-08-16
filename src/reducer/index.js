@@ -39,6 +39,21 @@ function appReducer(state, action) {
         ...state,
         online: action.payload
       };
+    case "SET_SPEECH_MODE":
+      return {
+        ...state,
+        speechSetting: { ...state.speechSetting, active: action.payload }
+      };
+    case "SET_VOICE":
+      return {
+        ...state,
+        speechSetting: { ...state.speechSetting, voice: action.payload }
+      };
+    case "SET_VELOCITY":
+      return {
+        ...state,
+        speechSetting: { ...state.speechSetting, velocity: action.payload }
+      };
     default:
       return state;
   }

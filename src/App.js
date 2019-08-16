@@ -7,6 +7,7 @@ import ToDropdown from "./components/ToDropdown/ToDropdown";
 import TimeTableList from "./components/TimeTableList/TimeTableList";
 import OfflineToast from "./components/OfflineToast/OfflineToast";
 import appReducer from "./reducer";
+import Context from "./context";
 import { fetchTimeTables, fetchHoliday } from "./service";
 
 function App({ sWPromise }) {
@@ -28,7 +29,8 @@ function App({ sWPromise }) {
     fromToSelected: { from: "0", to: false },
     holidays: [],
     seassonSelected: "normalTime",
-    online: true
+    online: true,
+    speechSetting: { active: false, voice: false, velocity: 1 }
   });
 
   const [noTimeTables, setNoTimeTables] = useState(false);
@@ -183,31 +185,33 @@ function App({ sWPromise }) {
     online
   } = state;
   return (
-    <div className="app-container">
-      <Header dispatch={dispatch} />
-      <OfflineToast sWPromise={sWPromise} />
-      <FromDropdown
-        options={fromOptions}
-        selected={fromToSelected.from}
-        seassonSelected={seassonSelected}
-        seassonOptions={seassonOptions}
-        dispatch={dispatch}
-      />
-      <ToDropdown selected={fromToSelected.to} dispatch={dispatch} />
-      <TimeTableList
-        timeTables={timeTables}
-        noTimeTables={noTimeTables}
-        holiday={holiday}
-        refresh={() =>
-          dispatchTimeTablesData(
-            fromToSelected.from,
-            fromToSelected.to,
-            weekDayStr,
-            state.seassonSelected
-          )
-        }
-      />
-    </div>
+    <Context.Provider value={{ state, dispatch }}>
+      <div className="app-container">
+        <Header dispatch={dispatch} />
+        <OfflineToast sWPromise={sWPromise} />
+        <FromDropdown
+          options={fromOptions}
+          selected={fromToSelected.from}
+          seassonSelected={seassonSelected}
+          seassonOptions={seassonOptions}
+          dispatch={dispatch}
+        />
+        <ToDropdown selected={fromToSelected.to} dispatch={dispatch} />
+        <TimeTableList
+          timeTables={timeTables}
+          noTimeTables={noTimeTables}
+          holiday={holiday}
+          refresh={() =>
+            dispatchTimeTablesData(
+              fromToSelected.from,
+              fromToSelected.to,
+              weekDayStr,
+              state.seassonSelected
+            )
+          }
+        />
+      </div>
+    </Context.Provider>
   );
 }
 
