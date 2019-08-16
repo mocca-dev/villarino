@@ -15,7 +15,8 @@ const SettingPanel = () => {
       action: {
         type: "check",
         payload: val => dispatch({ type: "SET_SPEECH_MODE", payload: val })
-      }
+      },
+      value: state.speechSetting.active
     },
     {
       title: "Voz",
@@ -26,7 +27,9 @@ const SettingPanel = () => {
         payload: val =>
           state.speechSetting.active &&
           dispatch({ type: "SET_VOICE", payload: val })
-      }
+      },
+      disabled: !state.speechSetting.active,
+      value: state.speechSetting.voice
     },
     {
       title: "Velocidad de voz",
@@ -36,7 +39,8 @@ const SettingPanel = () => {
         payload: val =>
           state.speechSetting.active &&
           dispatch({ type: "SET_VELOCITY", payload: val })
-      }
+      },
+      disabled: !state.speechSetting.active
     }
   ];
 
@@ -45,19 +49,16 @@ const SettingPanel = () => {
       <hr />
       <h3>Accesibilidad</h3>
       {settingItemList.map((item, i) => (
-        <SettingItem
-          key={i}
-          title={item.title}
-          detail={item.detail}
-          action={item.action}
-        />
+        <SettingItem key={i} data={item} />
       ))}
       <hr />
       <h3>Compartir</h3>
       <SettingItem
-        title=""
-        detail="Por favor comparte la aplicación con quien quieras."
-        action={{ type: "icon", payload: <ShareIcon /> }}
+        data={{
+          title: "",
+          detail: "Por favor comparte la aplicación con quien quieras.",
+          action: { type: "icon", payload: <ShareIcon /> }
+        }}
       />
     </section>
   );

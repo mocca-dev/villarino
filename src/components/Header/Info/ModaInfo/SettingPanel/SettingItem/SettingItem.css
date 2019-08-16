@@ -81,3 +81,7 @@
 .action-container svg {
   fill: white;
 }
+
+.setting-item-container.disabled {
+  opacity: 0.2;
+}

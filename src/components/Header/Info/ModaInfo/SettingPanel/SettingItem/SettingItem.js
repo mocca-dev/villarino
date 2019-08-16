@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import "./SettingItem.css";
 import SharedBtn from "../../InfoPanel/SharedBtn/SharedBtn";
 
-const SettingItem = ({ title, detail, action }) => {
-  const [checked, setChecked] = useState(false);
+const SettingItem = ({ data }) => {
+  const { title, detail, action, disabled, value } = data;
   return (
-    <div className="setting-item-container">
+    <div
+      className={
+        disabled ? "setting-item-container disabled" : "setting-item-container"
+      }
+    >
       <h4>{title}</h4>
       <div>
         <span> {detail}</span>{" "}
@@ -16,11 +20,9 @@ const SettingItem = ({ title, detail, action }) => {
             <label className="check-container">
               <input
                 type="checkbox"
-                checked={checked}
-                onChange={e => {
-                  setChecked(!checked);
-                  action.payload(!checked);
-                }}
+                checked={value}
+                disabled={disabled}
+                onChange={() => action.payload(!value)}
               />
               <span className="checkmark" />
             </label>
@@ -33,9 +35,7 @@ const SettingItem = ({ title, detail, action }) => {
 };
 
 SettingItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  detail: PropTypes.string.isRequired,
-  action: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired
 };
 
 export default SettingItem;
