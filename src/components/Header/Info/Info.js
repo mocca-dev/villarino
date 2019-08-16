@@ -28,7 +28,7 @@ const Info = ({ dispatch }) => {
     <OutsideClick action={() => setShowInfo(false)}>
       <>
         <button
-          className="info-btn"
+          className={showInfo ? "info-btn setting-icon-active" : "info-btn"}
           onClick={() => {
             setShowInfo(() => !showInfo);
             setShowDot(false);
