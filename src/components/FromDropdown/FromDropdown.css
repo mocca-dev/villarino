@@ -8,10 +8,14 @@
   border-radius: 0;
 }
 
+.from-dropdown {
+  position: relative;
+}
+
 .from-dropdown svg {
   position: absolute;
-  top: 108px;
-  right: 30px;
+  top: 54px;
+  right: 15px;
   height: 17px;
 }
 
