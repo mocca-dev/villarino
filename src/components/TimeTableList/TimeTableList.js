@@ -1,16 +1,23 @@
-import React, { useEffect, useState, createRef, useCallback } from "react";
-import PropTypes from "prop-types";
+import React, {
+  useEffect,
+  useState,
+  createRef,
+  useCallback,
+  useContext
+} from "react";
 
 import "./TimeTableList.css";
 import { CurrentIcon, LoadingIcon } from "./../Icons/Icons";
 import Current from "./Current/Current";
 import Holiday from "./Holiday/Holiday";
 import NoData from "./NoData/NoData";
+import Context from "./../../context";
 
-const TimeTableList = ({ timeTables, noTimeTables, holiday, refresh }) => {
+const TimeTableList = ({ refresh, holiday }) => {
   const [current, setCurrent] = useState(null);
-
-  const refs = timeTables.reduce((acc, value, i) => {
+  const { state } = useContext(Context);
+  const { timetables, noTimetables } = state;
+  const refs = timetables.reduce((acc, value, i) => {
     acc[i] = createRef();
     return acc;
   }, {});
@@ -27,9 +34,9 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday, refresh }) => {
   );
   const iterateTimetables = useCallback(
     (dummyDate, formattedToday, dummyDateToday) => {
-      for (let i = 0; i < timeTables.length; i++) {
-        const current = timeTables[i];
-        const prev = timeTables[i - 1];
+      for (let i = 0; i < timetables.length; i++) {
+        const current = timetables[i];
+        const prev = timetables[i - 1];
 
         if (
           current !== "DIRECTO" &&
@@ -51,7 +58,7 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday, refresh }) => {
       }
       return true;
     },
-    [timeTables]
+    [timetables]
   );
 
   const findAndSetCurrent = useCallback(() => {
@@ -70,12 +77,12 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday, refresh }) => {
   }, [iterateTimetables]);
 
   useEffect(() => {
-    if (timeTables.length) {
+    if (timetables.length) {
       findAndSetCurrent();
       // setInterval(findAndSetCurrent, 30000);
       // setIntervalSetted(true);
     }
-  }, [timeTables, findAndSetCurrent]);
+  }, [timetables, findAndSetCurrent]);
 
   useEffect(() => {
     if (current) scrollToCurrent(current);
@@ -83,13 +90,13 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday, refresh }) => {
 
   return (
     <div className="list-container">
-      {timeTables.length ? (
-        timeTables.map((timeTable, i) => (
+      {timetables.length ? (
+        timetables.map((timeTable, i) => (
           <span key={i}>
             <div
               ref={refs[i]}
               className={
-                i === current && !noTimeTables
+                i === current && !noTimetables
                   ? "time-container current"
                   : "time-container"
               }
@@ -101,7 +108,7 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday, refresh }) => {
                   <Current
                     i={i}
                     current={current}
-                    noTimeTables={noTimeTables}
+                    noTimeTables={noTimetables}
                   />
                   <div>{timeTable}</div>
                   <Holiday i={i} current={current} holiday={holiday} />
@@ -118,7 +125,7 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday, refresh }) => {
       <button
         className="current-btn"
         onClick={() => {
-          if (current && timeTables.length) {
+          if (current && timetables.length) {
             findAndSetCurrent();
             scrollToCurrent(current);
           }
@@ -128,12 +135,6 @@ const TimeTableList = ({ timeTables, noTimeTables, holiday, refresh }) => {
       </button>
     </div>
   );
-};
-
-TimeTableList.propTypes = {
-  timeTables: PropTypes.array.isRequired,
-  noTimeTables: PropTypes.bool.isRequired,
-  holiday: PropTypes.bool
 };
 
 export default TimeTableList;

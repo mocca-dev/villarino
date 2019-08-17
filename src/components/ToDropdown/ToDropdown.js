@@ -1,10 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useContext, useState, useEffect } from "react";
 
 import SubHeader from "../SubHeader/SubHeader";
 import "./ToDropdown.css";
+import Context from "./../../context";
 
-const ToDropdown = ({ selected, dispatch }) => {
+const ToDropdown = () => {
+  const { state, dispatch } = useContext(Context);
+
+  const [selected, setSelected] = useState(false);
+
+  useEffect(() => {
+    setSelected(state.fromToSelected.to);
+  }, [state.fromToSelected.to]);
+
   return (
     <div className="to-radio">
       <SubHeader text="Hacia" />
@@ -34,11 +42,6 @@ const ToDropdown = ({ selected, dispatch }) => {
       </div>
     </div>
   );
-};
-
-ToDropdown.propTypes = {
-  selected: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired
 };
 
 export default ToDropdown;

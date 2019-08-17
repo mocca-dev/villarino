@@ -1,7 +1,7 @@
 function appReducer(state, action) {
   switch (action.type) {
     case "SET_TIMETABLES":
-      return { ...state, timeTables: action.payload };
+      return { ...state, timetables: action.payload };
     case "SET_TO":
       return {
         ...state,

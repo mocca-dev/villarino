@@ -1,17 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useContext } from "react";
 
 import SubHeader from "../SubHeader/SubHeader";
 import "./FromDropdown.css";
 import { DownArrowIcon } from "../Icons/Icons";
+import Context from "./../../context";
 
-const FromDropdown = ({
-  options,
-  selected,
-  dispatch,
-  seassonOptions,
-  seassonSelected
-}) => {
+const FromDropdown = () => {
+  const { state, dispatch } = useContext(Context);
+  const { fromSelected, fromOptions, seassonSelected, seassonOptions } = state;
+
+  const selected = fromSelected && fromSelected.from;
+
   return (
     <div className="from-dropdown">
       <div className="from-header">
@@ -38,7 +37,7 @@ const FromDropdown = ({
         value={selected}
         onChange={e => dispatch({ type: "SET_FROM", payload: e.target.value })}
       >
-        {options.map(option => (
+        {fromOptions.map(option => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>
@@ -49,9 +48,4 @@ const FromDropdown = ({
   );
 };
 
-FromDropdown.propTypes = {
-  options: PropTypes.array.isRequired,
-  selected: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired
-};
 export default FromDropdown;
