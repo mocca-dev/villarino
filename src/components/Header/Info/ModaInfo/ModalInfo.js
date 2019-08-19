@@ -7,6 +7,7 @@ import InfoPanel from "./InfoPanel/InfoPanel";
 import ContactPanel from "./ContactPanel/ContactPanel";
 import { MailIcon, InfoIcon, SettingIcon } from "../../../Icons/Icons";
 import SettingPanel from "./SettingPanel/SettingPanel";
+import { NoConectionIcon } from "./../../../Icons/Icons";
 
 const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
   const [currentPanel, setCurrentPannel] = useState({
@@ -46,6 +47,12 @@ const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
         <div className="info-modal">
           <header className="info-header">
             <h2>{currentPanel.header}</h2>
+            {additionalText && (
+              <div className="warning-msg">
+                <span> {additionalText}</span>
+                <NoConectionIcon />
+              </div>
+            )}
           </header>
           {currentPanel.code === "info" && (
             <InfoPanel

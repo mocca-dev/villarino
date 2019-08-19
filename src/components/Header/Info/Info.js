@@ -13,9 +13,7 @@ const Info = ({ dispatch }) => {
 
   useEffect(() => {
     function updateOnlineStatus(event) {
-      setAdditionalText(
-        !navigator.onLine ? "La aplicación está funcionando sin conexión." : ""
-      );
+      setAdditionalText(!navigator.onLine ? "Sin conexión." : "");
       setShowDot(!navigator.onLine);
       dispatch({ type: "SET_ONLINE", payload: navigator.onLine });
     }

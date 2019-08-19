@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { NoConectionIcon } from "../../../../Icons/Icons";
 import "./InfoPanel.css";
 
 const InfoPanel = ({ close, additionalText }) => {
@@ -33,12 +32,6 @@ const InfoPanel = ({ close, additionalText }) => {
       </a>{" "}
       . Por lo que la precisión dependerá de la regularidad de las unidades y de
       la exactitud con la funcionan.
-      {additionalText && (
-        <div className="warning-msg">
-          <span> {additionalText}</span>
-          <NoConectionIcon />
-        </div>
-      )}
     </section>
   );
 };
