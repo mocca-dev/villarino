@@ -70,7 +70,13 @@ const getDayOfWeek = holidays => {
   }
 };
 
-const useTimetables = (fromToSelected, holidays, seassonSelected, online) => {
+const useTimetables = (
+  fromToSelected,
+  holidays,
+  seassonSelected,
+  online,
+  forceDispatch
+) => {
   const [timetables, setTimetables] = useState([]);
 
   useEffect(() => {
@@ -86,7 +92,7 @@ const useTimetables = (fromToSelected, holidays, seassonSelected, online) => {
       }
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fromToSelected, seassonSelected, online]);
+  }, [fromToSelected, seassonSelected, online, forceDispatch]);
 
   return timetables;
 };

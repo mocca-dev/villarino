@@ -35,12 +35,14 @@ function App({ sWPromise }) {
   });
 
   const [holiday, setHoliday] = useState(null);
+  const [forceDispatch, setForceDispatch] = useState(false);
   const currentSeasson = useCurrentSeasson();
   const timetables = useTimetables(
     state.fromToSelected,
     state.holidays,
     state.seassonSelected,
-    state.online
+    state.online,
+    forceDispatch
   );
 
   useEffect(() => {
@@ -88,7 +90,10 @@ function App({ sWPromise }) {
         <OfflineToast sWPromise={sWPromise} />
         <FromDropdown />
         <ToDropdown />
-        <TimeTableList holiday={holiday} />
+        <TimeTableList
+          holiday={holiday}
+          setForceDispatch={() => setForceDispatch(!forceDispatch)}
+        />
       </div>
     </Context.Provider>
   );

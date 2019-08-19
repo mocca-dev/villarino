@@ -13,7 +13,7 @@ import Holiday from "./Holiday/Holiday";
 import NoData from "./NoData/NoData";
 import Context from "./../../context";
 
-const TimeTableList = ({ refresh, holiday }) => {
+const TimeTableList = ({ holiday, setForceDispatch }) => {
   const [current, setCurrent] = useState(null);
   const { state } = useContext(Context);
   const { timetables, noTimetables } = state;
@@ -102,7 +102,10 @@ const TimeTableList = ({ refresh, holiday }) => {
               }
             >
               {timeTable.includes("datos locales") ? (
-                <NoData timeTable={timeTable} refresh={refresh} />
+                <NoData
+                  timeTable={timeTable}
+                  setForceDispatch={setForceDispatch}
+                />
               ) : (
                 <span>
                   <Current
@@ -126,6 +129,7 @@ const TimeTableList = ({ refresh, holiday }) => {
         className="current-btn"
         onClick={() => {
           if (current && timetables.length) {
+            setForceDispatch();
             findAndSetCurrent();
             scrollToCurrent(current);
           }
