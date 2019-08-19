@@ -79,20 +79,48 @@ const switchDay = (holidays, day, month, dayOfWeekId) => {
 };
 
 const getDayOfWeek = () => {
-  const today = new Date();
-  const dayOfWeekId = today.getDay();
-  const month = today.getMonth() + 1;
-  const day = today.getDate();
+  return new Promise((resolve, reject) => {
+    const today = new Date();
+    const dayOfWeekId = today.getDay();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
 
-  let holidays = JSON.parse(localStorage.getItem("holidays"));
+    let holidays = JSON.parse(localStorage.getItem("holidays"));
 
-  if (!holidays) {
-    fetchHoliday().then(resp => {
-      localStorage.setItem("holidays", JSON.stringify(resp));
-      return switchDay(resp, day, month, dayOfWeekId);
-    });
+    if (!holidays) {
+      fetchHoliday().then(resp => {
+        localStorage.setItem("holidays", JSON.stringify(resp));
+        resolve(switchDay(resp, day, month, dayOfWeekId));
+      });
+    } else {
+      resolve(switchDay(holidays, day, month, dayOfWeekId));
+    }
+  });
+};
+
+const setTimetable = (
+  online,
+  setTimetables,
+  from,
+  to,
+  dayOfWeek,
+  seassonSelected
+) => {
+  if (online) {
+    setTimetables([]);
+
+    dispatchTimeTablesData(from, to, dayOfWeek, seassonSelected, online).then(
+      data => setTimetables(data)
+    );
   } else {
-    return switchDay(holidays, day, month, dayOfWeekId);
+    const { selectedTime } = localFetch(
+      from,
+      to,
+      dayOfWeek,
+      seassonSelected,
+      online
+    );
+    setTimetables(selectedTime);
   }
 };
 
@@ -107,25 +135,12 @@ const useTimetables = (
 
   useEffect(() => {
     const { from, to } = fromToSelected;
-    let dayOfWeek = "weekDay";
-    dayOfWeek = getDayOfWeek(holidays);
+    getDayOfWeek(holidays).then(dayOfWeek => {
+      console.log(dayOfWeek);
 
-    if (online) {
-      setTimetables([]);
+      setTimetable(online, setTimetables, from, to, dayOfWeek, seassonSelected);
+    });
 
-      dispatchTimeTablesData(from, to, dayOfWeek, seassonSelected, online).then(
-        data => setTimetables(data)
-      );
-    } else {
-      const { selectedTime } = localFetch(
-        from,
-        to,
-        dayOfWeek,
-        seassonSelected,
-        online
-      );
-      setTimetables(selectedTime);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fromToSelected, seassonSelected, online, forceDispatch]);
 
