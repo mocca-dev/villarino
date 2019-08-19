@@ -45,19 +45,26 @@ function App({ sWPromise }) {
     forceDispatch
   );
 
+  const findHolidayData = holidays => {
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    const holidayData = holidays.find(
+      date => date.dia === day && date.mes === month
+    );
+
+    setHoliday(holidayData === undefined ? null : holidayData);
+  };
+
   useEffect(() => {
-    fetchHoliday().then(holidays => {
-      dispatch({ type: "SET_HOLIDAYS", payload: holidays });
-
-      const today = new Date();
-      const month = today.getMonth() + 1;
-      const day = today.getDate();
-      const holidayData = holidays.find(
-        date => date.dia === day && date.mes === month
-      );
-
-      setHoliday(holidayData === undefined ? null : holidayData);
-    });
+    let holidays = JSON.parse(localStorage.getItem("holidays"));
+    if (holidays) {
+      findHolidayData(holidays);
+    } else {
+      fetchHoliday().then(data => {
+        findHolidayData(data);
+      });
+    }
   }, []);
 
   useEffect(() => {

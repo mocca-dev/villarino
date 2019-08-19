@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
-import { fetchTimeTables } from "./../service";
+import { fetchTimeTables, fetchHoliday } from "./../service";
 
-const dispatchTimeTablesData = async (from, to, dayOfWeek, seasson, online) => {
+const localFetch = (from, to, dayOfWeek, seasson, online) => {
   let timetables = JSON.parse(localStorage.getItem("timetables"));
   if (!timetables) timetables = [];
 
@@ -10,16 +10,29 @@ const dispatchTimeTablesData = async (from, to, dayOfWeek, seasson, online) => {
     timetables &&
     timetables.find(time => time.id.toString() === from && time.way === to);
 
+  let selectedTime = null;
+
   if (time && time[seasson] && time[seasson][dayOfWeek]) {
-    return time[seasson][dayOfWeek];
+    selectedTime = time[seasson][dayOfWeek];
   } else {
     if (!online) {
-      return [
+      selectedTime = [
         "La applicación está funcionando sin conexión y no se tiene datos locales. Puede intentar refrescar la aplicación cuando tenga conexión nuevamente."
       ];
     }
   }
 
+  return { timetables, time, selectedTime };
+};
+
+const dispatchTimeTablesData = async (from, to, dayOfWeek, seasson, online) => {
+  const localData = localFetch(from, to, dayOfWeek, seasson, online);
+
+  if (localData.selectedTime) {
+    return localData.selectedTime;
+  }
+
+  const { timetables, time } = localData;
   const { data } = await fetchTimeTables({
     timeId: from,
     way: to,
@@ -46,12 +59,7 @@ const dispatchTimeTablesData = async (from, to, dayOfWeek, seasson, online) => {
   }
 };
 
-const getDayOfWeek = holidays => {
-  const today = new Date();
-  const dayOfWeekId = today.getDay();
-  const month = today.getMonth() + 1;
-  const day = today.getDate();
-
+const switchDay = (holidays, day, month, dayOfWeekId) => {
   const holidayData = holidays.find(
     date => date.dia === day && date.mes === month
   );
@@ -70,6 +78,24 @@ const getDayOfWeek = holidays => {
   }
 };
 
+const getDayOfWeek = () => {
+  const today = new Date();
+  const dayOfWeekId = today.getDay();
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
+
+  let holidays = JSON.parse(localStorage.getItem("holidays"));
+
+  if (!holidays) {
+    fetchHoliday().then(resp => {
+      localStorage.setItem("holidays", JSON.stringify(resp));
+      return switchDay(resp, day, month, dayOfWeekId);
+    });
+  } else {
+    return switchDay(holidays, day, month, dayOfWeekId);
+  }
+};
+
 const useTimetables = (
   fromToSelected,
   holidays,
@@ -82,15 +108,24 @@ const useTimetables = (
   useEffect(() => {
     const { from, to } = fromToSelected;
     let dayOfWeek = "weekDay";
-
-    setTimetables([]);
-
     dayOfWeek = getDayOfWeek(holidays);
-    dispatchTimeTablesData(from, to, dayOfWeek, seassonSelected, online).then(
-      data => {
-        setTimetables(data);
-      }
-    );
+
+    if (online) {
+      setTimetables([]);
+
+      dispatchTimeTablesData(from, to, dayOfWeek, seassonSelected, online).then(
+        data => setTimetables(data)
+      );
+    } else {
+      const { selectedTime } = localFetch(
+        from,
+        to,
+        dayOfWeek,
+        seassonSelected,
+        online
+      );
+      setTimetables(selectedTime);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fromToSelected, seassonSelected, online, forceDispatch]);
 
