@@ -12,7 +12,7 @@ const SharedBtn = () => {
   const textRef = useRef(null);
 
   useEffect(() => {
-    setInterval(() => {
+    setTimeout(() => {
       setShowCopied(false);
     }, 5000);
   }, [showCopied]);
