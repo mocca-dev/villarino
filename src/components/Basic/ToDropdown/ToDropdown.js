@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 
-import SubHeader from "../SubHeader/SubHeader";
+import SubHeader from "./../SubHeader/SubHeader";
 import "./ToDropdown.css";
-import Context from "./../../context";
+import Context from "./../../../context";
 
 const ToDropdown = () => {
   const { state, dispatch } = useContext(Context);

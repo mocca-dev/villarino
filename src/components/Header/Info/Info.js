@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { CSSTransition } from "react-transition-group";
 
 import { SettingIcon } from "../../Icons/Icons";
-import OutsideClick from "../../OutsideClick/OutsideClick";
+import OutsideClick from "../../Basic/OutsideClick/OutsideClick";
 import "./Info.css";
 import ModalInfo from "./ModaInfo/ModalInfo";
 

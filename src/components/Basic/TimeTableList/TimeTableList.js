@@ -1,9 +1,9 @@
 import React, { useEffect, createRef, useCallback, useContext } from "react";
 
 import "./TimeTableList.css";
-import { CurrentIcon, LoadingIcon } from "./../Icons/Icons";
+import { CurrentIcon, LoadingIcon } from "../../Icons/Icons";
 import NoData from "./NoData/NoData";
-import Context from "../../context";
+import Context from "../../../context";
 import TimeItem from "./TImeItem/TimeItem";
 
 const TimeTableList = ({ holiday, setForceDispatch, current }) => {
@@ -26,6 +26,8 @@ const TimeTableList = ({ holiday, setForceDispatch, current }) => {
   );
 
   useEffect(() => {
+    console.log(current);
+
     if (current) scrollToCurrent(current);
   }, [current, scrollToCurrent]);
 

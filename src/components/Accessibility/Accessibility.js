@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import Context from "./../../context";
 import "./Accessibility.css";
 import Slider from "./Slider/Slider";
-import TimeItem from "../TimeTableList/TImeItem/TimeItem";
+import TimeItem from "../Basic/TimeTableList/TImeItem/TimeItem";
 
 const Accessibilty = ({ currentTime }) => {
   const { state, dispatch } = useContext(Context);

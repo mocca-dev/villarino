@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import Toast from "../Toast/Toast";
+import Toast from "../Basic/Toast/Toast";
 
 const OfflineToast = ({ sWPromise }) => {
   const [show, setShow] = useState(false);

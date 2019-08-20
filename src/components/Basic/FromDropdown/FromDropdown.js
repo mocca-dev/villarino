@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 
-import SubHeader from "../SubHeader/SubHeader";
+import SubHeader from "./../SubHeader/SubHeader";
 import "./FromDropdown.css";
-import { DownArrowIcon } from "../Icons/Icons";
-import Context from "./../../context";
+import { DownArrowIcon } from "./../../Icons/Icons";
+import Context from "./../../../context";
 
 const FromDropdown = () => {
   const { state, dispatch } = useContext(Context);

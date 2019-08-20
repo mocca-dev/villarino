@@ -2,9 +2,6 @@ import React, { useEffect, useReducer, useState } from "react";
 import PropTypes from "prop-types";
 import "./App.css";
 import Header from "./components/Header/Header";
-import FromDropdown from "./components/FromDropdown/FromDropdown";
-import ToDropdown from "./components/ToDropdown/ToDropdown";
-import TimeTableList from "./components/TimeTableList/TimeTableList";
 import OfflineToast from "./components/OfflineToast/OfflineToast";
 import appReducer from "./reducer";
 import Context from "./context";
@@ -13,6 +10,7 @@ import useCurrentSeasson from "./hooks/UseCurrentSeasson";
 import useTimetables from "./hooks/UseTimetables";
 import Accessibilty from "./components/Accessibility/Accessibility";
 import UseCurrentTime from "./hooks/UseCurrentTime";
+import Basic from "./components/Basic/Basic";
 
 function App({ sWPromise }) {
   const [state, dispatch] = useReducer(appReducer, {
@@ -99,15 +97,11 @@ function App({ sWPromise }) {
         <Header dispatch={dispatch} />
         <OfflineToast sWPromise={sWPromise} />
         {state.speechSetting.active ? (
-          <span>
-            <FromDropdown />
-            <ToDropdown />
-            <TimeTableList
-              holiday={holiday}
-              setForceDispatch={() => setForceDispatch(!forceDispatch)}
-              current={currentTime.index}
-            />
-          </span>
+          <Basic
+            holiday={holiday}
+            setForceDispatch={() => setForceDispatch(!forceDispatch)}
+            current={currentTime.index}
+          />
         ) : (
           <Accessibilty currentTime={currentTime} />
         )}

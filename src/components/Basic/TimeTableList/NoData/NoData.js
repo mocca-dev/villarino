@@ -1,5 +1,5 @@
 import React from "react";
-import { RefreshIcon } from "../../Icons/Icons";
+import { RefreshIcon } from "./../../../Icons/Icons";
 
 const NoData = ({ timeTable, setForceDispatch }) => (
   <div className="time-container">
