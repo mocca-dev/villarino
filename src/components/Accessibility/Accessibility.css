@@ -1,0 +1,25 @@
+.acc-container {
+  width: 100%;
+  height: 95%;
+}
+
+.acc-row-container {
+  width: 100%;
+  padding-top: 15px;
+  height: 33%;
+}
+
+.acc-row-container .time-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.acc-row-container .time-container .next-to-arrive {
+  font-size: 2rem;
+}
+
+.acc-row-container .time-container .next-to-arrive ~ div {
+  font-size: 6rem;
+}

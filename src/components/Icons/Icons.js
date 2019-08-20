@@ -18,6 +18,24 @@ const DownArrowIcon = () => (
   </svg>
 );
 
+const RightArrowIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" transform="rotate(270)">
+    <polygon
+      fillRule="evenodd"
+      points="19.293 7.293 20.707 8.707 12 17.414 3.293 8.707 4.707 7.293 12 14.586"
+    />
+  </svg>
+);
+
+const LeftArrowIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" transform="rotate(90)">
+    <polygon
+      fillRule="evenodd"
+      points="19.293 7.293 20.707 8.707 12 17.414 3.293 8.707 4.707 7.293 12 14.586"
+    />
+  </svg>
+);
+
 const CurrentIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24">
     <path
@@ -135,5 +153,7 @@ export {
   MailIcon,
   CheckIcon,
   ErrorIcon,
-  SettingIcon
+  SettingIcon,
+  RightArrowIcon,
+  LeftArrowIcon
 };

@@ -11,6 +11,8 @@ import Context from "./context";
 import { fetchHoliday } from "./service";
 import useCurrentSeasson from "./hooks/UseCurrentSeasson";
 import useTimetables from "./hooks/UseTimetables";
+import Accessibilty from "./components/Accessibility/Accessibility";
+import UseCurrentTime from "./hooks/UseCurrentTime";
 
 function App({ sWPromise }) {
   const [state, dispatch] = useReducer(appReducer, {
@@ -37,6 +39,7 @@ function App({ sWPromise }) {
   const [holiday, setHoliday] = useState(null);
   const [forceDispatch, setForceDispatch] = useState(false);
   const currentSeasson = useCurrentSeasson();
+  const currentTime = UseCurrentTime(state.timetables);
   const timetables = useTimetables(
     state.fromToSelected,
     state.holidays,
@@ -95,12 +98,19 @@ function App({ sWPromise }) {
       <div className="app-container">
         <Header dispatch={dispatch} />
         <OfflineToast sWPromise={sWPromise} />
-        <FromDropdown />
-        <ToDropdown />
-        <TimeTableList
-          holiday={holiday}
-          setForceDispatch={() => setForceDispatch(!forceDispatch)}
-        />
+        {state.speechSetting.active ? (
+          <span>
+            <FromDropdown />
+            <ToDropdown />
+            <TimeTableList
+              holiday={holiday}
+              setForceDispatch={() => setForceDispatch(!forceDispatch)}
+              current={currentTime.index}
+            />
+          </span>
+        ) : (
+          <Accessibilty currentTime={currentTime} />
+        )}
       </div>
     </Context.Provider>
   );

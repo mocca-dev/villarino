@@ -1,0 +1,38 @@
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.slider-container header {
+  display: flex;
+  align-content: center;
+  margin-bottom: 3px;
+}
+
+.slider-container h2 {
+  margin: 0;
+  margin-right: 15px;
+  line-height: 21px;
+}
+
+.slider-container header span {
+  width: 100%;
+  line-height: 24px;
+  font-size: 1.1rem;
+}
+
+.slider-btns {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.slider-btns button {
+  width: 46%;
+}
+
+.slider-btns button svg {
+  height: 50px;
+  width: 50px;
+}

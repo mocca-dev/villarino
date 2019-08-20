@@ -2,14 +2,14 @@ import React from "react";
 import { RefreshIcon } from "../../Icons/Icons";
 
 const NoData = ({ timeTable, setForceDispatch }) => (
-  <span>
+  <div className="time-container">
     <span className="local-data-msg">{timeTable}</span>
     <div className="refresh-btn">
       <button onClick={setForceDispatch}>
         <RefreshIcon />
       </button>
     </div>
-  </span>
+  </div>
 );
 
 export default NoData;

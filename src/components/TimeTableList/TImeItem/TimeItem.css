@@ -1,0 +1,25 @@
+.time-container {
+  margin: auto;
+  margin-bottom: 15px;
+  padding: 15px;
+  font-size: 1.5rem;
+  background-color: lightgray;
+  text-align: center;
+  width: 85%;
+}
+
+.time-container.current {
+  background-color: var(--black-blueberry);
+  color: var(--turquoise);
+  width: 100%;
+  padding: 16px;
+  font-size: 2.5rem;
+}
+
+.time-container .next-to-arrive {
+  font-size: 1.2rem;
+}
+
+.holiday-container {
+  font-size: 1rem;
+}
