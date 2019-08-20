@@ -249,16 +249,11 @@ function fetchHolidays(res) {
     rp.get({
       uri: "http://nolaborables.com.ar/api/v2/feriados/2019"
     })
-      .then(data => {
-        res.send(JSON.parse(data));
-      })
+      .then(data => res.send(JSON.parse(data)))
       .catch(err => console.log(err));
   } else {
     fs.readFile("feriados.json", "utf8", function(err, data) {
-      if (!err) {
-        const dataJSON = JSON.parse(data);
-        res.send(dataJSON);
-      }
+      if (!err) res.send(JSON.parse(data));
     });
   }
 }

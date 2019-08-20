@@ -136,8 +136,6 @@ const useTimetables = (
   useEffect(() => {
     const { from, to } = fromToSelected;
     getDayOfWeek(holidays).then(dayOfWeek => {
-      console.log(dayOfWeek);
-
       setTimetable(online, setTimetables, from, to, dayOfWeek, seassonSelected);
     });
 

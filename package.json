@@ -13,7 +13,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "now-build": "react-scripts build && mv build dist"
+    "now-build": "react-scripts build && mv build dist",
+    "serve": "react-scripts build && serve -s build -l 5001"
   },
   "eslintConfig": {
     "extends": "react-app"

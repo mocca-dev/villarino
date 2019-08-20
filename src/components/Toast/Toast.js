@@ -3,7 +3,7 @@ import { CSSTransition } from "react-transition-group";
 import { RefreshIcon, CloseIcon } from "../Icons/Icons";
 import "./Toast.css";
 
-const Toast = ({ extShow, text, actionLeft }) => {
+const Toast = ({ extShow, text, leftBtn }) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -15,8 +15,11 @@ const Toast = ({ extShow, text, actionLeft }) => {
       <div className="toast-container">
         <span>{text}</span>
         <span className="toast-btn-container">
-          {actionLeft && (
-            <button className="close-btn" onClick={() => actionLeft()}>
+          {leftBtn && (
+            <button
+              className="close-btn"
+              onClick={() => window.location.reload()}
+            >
               <RefreshIcon />
             </button>
           )}

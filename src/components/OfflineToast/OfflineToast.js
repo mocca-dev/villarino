@@ -5,23 +5,20 @@ import Toast from "../Toast/Toast";
 
 const OfflineToast = ({ sWPromise }) => {
   const [show, setShow] = useState(false);
-  const [text, setText] = useState(false);
-  const [actionLeft, setActionLeft] = useState(null);
+  const [text, setText] = useState("");
+  const [leftBtn, setLeftBtn] = useState(false);
 
   useEffect(() => {
     sWPromise.then(res => {
       const isUpdate = res.type === "UPDATE";
       const isCached = res.type === "CACHED";
+      if (isUpdate) setLeftBtn(true);
       setShow(isCached || isUpdate);
       setText(res.text);
-      if (isUpdate)
-        setActionLeft(() => {
-          window.location.reload();
-        });
     });
   }, [sWPromise]);
 
-  return <Toast text={text} extShow={show} actionLeft={actionLeft} />;
+  return <Toast text={text} extShow={show} leftBtn={leftBtn} />;
 };
 
 OfflineToast.propTypes = {
