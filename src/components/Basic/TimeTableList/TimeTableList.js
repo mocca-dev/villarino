@@ -26,8 +26,6 @@ const TimeTableList = ({ holiday, setForceDispatch, current }) => {
   );
 
   useEffect(() => {
-    console.log(current);
-
     if (current) scrollToCurrent(current);
   }, [current, scrollToCurrent]);
 
