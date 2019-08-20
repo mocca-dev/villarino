@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import "./Slider.css";
 import { LeftArrowIcon, RightArrowIcon } from "../../Icons/Icons";
+import Speech from "./../../../service/speech-service";
 
 const Slider = ({ list, title, action }) => {
   const [current, setCurrent] = useState(0);
@@ -14,6 +15,14 @@ const Slider = ({ list, title, action }) => {
     }
     return current + 1 * way;
   };
+
+  const clickHandler = way => {
+    const next = move(way);
+    setCurrent(next);
+    action(list[next].value);
+    Speech(list[next].label);
+  };
+
   return (
     <div className="slider-container">
       <header>
@@ -21,20 +30,10 @@ const Slider = ({ list, title, action }) => {
         <span>{list[current].label}</span>
       </header>
       <span className="slider-btns">
-        <button
-          onClick={() => {
-            setCurrent(move(-1));
-            action(list[move(-1)].value);
-          }}
-        >
+        <button onClick={() => clickHandler(-1)}>
           <LeftArrowIcon />
         </button>
-        <button
-          onClick={() => {
-            setCurrent(move(+1));
-            action(list[move(+1)].value);
-          }}
-        >
+        <button onClick={() => clickHandler(1)}>
           <RightArrowIcon />
         </button>
       </span>
