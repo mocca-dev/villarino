@@ -97,13 +97,13 @@ function App({ sWPromise }) {
         <Header dispatch={dispatch} />
         <OfflineToast sWPromise={sWPromise} />
         {state.speechSetting.active ? (
+          <Accessibilty currentTime={currentTime} />
+        ) : (
           <Basic
             holiday={holiday}
             setForceDispatch={() => setForceDispatch(!forceDispatch)}
             current={currentTime.index}
           />
-        ) : (
-          <Accessibilty currentTime={currentTime} />
         )}
       </div>
     </Context.Provider>
