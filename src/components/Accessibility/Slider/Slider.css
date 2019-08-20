@@ -30,6 +30,12 @@
 
 .slider-btns button {
   width: 46%;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.4);
+}
+
+.slider-btns button:active {
+  margin-top: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 .slider-btns button svg {

@@ -30,13 +30,15 @@ const Accessibilty = ({ currentTime }) => {
         />
       </div>
       <div className="acc-row-container">
-        <TimeItem
-          i={currentTime && currentTime.index}
-          current={currentTime && currentTime.index}
-          noTimetables={false}
-          holiday={false}
-          timetable={currentTime && currentTime.data}
-        />
+        <button className="acc-current-btn" onClick={() => console.log("hola")}>
+          <TimeItem
+            i={currentTime && currentTime.index}
+            current={currentTime && currentTime.index}
+            noTimetables={false}
+            holiday={false}
+            timetable={currentTime && currentTime.data}
+          />
+        </button>
       </div>
     </div>
   );
