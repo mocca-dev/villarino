@@ -32,18 +32,22 @@ const FromDropdown = () => {
           <DownArrowIcon />
         </span>
       </div>
-      <select
-        className="dropbown"
-        value={selected}
-        onChange={e => dispatch({ type: "SET_FROM", payload: e.target.value })}
-      >
-        {fromOptions.map(option => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-      <DownArrowIcon />
+      <span className="from-dropdow-container">
+        <select
+          className="dropbown"
+          value={selected}
+          onChange={e =>
+            dispatch({ type: "SET_FROM", payload: e.target.value })
+          }
+        >
+          {fromOptions.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <DownArrowIcon />
+      </span>
     </div>
   );
 };
