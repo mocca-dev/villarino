@@ -54,6 +54,11 @@ function appReducer(state, action) {
         ...state,
         speechSetting: { ...state.speechSetting, velocity: action.payload }
       };
+    case "SET_SPEECH_SETTING":
+      return {
+        ...state,
+        speechSetting: action.payload
+      };
     default:
       return state;
   }

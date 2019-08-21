@@ -66,6 +66,12 @@ function App({ sWPromise }) {
         findHolidayData(data);
       });
     }
+
+    let speechSetting = JSON.parse(localStorage.getItem("speechSetting"));
+
+    if (!!speechSetting) {
+      dispatch({ type: "SET_SPEECH_SETTING", payload: speechSetting });
+    }
   }, []);
 
   useEffect(() => {
@@ -90,6 +96,10 @@ function App({ sWPromise }) {
       });
     }
   }, [state.fromToSelected.to]);
+
+  useEffect(() => {
+    localStorage.setItem("speechSetting", JSON.stringify(state.speechSetting));
+  }, [state.speechSetting]);
 
   return (
     <Context.Provider value={{ state, dispatch }}>
