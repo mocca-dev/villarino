@@ -12,7 +12,7 @@ const clickCurrentHandler = (setForceDispatch, setForced) => {
 const AccCurrentBtn = ({ currentTime, setForceDispatch, textData, voice }) => {
   const [forced, setForced] = useState(false);
   useEffect(() => {
-    if (currentTime && forced) {
+    if (currentTime && currentTime.data && forced) {
       let text = `El próximo en llegar pasará a las ${currentTime &&
         currentTime.data} por ${
         textData.fromOptions[textData.from].label

@@ -63,10 +63,12 @@ const findAndSetCurrent = (timetables, setCurrent) => {
 const UseCurrentTime = timetables => {
   const [current, setCurrent] = useState(null);
   useEffect(() => {
-    if (timetables.length > 1) {
-      findAndSetCurrent(timetables, setCurrent);
-    } else {
-      setCurrent({ index: 0, data: timetables[0] });
+    if (timetables !== []) {
+      if (timetables.length > 1) {
+        findAndSetCurrent(timetables, setCurrent);
+      } else {
+        setCurrent({ index: 0, data: timetables[0] });
+      }
     }
   }, [timetables]);
 
