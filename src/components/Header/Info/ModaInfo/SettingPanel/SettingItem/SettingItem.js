@@ -14,7 +14,7 @@ const SettingItem = ({ data }) => {
     >
       <h4>{title}</h4>
       <div>
-        <span> {detail}</span>{" "}
+        <span>{detail}</span>
         {action.type === "check" && (
           <div>
             <label className="check-container">

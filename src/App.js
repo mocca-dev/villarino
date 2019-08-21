@@ -19,7 +19,7 @@ function App({ sWPromise }) {
       { value: 1, label: "Plaza Rivadavia" },
       { value: 2, label: "Hospital Penna" },
       { value: 3, label: "Villa Arias" },
-      { value: 4, label: "Termnial Punta Alta" }
+      { value: 4, label: "Terminal Punta Alta" }
     ],
     seassonOptions: [
       { value: "summerTime", label: "Verano" },
@@ -97,12 +97,15 @@ function App({ sWPromise }) {
         <Header dispatch={dispatch} />
         <OfflineToast sWPromise={sWPromise} />
         {state.speechSetting.active ? (
-          <Accessibilty currentTime={currentTime} />
+          <Accessibilty
+            currentTime={currentTime}
+            setForceDispatch={() => setForceDispatch(!forceDispatch)}
+          />
         ) : (
           <Basic
             holiday={holiday}
             setForceDispatch={() => setForceDispatch(!forceDispatch)}
-            current={currentTime.index}
+            current={currentTime && currentTime.index}
           />
         )}
       </div>

@@ -30,17 +30,6 @@ const SettingPanel = () => {
       },
       disabled: !state.speechSetting.active,
       value: state.speechSetting.voice
-    },
-    {
-      title: "Velocidad de voz",
-      detail: "Ajuste la velocidad con la que la voz se reproduce",
-      action: {
-        type: "check",
-        payload: val =>
-          state.speechSetting.active &&
-          dispatch({ type: "SET_VELOCITY", payload: val })
-      },
-      disabled: !state.speechSetting.active
     }
   ];
 
@@ -65,3 +54,16 @@ const SettingPanel = () => {
 };
 
 export default SettingPanel;
+
+// ,
+//     {
+//       title: "Velocidad de voz",
+//       detail: "Ajuste la velocidad con la que la voz se reproduce",
+//       action: {
+//         type: "check",
+//         payload: val =>
+//           state.speechSetting.active &&
+//           dispatch({ type: "SET_VELOCITY", payload: val })
+//       },
+//       disabled: !state.speechSetting.active
+//     }
