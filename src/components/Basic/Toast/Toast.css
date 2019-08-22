@@ -19,15 +19,9 @@
 }
 
 .close-btn {
-  font-size: 1rem;
-  padding: 15px;
   color: var(--bg-color);
   background: none;
   border: none;
-}
-
-.close-btn svg {
-  padding: 2px;
 }
 
 .toast-enter {

@@ -4,7 +4,12 @@ import PropTypes from "prop-types";
 
 import "./ModalInfo.css";
 import InfoPanel from "./InfoPanel/InfoPanel";
-import { MailIcon, InfoIcon, SettingIcon } from "../../../Icons/Icons";
+import {
+  MailIcon,
+  InfoIcon,
+  SettingIcon,
+  CloseIcon
+} from "../../../Icons/Icons";
 import SettingPanel from "./SettingPanel/SettingPanel";
 import { NoConectionIcon } from "./../../../Icons/Icons";
 import ContactMailPanel from "./ContactMailPanel/ContactMailPanel";
@@ -56,6 +61,9 @@ const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
                   <NoConectionIcon />
                 </div>
               )}
+              <button className="close-btn" onClick={() => setShowInfo(false)}>
+                <CloseIcon />
+              </button>
             </header>
             {currentPanel.code === "info" && (
               <InfoPanel

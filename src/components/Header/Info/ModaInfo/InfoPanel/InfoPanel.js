@@ -31,7 +31,7 @@ const InfoPanel = ({ close, additionalText }) => {
         aquí
       </a>{" "}
       . Por lo que la precisión dependerá de la regularidad de las unidades y de
-      la exactitud con la funcionan.
+      la exactitud con la funcionan. Esta aplicación no es oficial.
     </section>
   );
 };

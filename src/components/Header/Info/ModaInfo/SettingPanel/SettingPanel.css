@@ -8,15 +8,6 @@ hr {
   border: 1px solid var(--black-blueberry-light);
 }
 
-.info-header .close-btn {
-  position: relative;
-  top: -14px;
-}
-
-.info-modal p:first-of-type {
-  margin-top: 0;
-}
-
 .bottom-bar {
   display: flex;
   justify-content: space-between;
