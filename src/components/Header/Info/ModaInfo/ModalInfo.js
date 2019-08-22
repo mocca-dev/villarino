@@ -8,6 +8,7 @@ import ContactPanel from "./ContactPanel/ContactPanel";
 import { MailIcon, InfoIcon, SettingIcon } from "../../../Icons/Icons";
 import SettingPanel from "./SettingPanel/SettingPanel";
 import { NoConectionIcon } from "./../../../Icons/Icons";
+import ContactMailPanel from "./ContactMailPanel/ContactMailPanel";
 
 const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
   const [currentPanel, setCurrentPannel] = useState({
@@ -61,7 +62,7 @@ const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
             />
           )}
           {currentPanel.code === "contact" && (
-            <ContactPanel close={() => null} />
+            <ContactMailPanel close={() => null} />
           )}
           {currentPanel.code === "setting" && (
             <SettingPanel close={() => null} />

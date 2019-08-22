@@ -1,0 +1,16 @@
+.send-email-container {
+  text-align: center;
+  margin-top: 50px;
+  padding: 15px;
+  background-color: white;
+}
+
+.send-email-container:active {
+  color: white;
+  background-color: var(--black-blueberry-light);
+}
+
+.send-email-link {
+  text-decoration: none;
+  color: var(--black-blueberry);
+}
