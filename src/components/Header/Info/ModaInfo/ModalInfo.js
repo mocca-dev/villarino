@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 
 import "./ModalInfo.css";
 import InfoPanel from "./InfoPanel/InfoPanel";
-import ContactPanel from "./ContactPanel/ContactPanel";
 import { MailIcon, InfoIcon, SettingIcon } from "../../../Icons/Icons";
 import SettingPanel from "./SettingPanel/SettingPanel";
 import { NoConectionIcon } from "./../../../Icons/Icons";
 import ContactMailPanel from "./ContactMailPanel/ContactMailPanel";
+import OutsideClick from "../../../Basic/OutsideClick/OutsideClick";
 
 const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
   const [currentPanel, setCurrentPannel] = useState({
@@ -45,42 +45,45 @@ const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
       onExit={() => setShowInfo(false)}
     >
       <span>
-        <div className="info-modal">
-          <header className="info-header">
-            <h2>{currentPanel.header}</h2>
-            {additionalText && (
-              <div className="warning-msg">
-                <span> {additionalText}</span>
-                <NoConectionIcon />
-              </div>
+        <span className="modal-backdrop" />
+        <OutsideClick action={() => setShowInfo(false)}>
+          <div className="info-modal">
+            <header className="info-header">
+              <h2>{currentPanel.header}</h2>
+              {additionalText && (
+                <div className="warning-msg">
+                  <span> {additionalText}</span>
+                  <NoConectionIcon />
+                </div>
+              )}
+            </header>
+            {currentPanel.code === "info" && (
+              <InfoPanel
+                additionalText={additionalText}
+                close={() => setShowInfo(false)}
+              />
             )}
-          </header>
-          {currentPanel.code === "info" && (
-            <InfoPanel
-              additionalText={additionalText}
-              close={() => setShowInfo(false)}
-            />
-          )}
-          {currentPanel.code === "contact" && (
-            <ContactMailPanel close={() => null} />
-          )}
-          {currentPanel.code === "setting" && (
-            <SettingPanel close={() => null} />
-          )}
-          <div className="setting-nav-bar">
-            {navBtns.map((btn, i) => (
-              <button
-                key={i}
-                onClick={btn.action}
-                className={
-                  btn.type === currentPanel.code ? "current-panel" : ""
-                }
-              >
-                {btn.icon}
-              </button>
-            ))}
+            {currentPanel.code === "contact" && (
+              <ContactMailPanel close={() => null} />
+            )}
+            {currentPanel.code === "setting" && (
+              <SettingPanel close={() => null} />
+            )}
+            <div className="setting-nav-bar">
+              {navBtns.map((btn, i) => (
+                <button
+                  key={i}
+                  onClick={btn.action}
+                  className={
+                    btn.type === currentPanel.code ? "current-panel" : ""
+                  }
+                >
+                  {btn.icon}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        </OutsideClick>
       </span>
     </CSSTransition>
   );
