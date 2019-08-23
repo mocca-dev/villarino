@@ -3,6 +3,7 @@ import Current from "../Current/Current";
 import Holiday from "../Holiday/Holiday";
 
 import "./TimeItem.css";
+import { LoadingIcon } from "../../../Icons/Icons";
 
 const TimeItem = ({ i, current, noTimetables, holiday, timetable }) => {
   return (
@@ -13,9 +14,17 @@ const TimeItem = ({ i, current, noTimetables, holiday, timetable }) => {
           : "time-container"
       }
     >
-      <Current i={i} current={current} noTimeTables={noTimetables} />
-      <div>{timetable}</div>
-      <Holiday i={i} current={current} holiday={holiday} />
+      {timetable ? (
+        <span>
+          <Current i={i} current={current} noTimeTables={noTimetables} />
+          <div>{timetable}</div>
+          <Holiday i={i} current={current} holiday={holiday} />
+        </span>
+      ) : (
+        <span className="loading-item-container">
+          <LoadingIcon />
+        </span>
+      )}
     </div>
   );
 };
