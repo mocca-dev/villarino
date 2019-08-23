@@ -10,6 +10,8 @@ const ContactMailPanel = () => {
         responderte cuanto antes.
       </p>
       <a
+        target="_blank"
+        rel="noopener noreferrer"
         className="send-email-link"
         href="mailto:consultanos.sugerinos@gmail.com?subject=Consulta desde 319"
       >
