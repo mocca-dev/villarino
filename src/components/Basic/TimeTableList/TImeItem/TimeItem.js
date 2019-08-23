@@ -15,11 +15,11 @@ const TimeItem = ({ i, current, noTimetables, holiday, timetable }) => {
       }
     >
       {timetable ? (
-        <span>
+        <>
           <Current i={i} current={current} noTimeTables={noTimetables} />
           <div>{timetable}</div>
           <Holiday i={i} current={current} holiday={holiday} />
-        </span>
+        </>
       ) : (
         <span className="loading-item-container">
           <LoadingIcon />

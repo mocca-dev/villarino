@@ -17,11 +17,11 @@
 }
 
 .acc-row-container .time-container .next-to-arrive {
-  font-size: 2rem;
+  font-size: 25px;
 }
 
 .acc-row-container .time-container .next-to-arrive ~ div {
-  font-size: 6rem;
+  font-size: 90px;
 }
 
 .acc-current-btn {
