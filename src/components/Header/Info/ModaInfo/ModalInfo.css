@@ -5,13 +5,15 @@
   top: 42px;
   background-color: var(--black-blueberry);
   color: white;
-  padding: 20px;
   padding-bottom: 0;
   max-width: 95vw;
   box-shadow: 0px 10px 35px rgba(0, 0, 0, 0.6);
   font-size: 1rem;
 }
 
+.info-modal-content {
+  padding: 10px 20px 0 20px;
+}
 .info-modal h3 {
   margin-top: 0;
 }
@@ -24,13 +26,9 @@
 
 .warning-msg {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: rgba(255, 0, 0, 0.5);
-  padding: 1px 20px;
-  padding-right: 7px;
-  border-radius: 3px;
-  text-align: center;
 }
 
 .warning-msg svg {
@@ -38,8 +36,7 @@
 }
 
 .no-connection-icon {
-  height: 35px;
-  width: 50px;
+  height: 30px;
   padding: 6px;
 }
 
