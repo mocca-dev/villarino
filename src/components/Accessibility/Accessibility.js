@@ -21,6 +21,7 @@ const Accessibilty = ({ currentTime, setForceDispatch }) => {
           action={payload =>
             dispatch({ type: "SET_FROM", payload: payload.toString() })
           }
+          voiceActivated={state.speechSetting.voice}
         />
       </div>
       <div className="acc-row-container">
@@ -28,6 +29,7 @@ const Accessibilty = ({ currentTime, setForceDispatch }) => {
           title={"Hasta"}
           list={toOptions}
           action={payload => dispatch({ type: "SET_TO", payload: payload })}
+          voiceActivated={state.speechSetting.voice}
         />
       </div>
       <div className="acc-row-container">

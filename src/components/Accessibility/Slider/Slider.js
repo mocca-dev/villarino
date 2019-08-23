@@ -4,7 +4,7 @@ import "./Slider.css";
 import { LeftArrowIcon, RightArrowIcon } from "../../Icons/Icons";
 import Speech from "./../../../service/speech-service";
 
-const Slider = ({ list, title, action }) => {
+const Slider = ({ list, title, action, voiceActivated }) => {
   const [current, setCurrent] = useState(0);
 
   const move = way => {
@@ -20,7 +20,7 @@ const Slider = ({ list, title, action }) => {
     const next = move(way);
     setCurrent(next);
     action(list[next].value);
-    Speech(list[next].label);
+    if (voiceActivated) Speech(list[next].label);
   };
 
   return (
