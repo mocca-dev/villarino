@@ -27,6 +27,14 @@
   fill: var(--turquoise);
 }
 
+.right-arrow-icon {
+  transform: rotate(270deg);
+}
+
+.left-arrow-icon {
+  transform: rotate(90deg);
+}
+
 @media only screen and (min-width: 500px) {
   .app-container {
     margin: auto;
