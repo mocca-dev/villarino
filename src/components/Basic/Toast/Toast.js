@@ -17,13 +17,13 @@ const Toast = ({ extShow, text, leftBtn }) => {
         <span className="toast-btn-container">
           {leftBtn && (
             <button
-              className="close-btn"
+              className="toast-close-btn"
               onClick={() => window.location.reload()}
             >
               <RefreshIcon />
             </button>
           )}
-          <button className="close-btn" onClick={() => setShow(false)}>
+          <button className="toast-close-btn" onClick={() => setShow(false)}>
             <CloseIcon />
           </button>
         </span>

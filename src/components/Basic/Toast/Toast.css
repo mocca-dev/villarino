@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 15px;
+  padding-left: 15px;
   width: 98%;
   background-color: black;
   color: white;
@@ -18,10 +18,18 @@
   font-size: 1rem;
 }
 
-.close-btn {
+.close-btn,
+.toast-close-btn {
   color: var(--bg-color);
   background: none;
   border: none;
+}
+
+.toast-close-btn {
+  padding: 15px;
+}
+.toast-close-btn:first-child {
+  margin-right: 15px;
 }
 
 .toast-enter {
