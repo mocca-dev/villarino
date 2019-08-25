@@ -11,6 +11,7 @@ import useTimetables from "./hooks/UseTimetables";
 import Accessibilty from "./components/Accessibility/Accessibility";
 import UseCurrentTime from "./hooks/UseCurrentTime";
 import Basic from "./components/Basic/Basic";
+import InstallPrompt from "./components/InstallPrompt/InstallPrompt";
 
 function App({ sWPromise }) {
   const [state, dispatch] = useReducer(appReducer, {
@@ -106,6 +107,7 @@ function App({ sWPromise }) {
       <div className="app-container">
         <Header dispatch={dispatch} />
         <OfflineToast sWPromise={sWPromise} />
+        <InstallPrompt />
         {state.speechSetting.active ? (
           <Accessibilty
             currentTime={currentTime}

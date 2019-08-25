@@ -141,6 +141,37 @@ const SettingIcon = () => (
   </svg>
 );
 
+const IOSShareIcon = () => (
+  <svg
+    width="39"
+    height="54"
+    viewBox="0 0 39 54"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <line x1="15" y1="16" x2="3" y2="16" stroke="#007bff" strokeWidth="2" />
+    <line x1="37" y1="16" x2="25" y2="16" stroke="#007bff" strokeWidth="2" />
+    <line x1="2" y1="15" x2="2" y2="53" stroke="#007bff" strokeWidth="2" />
+    <line
+      x1="0.998413"
+      y1="52.2484"
+      x2="38.9984"
+      y2="52.2484"
+      stroke="#007bff"
+      strokeWidth="2"
+    />
+    <line x1="38" y1="15" x2="38" y2="53" stroke="#007bff" strokeWidth="2" />
+    <line x1="38" y1="15" x2="38" y2="53" stroke="#007bff" strokeWidth="2" />
+    <line x1="20" y1="3" x2="20" y2="34" stroke="#007bff" strokeWidth="2" />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M19.8639 0.449768L29.435 10.0208L28.0208 11.4351L19.8639 3.2782L11.707 11.4351L10.2928 10.0208L19.8639 0.449768Z"
+      fill="white"
+    />
+  </svg>
+);
+
 export {
   InfoIcon,
   DownArrowIcon,
@@ -155,5 +186,6 @@ export {
   ErrorIcon,
   SettingIcon,
   RightArrowIcon,
-  LeftArrowIcon
+  LeftArrowIcon,
+  IOSShareIcon
 };

@@ -1,0 +1,82 @@
+.install-prompt-container {
+  z-index: 10;
+  position: fixed;
+  bottom: 0;
+  width: 95%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.install-prompt-container.to-top {
+  top: 15px;
+  width: 58%;
+  left: 62%;
+  transform: translate(-50%, 0);
+}
+
+.install-prompt-content {
+  display: flex;
+  background-color: #cbcbcb;
+  color: black;
+  opacity: 0.95;
+  padding: 13px;
+  border-radius: 5px;
+}
+
+.install-prompt-container svg {
+  height: 23px;
+}
+
+.install-prompt-container svg path {
+  fill: #007bff;
+}
+
+.install-prompt-container button {
+  padding: 0;
+  margin: 0;
+  height: 30px;
+  width: 31px;
+  background: none;
+}
+
+.install-prompt-container .close-icon {
+  height: 23px;
+  width: 18px;
+}
+
+.install-prompt-container .close-icon polygon {
+  fill: black;
+}
+
+.add-to-home-install {
+  padding: 0px 8px 4px 8px;
+  background-color: white;
+  font-size: 1.2rem;
+  color: black;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.arrow-down {
+  position: relative;
+  top: 13px;
+  left: 48%;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 13px solid #cbcbcb;
+  opacity: 0.9;
+}
+
+.arrow-up {
+  position: relative;
+  top: -102px;
+  left: 82%;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 15px solid #cbcbcb;
+  opacity: 0.9;
+}
