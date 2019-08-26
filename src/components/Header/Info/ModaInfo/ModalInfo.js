@@ -61,7 +61,17 @@ const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
             )}
             <div className="info-modal-content">
               <header className="info-header">
-                <h2>{currentPanel.header}</h2>
+                <span style={{ display: "flex", alignItems: "baseline" }}>
+                  <h2>{currentPanel.header}</h2>
+                  <span
+                    style={{
+                      marginLeft: "10px",
+                      color: "var(--light-alpha-fg)"
+                    }}
+                  >
+                    v{process.env.REACT_APP_VERSION}
+                  </span>
+                </span>
                 <button
                   className="close-btn"
                   onClick={() => setShowInfo(false)}
@@ -69,12 +79,7 @@ const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
                   <CloseIcon />
                 </button>
               </header>
-              {currentPanel.code === "info" && (
-                <InfoPanel
-                  additionalText={additionalText}
-                  close={() => setShowInfo(false)}
-                />
-              )}
+              {currentPanel.code === "info" && <InfoPanel />}
               {currentPanel.code === "contact" && (
                 <ContactMailPanel close={() => null} />
               )}

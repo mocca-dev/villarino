@@ -1,9 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import "./InfoPanel.css";
 
-const InfoPanel = ({ close, additionalText }) => {
+const InfoPanel = () => {
   return (
     <section>
       <p>
@@ -34,11 +33,6 @@ const InfoPanel = ({ close, additionalText }) => {
       la exactitud con la funcionan. Esta aplicación no es oficial.
     </section>
   );
-};
-
-InfoPanel.propTypes = {
-  close: PropTypes.func.isRequired,
-  additionalText: PropTypes.string.isRequired
 };
 
 export default InfoPanel;

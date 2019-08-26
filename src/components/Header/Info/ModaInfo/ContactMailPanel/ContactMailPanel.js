@@ -13,7 +13,9 @@ const ContactMailPanel = () => {
         target="_blank"
         rel="noopener noreferrer"
         className="send-email-link"
-        href="mailto:consultanos.sugerinos@gmail.com?subject=Consulta desde 319"
+        href={`mailto:consultanos.sugerinos@gmail.com?subject=Consulta Horarios 319 - v${
+          process.env.REACT_APP_VERSION
+        }`}
       >
         <div className="send-email-container">Enviar e-mail</div>
       </a>

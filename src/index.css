@@ -19,6 +19,7 @@ html {
   --black-blueberry: #2d2d44;
   --black-blueberry-light: #424257;
   --light-fg: white;
+  --light-alpha-fg: #9999aa;
   --turquoise: #33e1ed;
   --error-bg: #fe4a4a;
   --success-bg: green;

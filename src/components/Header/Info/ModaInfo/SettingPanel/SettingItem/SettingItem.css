@@ -7,7 +7,7 @@
   justify-content: space-between;
   align-items: center;
   font-size: 0.9rem;
-  color: #9999aa;
+  color: var(--light-alpha-fg);
 }
 
 .check-container {
