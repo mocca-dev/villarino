@@ -37,6 +37,7 @@ function App({ sWPromise }) {
 
   const [holiday, setHoliday] = useState(null);
   const [forceDispatch, setForceDispatch] = useState(false);
+  const [showIOSToast, setShowIOSToast] = useState(false);
   const currentSeasson = useCurrentSeasson();
   const currentTime = UseCurrentTime(state.timetables);
   const timetables = useTimetables(
@@ -106,8 +107,11 @@ function App({ sWPromise }) {
     <Context.Provider value={{ state, dispatch }}>
       <div className="app-container">
         <Header dispatch={dispatch} />
-        <OfflineToast sWPromise={sWPromise} />
-        <InstallPrompt />
+        <OfflineToast
+          sWPromise={sWPromise}
+          closeAction={() => setShowIOSToast(true)}
+        />
+        <InstallPrompt extShow={showIOSToast} />
         {state.speechSetting.active ? (
           <Accessibilty
             currentTime={currentTime}
