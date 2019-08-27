@@ -46,7 +46,7 @@ Slider.propTypes = {
   list: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   action: PropTypes.func.isRequired,
-  voiceActivated: PropTypes.bool.isRequired
+  voiceActivated: PropTypes.bool
 };
 
 export default Slider;

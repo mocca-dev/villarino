@@ -59,7 +59,7 @@ AccCurrentBtn.propTypes = {
   setForceDispatch: PropTypes.func.isRequired,
   textData: PropTypes.object.isRequired,
   currentTime: PropTypes.object.isRequired,
-  voice: PropTypes.bool.isRequired
+  voice: PropTypes.bool
 };
 
 export default AccCurrentBtn;
