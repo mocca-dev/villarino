@@ -12,6 +12,7 @@ import Accessibilty from "./components/Accessibility/Accessibility";
 import UseCurrentTime from "./hooks/UseCurrentTime";
 import Basic from "./components/Basic/Basic";
 import InstallPrompt from "./components/InstallPrompt/InstallPrompt";
+import UseVisibilityChange from "./hooks/UseVisibilityChange";
 
 function App({ sWPromise }) {
   const [state, dispatch] = useReducer(appReducer, {
@@ -40,6 +41,7 @@ function App({ sWPromise }) {
   const [showIOSToast, setShowIOSToast] = useState(false);
   const currentSeasson = useCurrentSeasson();
   const currentTime = UseCurrentTime(state.timetables);
+  const isVisible = UseVisibilityChange();
   const timetables = useTimetables(
     state.fromToSelected,
     state.holidays,
@@ -132,6 +134,11 @@ function App({ sWPromise }) {
   useEffect(() => {
     localStorage.setItem("speechSetting", JSON.stringify(state.speechSetting));
   }, [state.speechSetting]);
+
+  useEffect(() => {
+    if (isVisible) setForceDispatch(!forceDispatch);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isVisible]);
 
   return (
     <Context.Provider value={{ state, dispatch }}>
