@@ -39,4 +39,8 @@
     width: 100%;
     padding: 10px 0;
   }
+
+  .to-radio h4 {
+    margin-bottom: 5px;
+  }
 }

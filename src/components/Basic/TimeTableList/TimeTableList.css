@@ -39,7 +39,7 @@
 
 @media only screen and (max-width: 390px) {
   .list-container {
-    height: calc(100% - 345px);
+    height: calc(100% - 365px);
   }
 
   .time-container {

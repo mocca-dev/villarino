@@ -2,6 +2,9 @@
   display: flex;
   justify-content: space-between;
   align-content: center;
+}
+
+.header-container.basic {
   padding: 5px 0px 25px 0;
 }
 

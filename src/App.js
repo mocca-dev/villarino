@@ -154,7 +154,7 @@ function App({ sWPromise }) {
   return (
     <Context.Provider value={{ state, dispatch }}>
       <div className="app-container">
-        <Header dispatch={dispatch} />
+        <Header dispatch={dispatch} isBasic={!state.speechSetting.active} />
         <OfflineToast
           sWPromise={sWPromise}
           closeAction={() => setShowIOSToast(true)}
