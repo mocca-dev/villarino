@@ -16,7 +16,6 @@ const OfflineToast = ({ sWPromise, closeAction }) => {
       if (isUpdate) setLeftBtn(true);
       setShow(isCached || isUpdate);
       setText(res.text);
-      console.log("asd", isCached, "asd", isUpdate);
 
       if (!isCached && !isUpdate) closeAction();
     });

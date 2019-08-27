@@ -7,9 +7,14 @@ import Context from "./../../../context";
 
 const FromDropdown = () => {
   const { state, dispatch } = useContext(Context);
-  const { fromSelected, fromOptions, seassonSelected, seassonOptions } = state;
+  const {
+    fromToSelected,
+    fromOptions,
+    seassonSelected,
+    seassonOptions
+  } = state;
 
-  const selected = fromSelected && fromSelected.from;
+  const selected = fromToSelected && fromToSelected.from;
 
   return (
     <div className="from-dropdown">

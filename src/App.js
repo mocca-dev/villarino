@@ -74,6 +74,19 @@ function App({ sWPromise }) {
     if (!!speechSetting) {
       dispatch({ type: "SET_SPEECH_SETTING", payload: speechSetting });
     }
+
+    let fromToSelected = JSON.parse(localStorage.getItem("fromToSelected"));
+
+    if (!!fromToSelected) {
+      dispatch({ type: "SET_TO", payload: fromToSelected.to });
+      dispatch({ type: "SET_FROM", payload: fromToSelected.from.toString() });
+    }
+
+    let seassonSelected = localStorage.getItem("seassonSelected");
+
+    if (!!seassonSelected) {
+      dispatch({ type: "SET_SEASSON", payload: seassonSelected });
+    }
   }, []);
 
   useEffect(() => {
@@ -81,6 +94,11 @@ function App({ sWPromise }) {
   }, [currentSeasson]);
 
   useEffect(() => {
+    localStorage.setItem(
+      "fromToSelected",
+      JSON.stringify(state.fromToSelected)
+    );
+    localStorage.setItem("seassonSelected", state.seassonSelected);
     dispatch({ type: "SET_TIMETABLES", payload: timetables });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.fromToSelected, state.seassonSelected, timetables]);
