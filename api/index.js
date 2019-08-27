@@ -110,6 +110,14 @@ function buildAndResponse(html, req, res) {
       summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
       winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
       normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
+    },
+    {
+      id: 6,
+      displayName: "Grumbein",
+      way: true,
+      summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
     }
   ];
 
@@ -216,8 +224,18 @@ function tableParser(dom, className, dayOfWeek) {
           ) {
             iCol++;
           }
-          todo[iCol][seasson][objNameDay].push(hour.textContent);
-          iCol++;
+          if (
+            c === 8 &&
+            seasson === "winterTime" &&
+            objNameDay === "hollidaysSunday"
+          ) {
+            todo[11][seasson][objNameDay].push(hour.textContent);
+          } else {
+            todo[iCol][seasson][objNameDay].push(hour.textContent);
+            iCol++;
+          }
+        } else if (c === 11) {
+          todo[10][seasson][objNameDay].push(hour.textContent);
         }
       });
     }

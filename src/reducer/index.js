@@ -29,6 +29,16 @@ function appReducer(state, action) {
             : option
         )
       };
+    case "ADD_GRUMBEIN":
+      return {
+        ...state,
+        fromOptions: [...state.fromOptions, { value: 6, label: "Grubmein" }]
+      };
+    case "DEL_GRUMBEIN":
+      return {
+        ...state,
+        fromOptions: state.fromOptions.filter(option => option.value !== 6)
+      };
     case "SET_HOLIDAYS":
       return {
         ...state,

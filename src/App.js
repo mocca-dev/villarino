@@ -91,13 +91,25 @@ function App({ sWPromise }) {
         type: "CHANGE_FROM_LABEL",
         payload: { value: 1, label: "Vieytes y Colón" }
       });
+      if (state.seassonSelected === "winterTime" && holiday) {
+        dispatch({
+          type: "ADD_GRUMBEIN"
+        });
+      } else {
+        dispatch({
+          type: "DEL_GRUMBEIN"
+        });
+      }
     } else {
       dispatch({
         type: "CHANGE_FROM_LABEL",
         payload: { value: 1, label: "Plaza Rivadavia" }
       });
+      dispatch({
+        type: "DEL_GRUMBEIN"
+      });
     }
-  }, [state.fromToSelected.to]);
+  }, [state.fromToSelected.to, state.seassonSelected, holiday]);
 
   useEffect(() => {
     localStorage.setItem("speechSetting", JSON.stringify(state.speechSetting));
