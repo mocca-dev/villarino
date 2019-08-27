@@ -28,7 +28,7 @@ const InstallPrompt = ({ extShow }) => {
   const [isIpad, setIsIpad] = useState(false);
 
   useEffect(() => {
-    if (extShow) showToaster(setIsIpad, setShow);
+    if (extShow) setTimeout(() => showToaster(setIsIpad, setShow), 3500);
   }, [extShow]);
 
   return (
