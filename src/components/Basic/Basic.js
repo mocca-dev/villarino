@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import FromDropdown from "./FromDropdown/FromDropdown";
 import ToDropdown from "./ToDropdown/ToDropdown";
 import TimeTableList from "./TimeTableList/TimeTableList";
@@ -15,6 +17,12 @@ const Basic = ({ holiday, setForceDispatch, current }) => {
       />
     </span>
   );
+};
+
+Basic.propTypes = {
+  holiday: PropTypes.object,
+  setForceDispatch: PropTypes.func.isRequired,
+  current: PropTypes.number
 };
 
 export default Basic;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group";
+import PropTypes from "prop-types";
 
 import { IOSShareIcon, CloseIcon } from "../Icons/Icons";
 
@@ -49,6 +50,10 @@ const InstallPrompt = ({ extShow }) => {
       </div>
     </CSSTransition>
   );
+};
+
+InstallPrompt.propTypes = {
+  extShow: PropTypes.bool.isRequired
 };
 
 export default InstallPrompt;

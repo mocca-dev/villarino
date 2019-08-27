@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import Current from "../Current/Current";
 import Holiday from "../Holiday/Holiday";
-
 import "./TimeItem.css";
 import { LoadingIcon } from "../../../Icons/Icons";
 
@@ -27,6 +28,14 @@ const TimeItem = ({ i, current, noTimetables, holiday, timetable }) => {
       )}
     </div>
   );
+};
+
+TimeItem.propTypes = {
+  i: PropTypes.number.isRequired,
+  current: PropTypes.number.isRequired,
+  holiday: PropTypes.bool,
+  timetable: PropTypes.string,
+  noTimeTables: PropTypes.bool
 };
 
 export default TimeItem;

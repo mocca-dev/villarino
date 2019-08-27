@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 import TimeItem from "./../../Basic/TimeTableList/TImeItem/TimeItem";
 import Speech from "./../../../service/speech-service";
@@ -52,6 +53,13 @@ const AccCurrentBtn = ({ currentTime, setForceDispatch, textData, voice }) => {
       )}
     </button>
   );
+};
+
+AccCurrentBtn.propTypes = {
+  setForceDispatch: PropTypes.func.isRequired,
+  textData: PropTypes.object.isRequired,
+  currentTime: PropTypes.object.isRequired,
+  voice: PropTypes.bool.isRequired
 };
 
 export default AccCurrentBtn;

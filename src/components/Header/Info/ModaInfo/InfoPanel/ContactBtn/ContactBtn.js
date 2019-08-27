@@ -1,6 +1,7 @@
 import React from "react";
-import { MailIcon } from "../../../../../Icons/Icons";
 import PropTypes from "prop-types";
+
+import { MailIcon } from "../../../../../Icons/Icons";
 
 const ContactBtn = ({ action }) => {
   return (

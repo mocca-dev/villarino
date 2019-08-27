@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import "./Slider.css";
 import { LeftArrowIcon, RightArrowIcon } from "../../Icons/Icons";
@@ -39,6 +40,13 @@ const Slider = ({ list, title, action, voiceActivated }) => {
       </span>
     </div>
   );
+};
+
+Slider.propTypes = {
+  list: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired,
+  action: PropTypes.func.isRequired,
+  voiceActivated: PropTypes.bool.isRequired
 };
 
 export default Slider;

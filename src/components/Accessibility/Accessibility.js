@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import PropTypes from "prop-types";
 
 import Context from "./../../context";
 import "./Accessibility.css";
@@ -47,6 +48,11 @@ const Accessibilty = ({ currentTime, setForceDispatch }) => {
       </div>
     </div>
   );
+};
+
+Accessibilty.propTypes = {
+  currentTime: PropTypes.object.isRequired,
+  setForceDispatch: PropTypes.func.isRequired
 };
 
 export default Accessibilty;

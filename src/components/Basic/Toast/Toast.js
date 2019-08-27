@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+
 import { CSSTransition } from "react-transition-group";
 import { RefreshIcon, CloseIcon } from "../../Icons/Icons";
 import "./Toast.css";
@@ -36,6 +38,13 @@ const Toast = ({ extShow, text, leftBtn, closeAction }) => {
       </div>
     </CSSTransition>
   );
+};
+
+Toast.propTypes = {
+  extShow: PropTypes.bool.isRequired,
+  text: PropTypes.string.isRequired,
+  leftBtn: PropTypes.bool,
+  closeAction: PropTypes.func
 };
 
 export default Toast;

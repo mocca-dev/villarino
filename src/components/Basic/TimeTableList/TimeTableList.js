@@ -1,4 +1,5 @@
 import React, { useEffect, createRef, useCallback, useContext } from "react";
+import PropTypes from "prop-types";
 
 import "./TimeTableList.css";
 import { CurrentIcon, LoadingIcon } from "../../Icons/Icons";
@@ -68,6 +69,12 @@ const TimeTableList = ({ holiday, setForceDispatch, current }) => {
       </button>
     </div>
   );
+};
+
+TimeTableList.propTypes = {
+  holiday: PropTypes.object,
+  setForceDispatch: PropTypes.func.isRequired,
+  current: PropTypes.number
 };
 
 export default TimeTableList;

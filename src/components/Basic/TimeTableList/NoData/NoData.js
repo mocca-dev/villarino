@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { RefreshIcon } from "./../../../Icons/Icons";
 
 const NoData = ({ timeTable, setForceDispatch, accessibility }) => (
@@ -14,4 +16,9 @@ const NoData = ({ timeTable, setForceDispatch, accessibility }) => (
   </div>
 );
 
+NoData.propTypes = {
+  timetable: PropTypes.string.isRequired,
+  setForceDispatch: PropTypes.func.isRequired,
+  accessibility: PropTypes.bool.isRequired
+};
 export default NoData;
