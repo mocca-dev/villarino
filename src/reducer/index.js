@@ -69,6 +69,11 @@ function appReducer(state, action) {
         ...state,
         speechSetting: action.payload
       };
+    case "SET_AUTO_SYNC":
+      return {
+        ...state,
+        autoSync: action.payload
+      };
     default:
       return state;
   }

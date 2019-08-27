@@ -33,7 +33,8 @@ function App({ sWPromise }) {
     holidays: [],
     seassonSelected: "normalTime",
     online: true,
-    speechSetting: { active: false, voice: false, velocity: 1 }
+    speechSetting: { active: false, voice: false, velocity: 1 },
+    autoSync: true
   });
 
   const [holiday, setHoliday] = useState(null);
@@ -75,6 +76,12 @@ function App({ sWPromise }) {
 
     if (!!speechSetting) {
       dispatch({ type: "SET_SPEECH_SETTING", payload: speechSetting });
+    }
+
+    let autoSync = localStorage.getItem("autoSync");
+
+    if (autoSync) {
+      dispatch({ type: "SET_AUTO_SYNC", payload: JSON.parse(autoSync) });
     }
 
     let fromToSelected = JSON.parse(localStorage.getItem("fromToSelected"));
@@ -136,7 +143,11 @@ function App({ sWPromise }) {
   }, [state.speechSetting]);
 
   useEffect(() => {
-    if (isVisible) setForceDispatch(!forceDispatch);
+    localStorage.setItem("autoSync", JSON.stringify(state.autoSync));
+  }, [state.autoSync]);
+
+  useEffect(() => {
+    if (state.autoSync && isVisible) setForceDispatch(!forceDispatch);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVisible]);
 

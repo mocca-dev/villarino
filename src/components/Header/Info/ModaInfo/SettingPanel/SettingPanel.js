@@ -41,10 +41,23 @@ const SettingPanel = () => {
         <SettingItem key={i} data={item} />
       ))}
       <hr />
-      <h3>Compartir</h3>
+      <h3>General</h3>
       <SettingItem
         data={{
-          title: "",
+          title: "Sincronización automática",
+          detail:
+            'Todas las veces que se cierre y abra la aplicación, se sincronizaran los horarios con la hr actual. Si querés ver siempre el "prómixo en llegar" actualizado, activaá esta función.',
+          action: {
+            type: "check",
+            payload: val =>
+              dispatch({ type: "SET_AUTO_SYNC", payload: !state.autoSync })
+          },
+          value: state.autoSync
+        }}
+      />
+      <SettingItem
+        data={{
+          title: "Compartir",
           detail: "Por favor comparte la aplicación con quien quieras.",
           action: { type: "icon", payload: <ShareIcon /> }
         }}
