@@ -1,4 +1,5 @@
-.dropbown {
+.dropdown {
+  font-family: "Montserrat", sans-serif;
   background: none;
   border: none;
   font-size: 1rem;
@@ -28,11 +29,12 @@ select {
   font-size: 1rem;
 }
 
-.seasson-dropbown-container {
+.seasson-dropdown-container {
   display: flex;
 }
 
-.seasson-dropbown {
+.seasson-dropdown {
+  font-family: "Montserrat", sans-serif;
   font-size: 0.7rem;
   font-weight: bold;
   background: none;

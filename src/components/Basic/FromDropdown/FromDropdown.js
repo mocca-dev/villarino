@@ -20,10 +20,10 @@ const FromDropdown = () => {
     <div className="from-dropdown">
       <div className="from-header">
         <SubHeader text="Desde" />
-        <span className="seasson-dropbown-container">
+        <span className="seasson-dropdown-container">
           <select
-            className="seasson-dropbown"
-            aria-label="seasson-dropbown"
+            className="seasson-dropdown"
+            aria-label="seasson-dropdown"
             value={seassonSelected}
             onChange={e =>
               dispatch({ type: "SET_SEASSON", payload: e.target.value })
@@ -40,8 +40,8 @@ const FromDropdown = () => {
       </div>
       <span className="from-dropdow-container">
         <select
-          className="dropbown"
-          aria-label="from-dropbown"
+          className="dropdown"
+          aria-label="from-dropdown"
           value={selected}
           onChange={e =>
             dispatch({ type: "SET_FROM", payload: e.target.value })
