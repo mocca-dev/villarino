@@ -111,6 +111,7 @@ const ContactPanel = ({ close }) => {
         {!sent ? (
           <button
             className="send-btn"
+            aria-label="send-email-button"
             onClick={() =>
               sendMsg(
                 user,
@@ -150,6 +151,7 @@ const ContactPanel = ({ close }) => {
             <span> Ocurrió un error al intentar enviar el mensaje.</span>
             <button
               className="close-warning-btn"
+              aria-label="close-warning-button"
               onClick={() => {
                 setSent(false);
                 setSuccess(true);

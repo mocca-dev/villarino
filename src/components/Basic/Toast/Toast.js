@@ -20,6 +20,7 @@ const Toast = ({ extShow, text, leftBtn, closeAction }) => {
           {leftBtn && (
             <button
               className="toast-close-btn"
+              aria-label="toast-refresh-button"
               onClick={() => window.location.reload()}
             >
               <RefreshIcon />
@@ -27,6 +28,7 @@ const Toast = ({ extShow, text, leftBtn, closeAction }) => {
           )}
           <button
             className="toast-close-btn"
+            aria-label="toast-close-button"
             onClick={() => {
               setShow(false);
               closeAction();

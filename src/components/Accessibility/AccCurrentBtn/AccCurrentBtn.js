@@ -32,6 +32,7 @@ const AccCurrentBtn = ({ currentTime, setForceDispatch, textData, voice }) => {
   return (
     <button
       className="acc-current-btn"
+      aria-label="acc-current-button"
       onClick={() => clickCurrentHandler(setForceDispatch, setForced)}
     >
       {currentTime &&

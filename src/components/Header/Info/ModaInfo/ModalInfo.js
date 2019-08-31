@@ -74,6 +74,7 @@ const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
                 </span>
                 <button
                   className="close-btn"
+                  aria-label="setting-close-button"
                   onClick={() => setShowInfo(false)}
                 >
                   <CloseIcon />
@@ -91,6 +92,7 @@ const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
                   <button
                     key={i}
                     onClick={btn.action}
+                    aria-label="navigation-button"
                     className={
                       btn.type === currentPanel.code ? "current-panel" : ""
                     }

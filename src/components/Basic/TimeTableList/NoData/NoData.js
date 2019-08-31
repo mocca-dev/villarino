@@ -8,7 +8,7 @@ const NoData = ({ timeTable, setForceDispatch, accessibility }) => (
     <span className="local-data-msg">{timeTable}</span>
     {!accessibility && (
       <div className="refresh-btn">
-        <button onClick={setForceDispatch}>
+        <button onClick={setForceDispatch} aria-label="refresh-button">
           <RefreshIcon />
         </button>
       </div>

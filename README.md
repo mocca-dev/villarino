@@ -13,8 +13,8 @@
   <img src="./readme-images/iphone.png" width="200" style="float: right;">
 </div> -->
 
-<div  align="center" style="width: 70vw;margin: 30px 0">
-  <img src="./readme-images/lighthouse.png" width="80">
+<div  align="center" style="width: 70vw;height:100px;margin: 30px 0; margin-bottom: 20px">
+  <!-- <img src="./readme-images/lighthouse.png" width="80"> -->
   <img src="./readme-images/auditw.png" width="400" style="float: right;">
 </div>
 

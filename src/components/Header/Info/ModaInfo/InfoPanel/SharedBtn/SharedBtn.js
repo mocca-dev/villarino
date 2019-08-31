@@ -29,6 +29,7 @@ const SharedBtn = () => {
       />
       <button
         className="share-btn"
+        aria-label="toast-close-button"
         onClick={() => {
           if (navigator.share) {
             navigator

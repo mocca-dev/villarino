@@ -25,6 +25,7 @@ const Info = ({ dispatch }) => {
     <span>
       <button
         className={showInfo ? "info-btn setting-icon-active" : "info-btn"}
+        aria-label="setting-button"
         onClick={() => {
           setShowInfo(() => !showInfo);
           setShowDot(false);

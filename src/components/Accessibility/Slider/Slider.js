@@ -31,10 +31,10 @@ const Slider = ({ list, title, action, voiceActivated }) => {
         <span>{list[current].label}</span>
       </header>
       <span className="slider-btns">
-        <button onClick={() => clickHandler(-1)}>
+        <button onClick={() => clickHandler(-1)} aria-label="acc-left-button">
           <LeftArrowIcon />
         </button>
-        <button onClick={() => clickHandler(1)}>
+        <button onClick={() => clickHandler(1)} aria-label="acc-right-button">
           <RightArrowIcon />
         </button>
       </span>

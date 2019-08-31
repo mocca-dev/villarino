@@ -58,6 +58,7 @@ const TimeTableList = ({ holiday, setForceDispatch, current }) => {
       )}
       <button
         className="current-btn"
+        aria-label="current-button"
         onClick={() => {
           if (current && timetables.length) {
             setForceDispatch();

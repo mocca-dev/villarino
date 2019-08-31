@@ -23,6 +23,7 @@ const FromDropdown = () => {
         <span className="seasson-dropbown-container">
           <select
             className="seasson-dropbown"
+            aria-label="seasson-dropbown"
             value={seassonSelected}
             onChange={e =>
               dispatch({ type: "SET_SEASSON", payload: e.target.value })
@@ -40,6 +41,7 @@ const FromDropdown = () => {
       <span className="from-dropdow-container">
         <select
           className="dropbown"
+          aria-label="from-dropbown"
           value={selected}
           onChange={e =>
             dispatch({ type: "SET_FROM", payload: e.target.value })

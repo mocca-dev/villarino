@@ -5,7 +5,7 @@ import { MailIcon } from "../../../../../Icons/Icons";
 
 const ContactBtn = ({ action }) => {
   return (
-    <button className="bottom-btn" onClick={action}>
+    <button className="bottom-btn" aria-label="contact-button" onClick={action}>
       <MailIcon /> <span>Contacto</span>
     </button>
   );

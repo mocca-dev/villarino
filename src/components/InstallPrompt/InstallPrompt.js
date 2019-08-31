@@ -42,7 +42,10 @@ const InstallPrompt = ({ extShow }) => {
             <span className="add-to-home-install">+</span> (agregar a pantalla
             de inicio).{" "}
           </span>
-          <button onClick={() => setShow(false)}>
+          <button
+            aria-label="close-install-button"
+            onClick={() => setShow(false)}
+          >
             <CloseIcon />
           </button>
         </div>
