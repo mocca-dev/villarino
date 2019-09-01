@@ -1,5 +1,4 @@
 .dropdown {
-  font-family: "Montserrat", sans-serif;
   background: none;
   border: none;
   font-size: 1rem;
@@ -34,7 +33,6 @@ select {
 }
 
 .seasson-dropdown {
-  font-family: "Montserrat", sans-serif;
   font-size: 0.7rem;
   font-weight: bold;
   background: none;
