@@ -33,7 +33,7 @@ function App({ sWPromise }) {
     holidays: [],
     seassonSelected: "normalTime",
     online: true,
-    speechSetting: { active: false, voice: false, velocity: 1 },
+    speechSetting: { active: false, voice: true, velocity: 1 },
     autoSync: true
   });
 

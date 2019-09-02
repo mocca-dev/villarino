@@ -25,6 +25,10 @@
   border: none;
 }
 
+.close-btn {
+  height: 24px;
+}
+
 .toast-close-btn {
   padding: 15px;
 }
