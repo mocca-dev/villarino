@@ -5,7 +5,7 @@ import { SettingIcon } from "../../Icons/Icons";
 import "./Info.css";
 import ModalInfo from "./ModaInfo/ModalInfo";
 
-const Info = ({ dispatch }) => {
+const Info = ({ dispatch, showUpdateBadge }) => {
   const [showInfo, setShowInfo] = useState(false);
   const [showDot, setShowDot] = useState(false);
   const [additionalText, setAdditionalText] = useState("");
@@ -48,6 +48,7 @@ const Info = ({ dispatch }) => {
         showInfo={showInfo}
         setShowInfo={setShowInfo}
         additionalText={additionalText}
+        showUpdateBadge={showUpdateBadge}
       />
     </span>
   );

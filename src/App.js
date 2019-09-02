@@ -40,6 +40,7 @@ function App({ sWPromise }) {
   const [holiday, setHoliday] = useState(null);
   const [forceDispatch, setForceDispatch] = useState(false);
   const [showIOSToast, setShowIOSToast] = useState(false);
+  const [showUpdateBadge, setShowUpdateBadge] = useState(false);
   const currentSeasson = useCurrentSeasson();
   const currentTime = UseCurrentTime(state.timetables);
   const isVisible = UseVisibilityChange();
@@ -154,10 +155,15 @@ function App({ sWPromise }) {
   return (
     <Context.Provider value={{ state, dispatch }}>
       <div className="app-container">
-        <Header dispatch={dispatch} isBasic={!state.speechSetting.active} />
+        <Header
+          dispatch={dispatch}
+          isBasic={!state.speechSetting.active}
+          showUpdateBadge={showUpdateBadge}
+        />
         <OfflineToast
           sWPromise={sWPromise}
           closeAction={() => setShowIOSToast(true)}
+          setShowUpdateBadge={val => setShowUpdateBadge(val)}
         />
         <InstallPrompt extShow={showIOSToast} />
         {state.speechSetting.active ? (

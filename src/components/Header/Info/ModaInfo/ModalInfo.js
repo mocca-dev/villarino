@@ -15,7 +15,12 @@ import { NoConectionIcon } from "./../../../Icons/Icons";
 import ContactMailPanel from "./ContactMailPanel/ContactMailPanel";
 import OutsideClick from "../../../Basic/OutsideClick/OutsideClick";
 
-const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
+const ModalInfo = ({
+  showInfo,
+  setShowInfo,
+  additionalText,
+  showUpdateBadge
+}) => {
   const [currentPanel, setCurrentPannel] = useState({
     code: "setting",
     header: "Ajustes"
@@ -57,6 +62,11 @@ const ModalInfo = ({ showInfo, setShowInfo, additionalText }) => {
               <div className="warning-msg">
                 <span> {additionalText}</span>
                 <NoConectionIcon />
+              </div>
+            )}
+            {showUpdateBadge && (
+              <div className="update-badge">
+                <span> Actualización disponible!</span>
               </div>
             )}
             <div className="info-modal-content">

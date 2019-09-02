@@ -24,11 +24,17 @@
   overflow-y: scroll;
 }
 
-.warning-msg {
+.warning-msg,
+.update-badge {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(255, 0, 0, 0.5);
+}
+
+.update-badge {
+  padding: 5px;
+  background-color: var(--black-blueberry-light);
 }
 
 .warning-msg svg {
