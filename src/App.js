@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer, useState } from "react";
 import PropTypes from "prop-types";
+
 import "./App.css";
 import Header from "./components/Header/Header";
 import OfflineToast from "./components/OfflineToast/OfflineToast";
