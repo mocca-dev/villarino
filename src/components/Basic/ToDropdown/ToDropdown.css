@@ -30,6 +30,16 @@
   color: var(--turquoise);
 }
 
+@media only screen and (max-width: 360px) {
+  .to-radio {
+    margin: 15px 0;
+  }
+
+  .to-radio h4 {
+    font-size: 0.9rem;
+  }
+}
+
 @media only screen and (max-width: 390px) {
   .radio-container {
     flex-direction: column;

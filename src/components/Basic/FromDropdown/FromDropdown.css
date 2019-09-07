@@ -57,3 +57,9 @@ select {
   border: none;
   border-radius: 0;
 }
+
+@media only screen and (max-width: 360px) {
+  .from-header h4 {
+    font-size: 0.9rem;
+  }
+}

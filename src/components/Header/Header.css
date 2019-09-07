@@ -11,3 +11,13 @@
 .header-container h2 {
   margin: 0;
 }
+
+@media only screen and (max-width: 360px) {
+  .header-container h2 {
+    font-size: 1.1rem;
+  }
+
+  .header-container.basic {
+    padding: 5px 0px 10px 0;
+  }
+}

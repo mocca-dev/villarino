@@ -35,6 +35,20 @@
   transform: rotate(90deg);
 }
 
+@media only screen and (max-width: 360px) {
+  .app-container {
+    padding: 12px;
+  }
+
+  .current-btn {
+    padding: 18px 17px;
+  }
+
+  .current-btn svg {
+    height: 20px;
+  }
+}
+
 @media only screen and (min-width: 500px) {
   .app-container {
     margin: auto;
