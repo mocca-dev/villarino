@@ -16,6 +16,7 @@ const OfflineToast = ({ sWPromise, closeAction, setShowUpdateBadge }) => {
       setShow(isCached || isUpdate);
       setText(res.text);
       setShowUpdateBadge(true);
+      if (isUpdate) localStorage.setItem("timetables", null);
       if (!isCached && !isUpdate) closeAction();
     });
   }, [sWPromise, closeAction, setShowUpdateBadge]);
