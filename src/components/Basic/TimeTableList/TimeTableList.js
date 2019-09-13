@@ -27,7 +27,7 @@ const TimeTableList = ({ holiday, setForceDispatch, current }) => {
   );
 
   useEffect(() => {
-    if (current) scrollToCurrent(current);
+    if (current) scrollToCurrent(current.index);
   }, [current, scrollToCurrent]);
 
   return (
@@ -47,6 +47,7 @@ const TimeTableList = ({ holiday, setForceDispatch, current }) => {
                 noTimetables={noTimetables}
                 holiday={holiday}
                 timetable={timetable}
+                isBasic={true}
               />
             )}
           </span>
@@ -75,7 +76,7 @@ const TimeTableList = ({ holiday, setForceDispatch, current }) => {
 TimeTableList.propTypes = {
   holiday: PropTypes.object,
   setForceDispatch: PropTypes.func.isRequired,
-  current: PropTypes.number
+  current: PropTypes.object
 };
 
 export default TimeTableList;

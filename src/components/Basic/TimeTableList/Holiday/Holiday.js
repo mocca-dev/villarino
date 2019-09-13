@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Holiday = ({ i, current, holiday }) =>
-  i === current &&
+const Holiday = ({ isCurrent, holiday }) =>
+  isCurrent &&
   holiday && (
     <div className="holiday-container">
       Horarios por feriado: {holiday.motivo}
@@ -10,8 +10,7 @@ const Holiday = ({ i, current, holiday }) =>
   );
 
 Holiday.propTypes = {
-  i: PropTypes.number.isRequired,
-  current: PropTypes.number.isRequired,
+  isCurrent: PropTypes.bool.isRequired,
   holiday: PropTypes.bool
 };
 

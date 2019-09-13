@@ -5,21 +5,30 @@ import Current from "../Current/Current";
 import Holiday from "../Holiday/Holiday";
 import "./TimeItem.css";
 import { LoadingIcon } from "../../../Icons/Icons";
+import CurrentDay from "../CurrentDay/CurrentDay";
 
-const TimeItem = ({ i, current, noTimetables, holiday, timetable }) => {
+const TimeItem = ({
+  i,
+  current,
+  noTimetables,
+  holiday,
+  timetable,
+  isBasic
+}) => {
+  const isCurrent = i === current.index;
+
   return (
     <div
       className={
-        i === current && !noTimetables
-          ? "time-container current"
-          : "time-container"
+        isCurrent && !noTimetables ? "time-container current" : "time-container"
       }
     >
       {timetable ? (
         <>
-          <Current i={i} current={current} noTimeTables={noTimetables} />
-          <div>{timetable}</div>
-          <Holiday i={i} current={current} holiday={holiday} />
+          <Current isCurrent={isCurrent} noTimeTables={noTimetables} />
+          <div className={isBasic ? "" : "acc-timetable"}>{timetable}</div>
+          <CurrentDay isCurrent={isCurrent} dayName={current.dayName} />
+          <Holiday isCurrent={isCurrent} holiday={holiday} />
         </>
       ) : (
         <span className="loading-item-container">
@@ -32,10 +41,11 @@ const TimeItem = ({ i, current, noTimetables, holiday, timetable }) => {
 
 TimeItem.propTypes = {
   i: PropTypes.number.isRequired,
-  current: PropTypes.number.isRequired,
+  current: PropTypes.object.isRequired,
   holiday: PropTypes.bool,
   timetable: PropTypes.string,
-  noTimeTables: PropTypes.bool
+  noTimeTables: PropTypes.bool,
+  isBasic: PropTypes.bool
 };
 
 export default TimeItem;

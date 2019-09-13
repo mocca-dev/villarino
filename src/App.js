@@ -176,7 +176,7 @@ function App({ sWPromise }) {
           <Basic
             holiday={holiday}
             setForceDispatch={() => setForceDispatch(!forceDispatch)}
-            current={currentTime && currentTime.index}
+            current={currentTime && currentTime}
           />
         )}
       </div>

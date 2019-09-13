@@ -46,10 +46,11 @@ const AccCurrentBtn = ({ currentTime, setForceDispatch, textData, voice }) => {
       ) : (
         <TimeItem
           i={currentTime && currentTime.index}
-          current={currentTime && currentTime.index}
+          current={currentTime}
           noTimetables={false}
           holiday={false}
           timetable={currentTime && currentTime.data}
+          isBasic={false}
         />
       )}
     </button>

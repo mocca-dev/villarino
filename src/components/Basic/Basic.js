@@ -22,7 +22,7 @@ const Basic = ({ holiday, setForceDispatch, current }) => {
 Basic.propTypes = {
   holiday: PropTypes.object,
   setForceDispatch: PropTypes.func.isRequired,
-  current: PropTypes.number
+  current: PropTypes.object
 };
 
 export default Basic;

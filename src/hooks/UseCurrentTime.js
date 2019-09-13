@@ -6,7 +6,8 @@ const iterateTimetables = (
   formattedToday,
   dummyDateToday,
   timetables,
-  setCurrent
+  setCurrent,
+  dayName
 ) => {
   for (let i = 0; i < timetables.length; i++) {
     const current = timetables[i];
@@ -26,14 +27,14 @@ const iterateTimetables = (
       Date.parse(dummyDate + " " + current) >
         Date.parse(dummyDateToday + " " + formattedToday)
     ) {
-      setCurrent({ index: i, data: timetables[i] });
+      setCurrent({ index: i, data: timetables[i], dayName });
       return false;
     }
   }
   return true;
 };
 
-const findAndSetCurrent = (timetables, setCurrent) => {
+const findAndSetCurrent = (timetables, setCurrent, dayName) => {
   const today = new Date();
   const hour =
     today.getHours() <= 9 ? "0" + today.getHours() : today.getHours();
@@ -46,7 +47,8 @@ const findAndSetCurrent = (timetables, setCurrent) => {
     formattedToday,
     "01/01/2000",
     timetables,
-    setCurrent
+    setCurrent,
+    dayName
   );
 
   if (oneLap) {
@@ -55,21 +57,37 @@ const findAndSetCurrent = (timetables, setCurrent) => {
       formattedToday,
       "02/01/2000",
       timetables,
-      setCurrent
+      setCurrent,
+      dayName
     );
   }
 };
 
 const UseCurrentTime = timetables => {
   const [current, setCurrent] = useState(null);
+  const [dayName, setDayName] = useState("");
+  const days = [
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado"
+  ];
+
   useEffect(() => {
+    const d = new Date(Date.now());
+    setDayName(days[d.getDay()]);
+
     if (timetables !== []) {
       if (timetables.length > 1) {
-        findAndSetCurrent(timetables, setCurrent);
+        findAndSetCurrent(timetables, setCurrent, dayName);
       } else {
-        setCurrent({ index: 0, data: timetables[0] });
+        setCurrent({ index: 0, data: timetables[0], dayName });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timetables]);
 
   return current;
