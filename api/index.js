@@ -118,6 +118,14 @@ function buildAndResponse(html, req, res) {
       summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
       winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
       normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
+    },
+    {
+      id: 6,
+      displayName: "Grumbein",
+      way: false,
+      summerTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      winterTime: { weekDay: [], saturday: [], hollidaysSunday: [] },
+      normalTime: { weekDay: [], saturday: [], hollidaysSunday: [] }
     }
   ];
 
@@ -216,6 +224,7 @@ function tableParser(dom, className, dayOfWeek) {
     if (f > 0) {
       row.getElementsByTagName("td").forEach((hour, c) => {
         if (c <= 10 && iCol <= 10) {
+          //skipping empty central column
           if (
             seasson === "normalTime" &&
             iCol === 5 &&
@@ -224,10 +233,15 @@ function tableParser(dom, className, dayOfWeek) {
           ) {
             iCol++;
           }
-          if (
-            c === 8 &&
-            seasson === "winterTime" &&
-            objNameDay === "hollidaysSunday"
+          //special case from Grumbein to Punta Alta
+          if (c === 3 && seasson === "normalTime" && objNameDay === "weekDay") {
+            todo[12][seasson][objNameDay].push(hour.textContent);
+          } else if (
+            //special case from Grumbein to Bahia Blanca
+            (c === 8 &&
+              seasson === "winterTime" &&
+              objNameDay === "hollidaysSunday") ||
+            (c === 8 && seasson === "normalTime" && objNameDay === "weekDay")
           ) {
             todo[11][seasson][objNameDay].push(hour.textContent);
           } else {

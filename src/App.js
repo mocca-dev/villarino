@@ -115,30 +115,74 @@ function App({ sWPromise }) {
   }, [state.fromToSelected, state.seassonSelected, timetables]);
 
   useEffect(() => {
-    if (state.fromToSelected.to) {
+    const grumbeinAdded = state.fromOptions.some(option => option.value === 6);
+    //Checking if it's 'resto del año', dia de semana and if grumbein isn't added
+    //if then add grumbein
+    if (
+      currentTime &&
+      state.seassonSelected === "normalTime" &&
+      currentTime.dayName !== "Sábado" &&
+      currentTime.dayName !== "Domingo" &&
+      !grumbeinAdded &&
+      !holiday
+    ) {
       dispatch({
-        type: "CHANGE_FROM_LABEL",
-        payload: { value: 1, label: "Vieytes y Colón" }
+        type: "ADD_GRUMBEIN"
       });
-      if (state.seassonSelected === "winterTime" && holiday) {
+    } else {
+      //if not do the same code as before
+      if (state.fromToSelected.to) {
         dispatch({
-          type: "ADD_GRUMBEIN"
+          type: "CHANGE_FROM_LABEL",
+          payload: { value: 1, label: "Vieytes y Colón" }
         });
+
+        if (
+          !grumbeinAdded &&
+          state.seassonSelected === "winterTime" &&
+          (holiday || (currentTime && currentTime.dayName === "Domingo"))
+        ) {
+          dispatch({
+            type: "ADD_GRUMBEIN"
+          });
+        } else if (
+          !(
+            currentTime &&
+            currentTime.data &&
+            state.seassonSelected === "normalTime" &&
+            currentTime.dayName !== "Sábado" &&
+            currentTime.dayName !== "Domingo" &&
+            !holiday
+          )
+        ) {
+          dispatch({
+            type: "DEL_GRUMBEIN"
+          });
+        }
       } else {
         dispatch({
-          type: "DEL_GRUMBEIN"
+          type: "CHANGE_FROM_LABEL",
+          payload: { value: 1, label: "Plaza Rivadavia" }
         });
+        //Checking if it's 'resto del año', dia de semana and if grumbein isn't added
+        //if then add grumbein
+        if (
+          !(
+            currentTime &&
+            currentTime.data &&
+            state.seassonSelected === "normalTime" &&
+            currentTime.dayName !== "Sábado" &&
+            currentTime.dayName !== "Domingo" &&
+            !holiday
+          )
+        )
+          dispatch({
+            type: "DEL_GRUMBEIN"
+          });
       }
-    } else {
-      dispatch({
-        type: "CHANGE_FROM_LABEL",
-        payload: { value: 1, label: "Plaza Rivadavia" }
-      });
-      dispatch({
-        type: "DEL_GRUMBEIN"
-      });
     }
-  }, [state.fromToSelected.to, state.seassonSelected, holiday]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.fromToSelected.to, state.seassonSelected, holiday, currentTime]);
 
   useEffect(() => {
     localStorage.setItem("speechSetting", JSON.stringify(state.speechSetting));
