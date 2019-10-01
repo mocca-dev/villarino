@@ -14,6 +14,12 @@
       gtag("js", new Date());
 
       gtag("config", "UA-146907535-1");
+      // Setup a listener to track Add to Homescreen events.
+      window.addEventListener("beforeinstallprompt", e => {
+        e.userChoice.then(choiceResult => {
+          gtag("send", "event", "A2H", choiceResult.outcome);
+        });
+      });
     </script>
 
     <meta charset="utf-8" />
