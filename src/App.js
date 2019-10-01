@@ -159,6 +159,10 @@ function App({ sWPromise }) {
             type: "DEL_GRUMBEIN"
           });
         }
+
+        if (state.fromToSelected.from === "0") {
+          dispatch({ type: "SET_FROM", payload: "4" });
+        }
       } else {
         dispatch({
           type: "CHANGE_FROM_LABEL",
@@ -179,6 +183,10 @@ function App({ sWPromise }) {
           dispatch({
             type: "DEL_GRUMBEIN"
           });
+
+        if (state.fromToSelected.from === "4") {
+          dispatch({ type: "SET_FROM", payload: "0" });
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
