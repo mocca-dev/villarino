@@ -190,7 +190,7 @@ function App({ sWPromise }) {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.fromToSelected.to, state.seassonSelected, holiday, currentTime]);
+  }, [state.fromToSelected.to, state.seassonSelected, holiday]);
 
   useEffect(() => {
     localStorage.setItem("speechSetting", JSON.stringify(state.speechSetting));
