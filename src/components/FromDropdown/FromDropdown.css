@@ -10,8 +10,7 @@
 
 .from-dropdown svg {
   position: absolute;
-  top: 108px;
-  right: 30px;
+  right: 15px;
   height: 17px;
 }
 
@@ -34,7 +33,9 @@ select {
 }
 
 .seasson-dropbown-container {
+  position: relative;
   display: flex;
+  align-items: center;
 }
 
 .seasson-dropbown {
