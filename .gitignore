@@ -26,3 +26,4 @@ yarn-error.log*
 
 /api/villarino.html
 /api/feriados.json
+.vercel
