@@ -1,6 +1,20 @@
-<!-- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). -->
+<div id="top"></div>
 
-# Horario Villarino - 319 app
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/mocca-dev/socket-chat.git">
+    <img src="public/assets/icons/Icon-512.png" alt="Logo" height="80">
+  </a>
+
+<h3 align="center">Horario Villarino - 319 app</h3>
+
+  <p align="center">
+    <a href="https://horariovillarino.mocca.vercel.app">View Demo</a>
+  </p>
+</div>
 
 <div  align="center">
   <img src="./readme-images/nexus.png" width="200">
@@ -17,6 +31,8 @@
   <img src="./readme-images/lighthouse.png" width="80">
   <img src="./readme-images/auditw.png" width="400" style="float: right;">
 </div>
+<br>
+<br>
 
 ## Why?
 
@@ -53,3 +69,6 @@ With the help of CRA I started a new app and then I began with the process of tr
 ## Deployment
 
 To publish this beautiful app 😋, I used ▲ [Zeit Now](https://zeit.co/) to deploy both, BE and FE. I had to research and test a lot to find the correct now.json config but the effort wasn't useless.
+
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in//nicolás-tonelli-181624b9/
