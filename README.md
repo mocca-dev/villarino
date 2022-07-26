@@ -19,6 +19,8 @@
 <div  align="center">
   <img src="./readme-images/nexus.png" width="200">
 </div>
+<br>
+
 <!-- <div  align="center" style="width: 70vw;display: flex; justify-content: space-between; height: 400px; align-items:center">
   <img src="./readme-images/nexus.png" width="200">
   <a href="https://horariovillarino.ntoneko.now.sh/" target="_blank">
@@ -31,7 +33,6 @@
   <img src="./readme-images/lighthouse.png" width="80">
   <img src="./readme-images/auditw.png" width="400" style="float: right;">
 </div>
-<br>
 <br>
 
 ## Why?
