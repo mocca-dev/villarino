@@ -293,15 +293,15 @@ function buildAndResponse(html, req, res) {
     },
   ];
 
-  tableParser(dom, 'tabla ver', 0);
-  tableParser(dom, 'tabla ver', 1);
-  tableParser(dom, 'tabla ver', 2);
-  tableParser(dom, 'tabla inv', 0);
-  tableParser(dom, 'tabla inv', 1);
-  tableParser(dom, 'tabla inv', 2);
-  tableParser(dom, 'tabla rda', 0);
-  tableParser(dom, 'tabla rda', 1);
-  tableParser(dom, 'tabla rda', 2);
+  // tableParser(dom, 'tabla ver', 0);
+  // tableParser(dom, 'tabla ver', 1);
+  // tableParser(dom, 'tabla ver', 2);
+  // tableParser(dom, 'tabla inv', 0);
+  // tableParser(dom, 'tabla inv', 1);
+  // tableParser(dom, 'tabla inv', 2);
+  // tableParser(dom, 'tabla rda', 0);
+  // tableParser(dom, 'tabla rda', 1);
+  // tableParser(dom, 'tabla rda', 2);
 
   const { timeId, way, seasson, dayOfWeek } = req.params;
   //find the selected time into todo object by id and way, the pair which
@@ -339,70 +339,70 @@ function setData(req, res) {
   }
 }
 
-function tableParser(dom, className, dayOfWeek) {
-  //select if it's summer, winnter hollidays or rest of the year (normalTime)
-  var table = dom.getElementsByClassName(className)[dayOfWeek].innerHTML;
-  //parse the raw HTML to get a dom representation of it
-  var domTable = parser.parseFromString(table);
-  //select only the rows of the specific table
-  var rows = domTable.getElementsByTagName('tr');
+// function tableParser(dom, className, dayOfWeek) {
+//   //select if it's summer, winnter hollidays or rest of the year (normalTime)
+//   var table = dom.getElementsByClassName(className)[dayOfWeek].innerHTML;
+//   //parse the raw HTML to get a dom representation of it
+//   var domTable = parser.parseFromString(table);
+//   //select only the rows of the specific table
+//   var rows = domTable.getElementsByTagName('tr');
 
-  //convert from the number of type of day to name property to access to the
-  //object that contains all the data
-  let objNameDay;
-  switch (dayOfWeek) {
-    case 0:
-      objNameDay = 'weekDay';
-      break;
-    case 1:
-      objNameDay = 'saturday';
-      break;
-    case 2:
-      objNameDay = 'hollidaysSunday';
-      break;
-    default:
-      break;
-  }
+//   //convert from the number of type of day to name property to access to the
+//   //object that contains all the data
+//   let objNameDay;
+//   switch (dayOfWeek) {
+//     case 0:
+//       objNameDay = 'weekDay';
+//       break;
+//     case 1:
+//       objNameDay = 'saturday';
+//       break;
+//     case 2:
+//       objNameDay = 'hollidaysSunday';
+//       break;
+//     default:
+//       break;
+//   }
 
-  //transform the seasson of the year from the class name used in the HTML
-  //to name property used in the "todo" object
-  let seasson;
-  switch (className) {
-    case 'tabla ver':
-      seasson = 'summerTime';
-      break;
-    case 'tabla inv':
-      seasson = 'winterTime';
-      break;
-    case 'tabla rda':
-      seasson = 'normalTime';
-      break;
-    default:
-      break;
-  }
+//   //transform the seasson of the year from the class name used in the HTML
+//   //to name property used in the "todo" object
+//   let seasson;
+//   switch (className) {
+//     case 'tabla ver':
+//       seasson = 'summerTime';
+//       break;
+//     case 'tabla inv':
+//       seasson = 'winterTime';
+//       break;
+//     case 'tabla rda':
+//       seasson = 'normalTime';
+//       break;
+//     default:
+//       break;
+//   }
 
-  //iteration over all rows getting the different values of each column to save it
-  //in todo object which represent the whole HTML parsed.
-  rows.forEach((row, f) => {
-    let iCol = 0;
-    if (f > 0) {
-      row.getElementsByTagName('td').forEach((hour, c) => {
-        if (c <= 10 && iCol <= 10) {
-          if (
-            seasson === 'normalTime' &&
-            iCol === 5 &&
-            objNameDay !== 'saturday' &&
-            objNameDay !== 'hollidaysSunday'
-          ) {
-            iCol++;
-          }
-          todo[iCol][seasson][objNameDay].push(hour.textContent);
-          iCol++;
-        }
-      });
-    }
-  });
-}
+//   //iteration over all rows getting the different values of each column to save it
+//   //in todo object which represent the whole HTML parsed.
+//   rows.forEach((row, f) => {
+//     let iCol = 0;
+//     if (f > 0) {
+//       row.getElementsByTagName('td').forEach((hour, c) => {
+//         if (c <= 10 && iCol <= 10) {
+//           if (
+//             seasson === 'normalTime' &&
+//             iCol === 5 &&
+//             objNameDay !== 'saturday' &&
+//             objNameDay !== 'hollidaysSunday'
+//           ) {
+//             iCol++;
+//           }
+//           todo[iCol][seasson][objNameDay].push(hour.textContent);
+//           iCol++;
+//         }
+//       });
+//     }
+//   });
+// }
 
 // configure cache middleware
 let memCache = new cache.Cache();
@@ -425,22 +425,28 @@ let cacheMiddleware = (duration) => {
 };
 
 function fetchHolidays(res) {
-  if (online) {
-    rp.get({
-      uri: 'http://nolaborables.com.ar/api/v2/feriados/2019',
-    })
-      .then((data) => {
-        res.send(JSON.parse(data));
-      })
-      .catch((err) => console.log(err));
-  } else {
-    fs.readFile('feriados.json', 'utf8', function (err, data) {
-      if (!err) {
-        const dataJSON = JSON.parse(data);
-        res.send(dataJSON);
-      }
-    });
-  }
+  fs.readFile('feriados.json', 'utf8', function (err, data) {
+    if (!err) {
+      const dataJSON = JSON.parse(data);
+      res.send(dataJSON);
+    }
+  });
+  // if (online) {
+  //   rp.get({
+  //     uri: 'http://nolaborables.com.ar/api/v2/feriados/2024',
+  //   })
+  //     .then((data) => {
+  //       res.send(JSON.parse(data));
+  //     })
+  //     .catch((err) => console.log('EROOR: ', err));
+  // } else {
+  //   fs.readFile('feriados.json', 'utf8', function (err, data) {
+  //     if (!err) {
+  //       const dataJSON = JSON.parse(data);
+  //       res.send(dataJSON);
+  //     }
+  //   });
+  // }
 }
 
 function sendQuestion(req, res) {
@@ -490,9 +496,7 @@ app.get('/api/holidays', (req, res) => {
 app.get(
   '/api/timetables/:timeId/:way/:seasson/:dayOfWeek',
   cacheMiddleware(), //7 * 24 * 3600000
-  (req, res) => {
-    setData(req, res);
-  }
+  (req, res) => setData(req, res)
 );
 
 //Here we are configuring express to use body-parser as middle-ware.
