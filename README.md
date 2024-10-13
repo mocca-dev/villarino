@@ -12,7 +12,7 @@
 <h3 align="center">Horario Villarino - 319 app</h3>
 
   <p align="center">
-    <a href="https://horariovillarino-mocca.vercel.app">View Demo</a>
+    <a href="https://horariovillarino.mocca.vercel.app">View Demo</a>
   </p>
 </div>
 
