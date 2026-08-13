@@ -39,6 +39,10 @@
     "serialize-javascript": "^7.0.5",
     "svgo": "^2.8.3",
     "underscore": "^1.13.8",
-    "nanoid": "^3.3.18"
+    "nanoid": "^3.3.18",
+    "json5@2.2.1": "^2.2.3",
+    "loader-utils": {
+      "json5": "^2.2.3"
+    }
   }
 }
