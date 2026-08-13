@@ -1,6 +1,5 @@
 const DomParser = require('dom-parser'),
   parser = new DomParser(),
-  rp = require('request-promise'),
   fs = require('fs'),
   express = require('express'),
   cors = require('cors'),
@@ -323,9 +322,8 @@ function buildAndResponse(html, req, res) {
 
 function setData(req, res) {
   if (online) {
-    rp.get({
-      uri: 'http://www.elvillarino.com.ar/#horarios',
-    })
+    fetch('http://www.elvillarino.com.ar/#horarios')
+      .then((response) => response.text())
       .then((html) => {
         buildAndResponse(html, req, res);
       })
