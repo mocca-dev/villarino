@@ -37,6 +37,7 @@
   "overrides": {
     "postcss": "^8.5.23",
     "serialize-javascript": "^7.0.5",
-    "svgo": "^2.8.3"
+    "svgo": "^2.8.3",
+    "underscore": "^1.13.8"
   }
 }
