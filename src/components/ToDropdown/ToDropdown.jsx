@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 
 import SubHeader from "../SubHeader/SubHeader";
@@ -16,7 +15,7 @@ const ToDropdown = ({ selected, dispatch }) => {
             name="to"
             checked={!selected}
             value={!selected}
-            onChange={e => dispatch({ type: "SET_TO", payload: false })}
+            onChange={() => dispatch({ type: "SET_TO", payload: false })}
           />
           <label htmlFor="left">Punta Alta</label>
         </span>
@@ -27,7 +26,7 @@ const ToDropdown = ({ selected, dispatch }) => {
             name="to"
             checked={selected}
             value={selected}
-            onChange={e => dispatch({ type: "SET_TO", payload: true })}
+            onChange={() => dispatch({ type: "SET_TO", payload: true })}
           />
           <label htmlFor="right">Bahia Blanca</label>
         </span>

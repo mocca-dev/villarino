@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { CSSTransition } from "react-transition-group";
 import { RefreshIcon, CloseIcon } from "../Icons/Icons";
 import "./Toast.css";

@@ -474,7 +474,7 @@ function sendQuestion(req, res) {
       <p>Email: ${email}</p>`,
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(mailOptions, (error) => {
     if (error) {
       res.send({ status: 'error' });
       return console.log(error);

@@ -1,4 +1,3 @@
-import React from "react";
 
 const Holiday = ({ i, current, holiday }) =>
   i === current &&

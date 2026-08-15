@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 
 import "./SettingItem.css";
@@ -20,6 +19,7 @@ const SettingItem = ({ data }) => {
             <label className="check-container">
               <input
                 type="checkbox"
+                aria-label={title}
                 checked={value}
                 disabled={disabled}
                 onChange={() => action.payload(!value)}

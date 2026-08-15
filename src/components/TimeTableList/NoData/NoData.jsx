@@ -1,4 +1,3 @@
-import React from "react";
 import { RefreshIcon } from "../../Icons/Icons";
 
 const NoData = ({ timeTable, refresh }) => (

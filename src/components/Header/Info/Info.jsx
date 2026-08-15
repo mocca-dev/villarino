@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { CSSTransition } from "react-transition-group";
 
 import { SettingIcon } from "../../Icons/Icons";
@@ -12,7 +12,7 @@ const Info = ({ dispatch }) => {
   const [additionalText, setAdditionalText] = useState("");
 
   useEffect(() => {
-    function updateOnlineStatus(event) {
+    function updateOnlineStatus() {
       setAdditionalText(
         !navigator.onLine ? "La aplicación está funcionando sin conexión." : ""
       );
