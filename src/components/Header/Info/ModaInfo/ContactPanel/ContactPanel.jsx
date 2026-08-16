@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -99,7 +99,7 @@ const ContactPanel = ({ close }) => {
           <label htmlFor="message">Mensaje</label>
           <textarea
             name="message"
-            row="30"
+            rows="30"
             maxLength="500"
             onChange={e => setMessage(e.target.value)}
             disabled={sending || sent}

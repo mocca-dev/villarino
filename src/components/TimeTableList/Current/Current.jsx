@@ -1,4 +1,3 @@
-import React from "react";
 
 const Current = ({ i, current, noTimeTables }) =>
   i === current &&

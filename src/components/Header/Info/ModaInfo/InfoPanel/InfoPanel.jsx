@@ -1,10 +1,9 @@
-import React from "react";
 import PropTypes from "prop-types";
 
 import { NoConectionIcon } from "../../../../Icons/Icons";
 import "./InfoPanel.css";
 
-const InfoPanel = ({ close, additionalText }) => {
+const InfoPanel = ({ additionalText }) => {
   return (
     <section>
       <p>
@@ -44,7 +43,6 @@ const InfoPanel = ({ close, additionalText }) => {
 };
 
 InfoPanel.propTypes = {
-  close: PropTypes.func.isRequired,
   additionalText: PropTypes.string.isRequired
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import Toast from "../Toast/Toast";
@@ -14,10 +14,9 @@ const OfflineToast = ({ sWPromise }) => {
       const isCached = res.type === "CACHED";
       setShow(isCached || isUpdate);
       setText(res.text);
-      if (isUpdate)
-        setActionLeft(() => {
-          window.location.reload();
-        });
+      // The extra arrow matters: a bare function passed to a setter is treated
+      // as an updater and would run immediately instead of being stored.
+      if (isUpdate) setActionLeft(() => res.update);
     });
   }, [sWPromise]);
 

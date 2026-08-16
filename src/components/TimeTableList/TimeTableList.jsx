@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createRef, useCallback } from "react";
+import { useEffect, useState, createRef, useCallback } from "react";
 import PropTypes from "prop-types";
 
 import "./TimeTableList.css";

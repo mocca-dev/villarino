@@ -1,4 +1,4 @@
-export const fetchTimeTables = async (req) => {
+export const fetchTimeTables = async (_req) => {
   // const { timeId, way, seasson, dayOfWeek } = req;
   // const resp = await fetch(
   //   `/api/timetables/${timeId}/${way}/${seasson}/${dayOfWeek}`
