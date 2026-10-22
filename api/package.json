@@ -16,7 +16,7 @@
     "dotenv": "8.0.0",
     "express": "^5.2.1",
     "memory-cache": "0.2.0",
-    "nodemailer": "9.1.1",
+    "nodemailer": "10.0.9",
     "nodemon": "^3.1.14"
   },
   "proxy": "http://localhost:5000/"
